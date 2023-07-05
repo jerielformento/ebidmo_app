@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
+            <div v-if="!searchingItem" class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                 <div v-for="item in productItems" :key="item.slug">
                     <div class="group relative pb-3 rounded-md border bg-white shadow-md">
                         <div class="min-h-50 aspect-h-2 aspect-w-2 w-full overflow-hidden rounded-t-md bg-gray-200 group-hover:opacity-90 lg:h-50">
@@ -46,6 +46,9 @@
                     </div>
                 </div>
             </div>
+            <div v-else class="mt-3 gap-y-10 pb-8 max-w-full">
+                <ItemsLoader />
+            </div>
             <div v-if="!productItems" class="pb-8">
                 <div class="w-full p-3 rounded-sm border bg-white shadow-md h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
@@ -58,18 +61,25 @@
     import { ref } from 'vue'
     import { ShoppingCartIcon } from "@heroicons/vue/24/outline";
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
+    import ItemsLoader from "./ItemsLoader.vue";
+
     import axiosClient from '../axios';
     import { useRoute } from 'vue-router';
 
     const productCreate = ref(false);
     const productBidCreate = ref(false);
+    const storeName = ref(null);
     const route = useRoute();
+    const productItems = ref(null);
+    const searchingItem = ref(false);
 
-    const getMyProducts = async () => {
+    const getMyProducts = async (store, search) => {
         let pagedata = [];
         let resdata = [];
 
-        await axiosClient.get('/api/v1/store/'+props.store+'/products')
+        const key = (search !== null && search !== "") ? "?search="+search : "";
+
+        await axiosClient.get('/api/v1/store/'+store+'/products'+key)
             .then(response => {
                 response.data.map(function(value, key) {
                     pagedata.push(value);
@@ -81,37 +91,40 @@
             })
                     
         //await new Promise(resolve => setTimeout(resolve, 3000));
-        return resdata;
+        return [resdata, pagedata];
     }
 
     export default {
-        props: ['store'],
-        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon},
+        props: ['store', 'search'],
+        watch: {
+            async search(newVal, oldVal) {
+                searchingItem.value = true;
+                // newVal = updated month_id
+                const resdata = await getMyProducts(storeName.value, newVal);
+                //console.log(resdata);
+                const products = resdata[0];
+                //console.log(products[0]);
+                productItems.value = products[0];
+                searchingItem.value = false;
+            },
+        },
+        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ItemsLoader},
         async setup(props) {
-            let pagedata = [];
-            let resdata = [];
-
-            await axiosClient.get('/api/v1/store/'+props.store+'/products')
-                .then(response => {
-                    response.data.map(function(value, key) {
-                        pagedata.push(value);
-                    });
-
-                    if(pagedata.length > 0) {
-                        resdata.push(pagedata);
-                    } 
-                })
-        
-            const products = resdata;
-            console.log(products[0]);
-            const productItems = ref(products[0]);
+            console.log(props.search);
+            storeName.value = props.store;
+            const resdata = await getMyProducts(props.store, null);
+            //console.log(resdata);
+            const products = resdata[0];
+            //console.log(products[0]);
+            productItems.value = products[0];
 
             return { 
                 NoImageUrl: import.meta.env.VITE_NO_IMAGE_URL,
                 productItems,
                 productCreate,
                 productBidCreate,
-                props
+                props,
+                searchingItem
             }
         },
         methods: {

@@ -57,7 +57,7 @@
                             </button>
                         </div>
                         <div class="relative inset-y-0 right-0 ml-2 flex rounded-md shadow-sm h-9">
-                            <input type="text" id="hs-trailing-button-add-on-with-icon" placeholder="Search in store" name="hs-trailing-button-add-on-with-icon" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-sm text-sm focus:z-10 focus:border-orange-400 focus:ring-orange-400 dark:border-gray-100 text-gray-500">
+                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" id="hs-trailing-button-add-on-with-icon" placeholder="Search in store" name="hs-trailing-button-add-on-with-icon" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-sm text-sm focus:z-10 focus:border-orange-400 focus:ring-orange-400 dark:border-gray-100 text-gray-500">
                             <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-slate-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
                                 <MagnifyingGlassIcon class="h-6 w-6"/>
                             </button>
@@ -72,7 +72,7 @@
                 <Suspense>
                     <template #default>
                         <div>
-                        <StoreProductList :store="this.$route.params.store"/>
+                        <StoreProductList :store="this.$route.params.store" :search="search"/>
                     </div>
                     </template>
                     <template #fallback>
@@ -153,6 +153,7 @@ import axiosClient from '../axios';
 import store from '../store';
 import { useRoute } from 'vue-router';
 
+
 export default {
     components: { UIMenu, FooterNav, StoreProductList, ItemsLoader, StarIcon, ShieldCheckIcon, ShieldExclamationIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon },
     setup() {
@@ -160,8 +161,9 @@ export default {
         const storeInfo = ref({});
         const hasStore = ref(false);
         const isLoading = ref(true);
-        const loadBtn = ref(false);
-        
+        const loadBtn = ref(false);        
+        const search = ref(null);
+
         onMounted(async() => {
             
             const result = await axiosClient.get(`/api/v1/store/${route.params.store}`)
@@ -186,7 +188,8 @@ export default {
                 name: ''
             },
             loadBtn,   
-            storeInfo
+            storeInfo,
+            search
         }
     },
     methods: {
@@ -213,7 +216,19 @@ export default {
                 .finally(() => {
                     this.loadBtn = false;
                 });
-        }
+        },
+        async searchProduct() {
+            const key = this.$refs.itemSearch.value;
+            this.search = key;
+        },
+        searchKey() {
+            const key = this.$refs.itemSearch.value;
+            if(key.length === 0) {
+                this.search = key;
+            }
+
+            //console.log(this.search);
+        }, 
     }
 }
 </script>
