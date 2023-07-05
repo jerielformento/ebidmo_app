@@ -52,13 +52,10 @@
                             <h3 class="sr-only">Categories</h3>
                             <ul role="list" class="px-2 py-3 font-medium text-gray-900">
                             <li>
-                                <a href="#" class="block px-2 py-3">Anime</a>
+                                <a @click="filterCategory(null)" class="cursor-pointer block px-2 py-3">All</a>
                             </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Marvel</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-2 py-3">Other</a>
+                            <li v-for="categ in categories">
+                                <a @click="filterCategory(categ.id)" class="cursor-pointer block px-2 py-3">{{ categ.title }}</a>
                             </li>
                             </ul>
 
@@ -82,48 +79,9 @@
                             <!-- Filter section, show/hide based on section state. -->
                             <div class="pt-6" id="filter-section-mobile-0">
                                 <div class="space-y-6">
-                                <div class="flex items-center">
-                                    <input id="filter-mobile-category-0" name="category[]" value="new-arrivals" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">Funko Pop</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id="filter-mobile-category-1" name="category[]" value="sale" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-mobile-category-1" class="ml-3 min-w-0 flex-1 text-gray-500">Nendoroid</label>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div class="border-t border-gray-200 px-4 py-6">
-                            <h3 class="-mx-2 -my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-1" aria-expanded="false">
-                                <span class="font-medium text-gray-900">Condition</span>
-                                <span class="ml-6 flex items-center">
-                                    <!-- Expand icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                    </svg>
-                                    <!-- Collapse icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                                </button>
-                            </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-mobile-0">
-                                <div class="space-y-6">
-                                <div class="flex items-center">
-                                    <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500">Brand new</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500">Fair</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500">Used</label>
+                                <div v-for="brand in brands" class="flex items-center">
+                                    <input @click="filterBrand(brand.id)" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
+                                    <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">{{ brand.description }}</label>
                                 </div>
                                 </div>
                             </div>
@@ -134,7 +92,7 @@
                     </div>
 
                     <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
+                    <div class="flex sticky items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
                         <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listing</h1>
 
                         <div class="flex items-center">
@@ -190,100 +148,58 @@
                     </div>
 
                     <section aria-labelledby="products-heading" class="pb-24 pt-6">
-                        <h2 id="products-heading" class="sr-only">Products</h2>
+                            <h2 id="products-heading" class="sr-only">Products</h2>
+                            <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                            <!-- Filters -->
+                            <form class="hidden h-screen fixed md:h-auto sm:h-auto lg:block">
+                                <h3 class="sr-only">Categories</h3>
+                                <p class="text-sm font-medium text-gray-900 mb-2">Categories</p>
+                                <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
+                                    <li :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-300 px-2 rounded-md' : 'border-2 border-amber-500 bg-amber-400 px-2 rounded-md'">
+                                        <a @click="filterCategory(null)" class="cursor-pointer">All</a>
+                                    </li>
+                                    <li v-for="cat in categories" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 px-2 rounded-md' : 'border-2 border-amber-500 bg-amber-400 px-2 rounded-md'">
+                                        <a @click="filterCategory(cat.id)" class="cursor-pointer">{{ cat.title }}</a>
+                                    </li>
+                                </ul>
 
-                        <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                        <!-- Filters -->
-                        <form class="hidden lg:block">
-                            <h3 class="sr-only">Categories</h3>
-                            <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                            <li class="border-2 border-gray-800 bg-amber-400 px-2 rounded-md">
-                                <a href="#">Anime</a>
-                            </li>
-                            <li class="border-2 border-gray-800 bg-amber-400 px-2 rounded-md">
-                                <a href="#">Marvel</a>
-                            </li>
-                            <li class="border-2 border-gray-800 bg-amber-400 px-2 rounded-md">
-                                <a href="#">Other</a>
-                            </li>
-                            </ul>
+                                <div class="border-b border-gray-200 py-6">
+                                <h3 class="-my-3 flow-root">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
+                                    <span class="font-medium text-gray-900">Brand</span>
+                                    <span class="ml-6 flex items-center">
+                                        <!-- Expand icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                        </svg>
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                    </button>
+                                </h3>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div class="pt-6" id="filter-section-0">
+                                    <div class="space-y-4">
+                                    <div v-for="brand in brands" class="flex items-center">
+                                        <input @click="filterBrand(brand.id)" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <label for="filter-category-0" class="ml-3 text-sm text-gray-600">{{ brand.description }}</label>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
 
-                            <div class="border-b border-gray-200 py-6">
-                            <h3 class="-my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
-                                <span class="font-medium text-gray-900">Brand</span>
-                                <span class="ml-6 flex items-center">
-                                    <!-- Expand icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                    </svg>
-                                    <!-- Collapse icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                                </button>
-                            </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-0">
-                                <div class="space-y-4">
-                                <div class="flex items-center">
-                                    <input id="filter-category-0" name="category[]" value="new-arrivals" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-category-0" class="ml-3 text-sm text-gray-600">Funko Pop</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id="filter-category-1" name="category[]" value="sale" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-category-1" class="ml-3 text-sm text-gray-600">Nendoroid</label>
-                                </div>
-                                </div>
+                            <!-- Product grid -->
+                            <main class="ml-0 lg:col-span-4 lg:ml-64">
+                                <!-- Your content -->
+                                <HotCollectionList :filter="filter"/>
+                                <ProductList :filter="filter"/>
+                            </main>
                             </div>
-                            </div>
-                            <div class="border-b border-gray-200 py-6">
-                            <h3 class="-my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-1" aria-expanded="false">
-                                <span class="font-medium text-gray-900">Condition</span>
-                                <span class="ml-6 flex items-center">
-                                    <!-- Expand icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                    </svg>
-                                    <!-- Collapse icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                                </button>
-                            </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-1">
-                                <div class="space-y-4">
-                                <div class="flex items-center">
-                                    <input id="filter-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-color-0" class="ml-3 text-sm text-gray-600">Brand new</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id="filter-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-color-0" class="ml-3 text-sm text-gray-600">Fair</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id="filter-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-color-0" class="ml-3 text-sm text-gray-600">Used</label>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </form>
-
-                        <!-- Product grid -->
-                        <div class="lg:col-span-3">
-                            <!-- Your content -->
-                            <HotCollectionList/>
-                            <ProductList/>
-                        </div>
-                        </div>
-                    </section>
+                        </section>
                     </main>
                 </div>
                 </div>
@@ -302,13 +218,14 @@
     </div>
 </template>
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import UIMenu from './UIMenu.vue';
     import FooterNav from './Footer.vue';
     import HotCollectionList from '../components/HotCollectionList.vue';
     import ProductList from '../components/ProductList.vue';
     import ItemsLoader from '../components/ItemsLoader.vue';
     import axios from 'axios';
+    import axiosClient from '../axios';
     import { useStore } from 'vuex'
     import { computed } from 'vue'
     import { ArrowPathIcon } from "@heroicons/vue/24/outline";
@@ -318,9 +235,73 @@
     export default {
         data() {
             const store = useStore();
-            
+            const selCat = ref(null);
+            const selBrand = ref(null);
+            const categories = ref(null);
+            const brands = ref(null);
+            const filter = ref({
+                    category: null,
+                    brand: null
+                });
+
+            onMounted(async() => {
+                let sel_brand = 0;
+                let sel_condition = 0;
+                let sel_category = 0;
+
+                await axiosClient.get('/api/util/product/categories').
+                    then(response => { 
+                        let gb = [];
+
+                        response.data.map(function(value, key) {
+                            gb.push({
+                                id: value.id,
+                                title: value.title,
+                                is_active: ((value.id === sel_category) ? true : false)
+                            });
+                        });
+                        categories.value = gb;
+                    });
+
+                await axiosClient.get('/api/util/product/brands').
+                    then(response => {
+                        let gb = [];
+
+                        response.data.map(function(value, key) {
+
+                            console.log(value.id + "|" + sel_brand);
+                            gb.push({
+                                id: value.id,
+                                description: value.description,
+                                is_active: ((value.id === sel_brand) ? true : false)
+                            });
+                        });
+                        brands.value = gb;
+                    });
+            });
+
             return {
-                user: computed(() => store.state.user)
+                filter,
+                temp_brands: [],
+                categories,
+                brands,
+                user: computed(() => store.state.user),
+            }
+        },
+        methods: {
+            filterCategory(id) {
+                this.filter.category = id;
+            },
+            filterBrand(id) {
+                let exist = this.temp_brands.includes(id);
+                
+                if(!exist) {
+                    this.temp_brands.push(id);
+                } else {
+                    let index = this.temp_brands.indexOf(id);
+                    this.temp_brands.splice(index, 1);
+                }
+                this.filter.brand = this.temp_brands;
             }
         }
     }

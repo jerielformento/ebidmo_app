@@ -13,7 +13,7 @@
                     <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Top Ratings</p></a>
                 </div>
             </div>
-    <swiper
+    <swiper v-if="!searchingItem"
         :modules="modules"
         :space-between="20"
         :loop="true"
@@ -77,7 +77,9 @@
                 </div>
             </div>
     </swiper>
-        
+    <div v-else>
+        <ItemsLoader />
+    </div>
     </div>
 </div>
 </template>
@@ -87,16 +89,29 @@
     import { HeartIcon, StarIcon } from "@heroicons/vue/24/solid";
     import { Autoplay, Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide } from 'swiper/vue'
+    import ItemsLoader from "./ItemsLoader.vue";
     import axiosClient from '../axios';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
 
-    const getProducts = async () => {
+    const swiperItems = ref(null);
+    const searchingItem = ref(false);
+
+    const getProducts = async (category, brand) => {
         let pagedata = [];
         let resdata = [];
         let paginate_count = 0;
-        await axiosClient.get('/api/v1/products/all')
+        const categ = (category !== null) ? "?category="+category : "?category=";
+        let brands = "";
+        if(brand !== null) {
+            brand.map(function(item) {
+                console.log("&brand[]="+item);
+                brands += "&brand[]="+item;
+            });
+        }
+
+        await axiosClient.get('/api/v1/products/all'+categ+brands)
             .then(response => {
                 response.data.map(function(value, key) {
                     if(paginate_count == 4) {
@@ -120,17 +135,42 @@
     }
 
     export default {
-        components: {Swiper, SwiperSlide, ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon},
-        async setup() {
-            
-            const products = await getProducts();
-            const swiperItems = ref(products);
+        props: ['filter'],
+        watch: {
+            'filter.category': {
+                async handler(newVal, oldVal) {
+                    searchingItem.value = true;
+                    // newVal = updated month_id
+                    let brand = this.$props.filter.brand;
+                    const products = await getProducts(newVal, brand);
+                    swiperItems.value = products;
+                    searchingItem.value = false;
+                },
+                deep: true
+            },
+            'filter.brand': {
+                async handler(newVal, oldVal) {
+                    searchingItem.value = true;
+                    // newVal = updated month_id
+                    let category = this.$props.filter.category;
+                    const products = await getProducts(category, newVal);
+                    swiperItems.value = products;
+                    searchingItem.value = false;
+                },
+                deep: true
+            }
+        },
+        components: {Swiper, SwiperSlide, ItemsLoader, ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon},
+        async setup(props) {
+            const products = await getProducts(null, null);
+            swiperItems.value = products;
             const activeHeart = ref(false);
             return {
                 NoImageUrl: import.meta.env.VITE_NO_IMAGE_URL,
                 modules: [Pagination, Autoplay, Navigation], 
                 swiperItems,
-                activeHeart
+                activeHeart,
+                searchingItem
             }
         },
         methods: {
