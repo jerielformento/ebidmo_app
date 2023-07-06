@@ -14,31 +14,31 @@
     </div>
       <ul class="space-y-2 font-semibold text-sm text-gray-400">
          <li>
-            <router-link :to="{name: 'vendor-home'}" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            <router-link :to="{name: 'vendor-home'}" :class="(this.$route.name === 'vendor-home') && 'bg-gray-600 text-amber-400 hover:text-amber-400'" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                <ChartBarIcon class="h-6 w-6" />
                <span class="ml-3">Dashboard</span>
             </router-link>
          </li>
          <li>
-            <router-link :to="{name: 'vendor-products'}" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            <router-link :to="{name: 'vendor-products'}" :class="(this.$route.name === 'vendor-products') && 'bg-gray-600 text-amber-400 hover:text-amber-400'" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                <ShoppingCartIcon class="h-6 w-6" />
                <span class="ml-3">Products</span>
             </router-link>
          </li>
          <li>
-            <router-link :to="{name: 'vendor-auction'}" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            <router-link :to="{name: 'vendor-auction'}" :class="(this.$route.name === 'vendor-auction') && 'bg-gray-600 text-amber-400 hover:text-amber-400'" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                <FireIcon class="h-6 w-6" />
-               <span class="ml-3">Auction</span>
+               <span class="ml-3">Auctions</span>
             </router-link>
          </li>
          <li>
-            <router-link :to="{name: 'vendor-transaction'}" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            <router-link :to="{name: 'vendor-transaction'}" :class="(this.$route.name === 'vendor-transaction') && 'bg-gray-600 text-amber-400 hover:text-amber-400'" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                <TruckIcon class="h-6 w-6" />
                <span class="ml-3">Transaction</span>
             </router-link>
          </li>
          <li>
-            <router-link :to="{name: 'vendor-settings'}" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+            <router-link :to="{name: 'vendor-settings'}" :class="(this.$route.name === 'vendor-settings') && 'bg-gray-600 text-amber-400 hover:text-amber-400'" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                <Cog6ToothIcon class="h-6 w-6" />
                <span class="ml-3">Store Settings</span>
             </router-link>
