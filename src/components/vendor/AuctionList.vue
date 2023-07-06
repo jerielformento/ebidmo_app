@@ -46,27 +46,7 @@
                     </form>
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                        <PlusSmallIcon class="h-5 w-5"/>
-                        New Product
-                    </router-link>
                     <div class="flex items-center space-x-3 w-full md:w-auto">
-                        <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
-                            <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                            Actions
-                        </button>
-                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
-                            <ul class="py-1 text-sm text-gray-700" aria-labelledby="actionsDropdownButton">
-                                <li>
-                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100">Mass Edit</a>
-                                </li>
-                            </ul>
-                            <div class="py-1">
-                                <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete all</a>
-                            </div>
-                        </div>
                         <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
@@ -79,25 +59,9 @@
                         <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-sm shadow">
                             <h6 class="mb-3 text-sm font-medium text-gray-900">Choose brand</h6>
                             <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                <li class="flex items-center">
-                                    <input id="apple" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
-                                    <label for="apple" class="ml-2 text-sm font-medium text-gray-900">Apple (56)</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input id="fitbit" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
-                                    <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900">Microsoft (16)</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input id="razor" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
-                                    <label for="razor" class="ml-2 text-sm font-medium text-gray-900">Razor (49)</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input id="nikon" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
-                                    <label for="nikon" class="ml-2 text-sm font-medium text-gray-900">Nikon (12)</label>
-                                </li>
-                                <li class="flex items-center">
-                                    <input id="benq" type="checkbox" value="" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
-                                    <label for="benq" class="ml-2 text-sm font-medium text-gray-900">BenQ (74)</label>
+                                <li class="flex items-center" v-for="cat in categories">
+                                    <input :id="cat.id" type="checkbox" :value="cat.id" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
+                                    <label :for="cat.id" class="ml-2 text-sm font-medium text-gray-900">{{ cat.title }}</label>
                                 </li>
                             </ul>
                         </div>
@@ -117,6 +81,7 @@
                             <th scope="col" class="px-4 py-3">Buy now</th>
                             <th scope="col" class="px-4 py-3">High. bid</th>
                             <th scope="col" class="px-4 py-3">Expiration</th>
+                            <th scope="col" class="px-4 py-3">Status</th>
                             <th scope="col" class="px-4 py-3">
                                 <span class="sr-only">Actions</span>
                             </th>
@@ -125,22 +90,23 @@
                     <tbody>
                         <tr v-if="!reloadList" v-for="item in productItems" class="border-b">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                <img :src="(item.thumbnail !== null) ? item.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-sm h-10 w-10 object-cover object-center">
+                                <img :src="(item.product.thumbnail !== null) ? item.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-sm h-10 w-10 object-cover object-center">
                             </th>
-                            <td class="px-4 py-3">{{ item.name }}</td>
-                            <td class="px-4 py-3">{{ item.category.title }}</td>
-                            <td class="px-4 py-3">{{ item.brand.description }}</td>
-                            <td class="px-4 py-3">{{ item.condition.description }}</td>
-                            <td class="px-4 py-3">{{ item.currency.prefix+item.bid.min_price }}</td>
-                            <td class="px-4 py-3">{{ item.currency.prefix+item.bid.buy_now_price }}</td>
-                            <td class="px-4 py-3">{{ (item.bid.highest !== null) ? item.currency.prefix+item.bid.highest.price : 0 }}</td>
-                            <td class="px-4 py-3">{{ moment(item.bid.ended_at).format("lll") }}</td>
+                            <td class="px-4 py-3">{{ item.product.name }}</td>
+                            <td class="px-4 py-3">{{ item.product.category.title }}</td>
+                            <td class="px-4 py-3">{{ item.product.brand.description }}</td>
+                            <td class="px-4 py-3">{{ item.product.condition.description }}</td>
+                            <td class="px-4 py-3">{{ item.product.currency.prefix+item.min_price }}</td>
+                            <td class="px-4 py-3">{{ item.product.currency.prefix+item.buy_now_price }}</td>
+                            <td class="px-4 py-3">{{ (item.highest !== null) ? item.product.currency.prefix+item.highest.price : 0 }}</td>
+                            <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
+                            <td class="px-4 py-3"><span :class="(moment() > moment(item.ended_at)) ? 'bg-red-400' : 'bg-green-400'" class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ (moment() > moment(item.ended_at)) ? "Expired" : "Active" }}</span></td>
                             <td class="px-4 py-3">
                                 <router-link 
-                                    :to="{name: 'product-edit', params: {store: item.store.slug, slug: item.slug}}" 
+                                    :to="{name: 'product-edit', params: {store: item.product.store.slug, slug: item.product.slug}}" 
                                     @click="editProduct" 
-                                    class="rounded-sm bg-amber-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
-                                    Edit
+                                    class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                    Details
                                 </router-link>
                             </td>
                             <!-- <td class="px-4 py-3 flex items-center justify-end">
@@ -165,7 +131,7 @@
                             </td> -->
                         </tr>
                         <tr v-else>
-                            <td class="px-4 py-3" colspan="8"><div class="flex justify-center"><ArrowPathIcon class="h-6 w-6 animate-spin"/></div></td>
+                            <td class="px-4 py-3" colspan="11"><div class="flex justify-center"><ArrowPathIcon class="h-6 w-6 animate-spin"/></div></td>
                         </tr>
                         
                     </tbody>
@@ -174,41 +140,27 @@
             <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
                 <span class="text-sm font-normal text-gray-500">
                     Showing
-                    <span class="font-semibold text-gray-900">1-10</span>
+                    <span class="font-semibold text-gray-900">{{ pagination.from }}-{{ pagination.to }}</span>
                     of
-                    <span class="font-semibold text-gray-900">1000</span>
+                    <span class="font-semibold text-gray-900">{{ pagination.total }}</span>
                 </span>
-                <ul class="inline-flex items-stretch -space-x-px">
-                    <li>
-                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">2</a>
-                    </li>
-                    <li>
-                        <a href="#" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700">3</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">...</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">100</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                            <span class="sr-only">Next</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
+                <ul class="inline-flex items-stretch -space-x-1px">
+                    <li v-for="(page, index) in pagination.links">
+                    <button v-if="index === 0" @click="prevPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                        <span class="sr-only">Previous</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <button v-else-if="index === (pagination.links.length-1)" @click="nextPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                        <span class="sr-only">Next</span>
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <a v-else href="#" @click="gotoPage(page.label)" class="flex items-center justify-center text-sm py-2 px-3 leading-tight font-semibold" :class="(page.active) ? 'bg-amber-400 border border-gray-500 hover:bg-primary-100 hover:text-primary-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'">{{ page.label }}</a>
                     </li>
                 </ul>
             </nav>
@@ -269,26 +221,37 @@
         return resdata;
     }
 
-    const getMyProducts = async () => {
+    const getMyProducts = async (page) => {
         let pagedata = [];
         let resdata = [];
+        let pagination = [];
 
         reloadList.value = true;
-        await axiosClient.get('/api/v1/products/auction')
+        const setPage = (page > 1) ? '?page='+page : '';
+
+        reloadList.value = true;
+        await axiosClient.get('/api/v1/products/auction'+setPage)
             .then(response => {
-                response.data.map(function(value, key) {
+                response.data.data.map(function(value, key) {
                     pagedata.push(value);
                 });
 
                 if(pagedata.length > 0) {
                     resdata.push(pagedata);
                 } 
-            });
 
-            
-                    
+                pagination.push({
+                    from: response.data.from,
+                    to: response.data.to,
+                    end: response.data.last_page,
+                    current: response.data.current_page,
+                    total: response.data.total,
+                    links: response.data.links
+                });
+            });
+  
         reloadList.value = false;
-        return resdata;
+        return [resdata, pagination];
     }
 
     export default {
@@ -320,8 +283,6 @@
                         let gb = [];
 
                         response.data.map(function(value, key) {
-
-                            console.log(value.id + "|" + sel_brand);
                             gb.push({
                                 id: value.id,
                                 description: value.description,
@@ -345,12 +306,13 @@
                         conditions.value = gb;
                     });
             });
-            const products = await getMyProducts();
-            const productItems = ref(products[0]);
+            const products = await getMyProducts(1);
+            const productItems = ref(products[0][0]);
 
             return { 
                 moment,
                 NoImageUrl: import.meta.env.VITE_NO_IMAGE_URL,
+                pagination: products[1][0],
                 routeKey,
                 productItems,
                 productCreate,
@@ -398,10 +360,35 @@
                 return new_string;
             },
             async reloadProducts() {
-                console.log('ok');
-                const products = await getMyProducts();
-                this.productItems = products[0];
+                const products = await getMyProducts(1);
+                this.productItems = products[0][0];
+                this.pagination = products[1][0];
                 initFlowbite();
+            },
+            async prevPage(page, url) {
+                if(url !== null) {
+                    const setPage = page-1;
+                    const products = await getMyProducts(setPage);
+                    this.productItems = products[0][0];
+                    this.pagination = products[1][0];
+                }
+            },
+            async nextPage(page, url) {
+                if(url !== null) {
+                    const setPage = page+1;
+                    const products = await getMyProducts(setPage);
+                    this.productItems = products[0][0];
+                    this.pagination = products[1][0];
+                }
+            },
+            async gotoPage(page) {
+                const setPage = parseInt(page);
+                const products = await getMyProducts(setPage);
+                this.productItems = products[0][0];
+                this.pagination = products[1][0];
+            },
+            scrollToTop() {
+                window.scrollTo(0,0);
             }
         },
         beforeUnmount() {
