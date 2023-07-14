@@ -133,7 +133,8 @@
 
                     <div v-if="!productInfo.owner">
                         <div class="grid grid-cols-2 space-x-2 mt-5">
-                            <ModalBid :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
+                            <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
+                            <GuestLogin v-else :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
                             <button type="submit" class="flex w-full items-center justify-center rounded-sm border border-transparent bg-amber-500 px-8 py-3 text-base font-medium text-white hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">Buy Now</button>
                         </div>
 
@@ -224,12 +225,13 @@
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
     import ModalBid from '../components/ModalBid.vue';
+    import GuestLogin from '../components/GuestLogin.vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
     import axiosClient from "../axios";
     import { useRoute } from "vue-router";
-    import { Modal } from 'flowbite-vue';
+    import store from '../store';
     import { initFlowbite, Tooltip } from 'flowbite';
     
 
@@ -251,8 +253,8 @@
             ArrowPathIcon,
             UIMenu,
             FooterNav,
-            Modal,
-            ModalBid
+            ModalBid,
+            GuestLogin
         },
         setup() {
             const route = useRoute();
@@ -263,9 +265,12 @@
             const hours = ref(0);
             const minutes = ref(0);
             const seconds = ref(0);
+            const isGuest = ref(true);
 
             onMounted(async() => {
                 initFlowbite();
+
+                isGuest.value = (store.state.user.token) ? false : true;
 
                 const result = await axiosClient.get(`/api/v1/bid/${route.params.store}/${route.params.id}`).
                     then(response => {
@@ -326,7 +331,8 @@
                 isLoading,
                 bidHistory,
                 isMounted,
-                isInvalid
+                isInvalid,
+                isGuest
             }
         },
         methods: {

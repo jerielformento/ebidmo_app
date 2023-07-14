@@ -103,8 +103,8 @@
                             <td class="px-4 py-3"><span :class="(moment() > moment(item.ended_at)) ? 'bg-red-400' : 'bg-green-400'" class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ (moment() > moment(item.ended_at)) ? "Expired" : "Active" }}</span></td>
                             <td class="px-4 py-3">
                                 <router-link 
-                                    :to="{name: 'product-edit', params: {store: item.product.store.slug, slug: item.product.slug}}" 
-                                    @click="editProduct" 
+                                    :to="{name: 'auction-view', params: {id: item.product.slug}}" 
+                                    @click="viewAuction"
                                     class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                     Details
                                 </router-link>

@@ -90,7 +90,7 @@
             <img class="mx-auto h-24 w-auto" src="http://localhost/images/ebidmo.png" alt="eBidMo">
             <h2 class="text-gray-600 flex justify-center items-center text-2xl leading-9 tracking-tight mb-10 pb-2 border-b border-slate-200"><CheckCircleIcon class="h-8 w-8 mr-1 block text-green-500"/> Your account has been created.</h2>
             <div class="pb-6 pt-2">
-                <p class="text-gray-400">You may now login your account!</p>
+                <p class="text-gray-400">Please check your email to verify your account.</p>
             </div>
             <router-link :to="{name: 'login'}" @click.prevent="registerSuccess = false" class="text-sm font-semibold leading-6 text-gray-500">Go to Login</router-link>
         </div>
@@ -99,7 +99,7 @@
 </div>
 </template>
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import axios from 'axios';
     import store from '../store';
     import { toast } from 'vue3-toastify';
@@ -111,6 +111,10 @@
 <script>
 export default {
     data() {
+        onMounted(() => {
+            store.state.user.token && this.$router.push({name: 'home'});
+        });
+
         const registerSuccess = ref(false);
         const loadBtn = ref(false);
         const inputTypePassword = ref("password"); 

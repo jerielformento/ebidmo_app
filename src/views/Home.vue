@@ -151,7 +151,7 @@
                             <h2 id="products-heading" class="sr-only">Products</h2>
                             <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                             <!-- Filters -->
-                            <form class="hidden h-screen fixed md:h-auto sm:h-auto lg:block">
+                            <form class="hidden md:h-auto sm:h-auto lg:block">
                                 <h3 class="sr-only">Categories</h3>
                                 <p class="text-sm font-medium text-gray-900 mb-2">Categories</p>
                                 <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
@@ -193,7 +193,7 @@
                             </form>
 
                             <!-- Product grid -->
-                            <main class="ml-0 lg:col-span-4 lg:ml-64">
+                            <main class="lg:col-span-3">
                                 <!-- Your content -->
                                 <HotCollectionList :filter="filter"/>
                                 <ProductList :filter="filter"/>
@@ -268,8 +268,6 @@
                         let gb = [];
 
                         response.data.map(function(value, key) {
-
-                            console.log(value.id + "|" + sel_brand);
                             gb.push({
                                 id: value.id,
                                 description: value.description,

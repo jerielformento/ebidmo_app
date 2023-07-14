@@ -28,10 +28,17 @@
 </template>
 
 <script>
+    import { onMounted } from 'vue';
+    import store from '../store';
     import { PaperAirplaneIcon } from '@heroicons/vue/24/outline';
     export default {
         components: {
             PaperAirplaneIcon
+        },
+        setup() {
+            onMounted(() => {
+                store.state.user.token && this.$router.push({name: 'home'});
+            });
         }
     }
 </script>
