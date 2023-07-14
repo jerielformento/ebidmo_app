@@ -63,7 +63,7 @@
     </div>
 </template>
 <script setup>
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import axiosClient from '../axios';
     import store from '../store';
     import { useRouter } from 'vue-router';
@@ -75,6 +75,10 @@
 <script>
     export default {
         data() {
+            onMounted(() => {
+                store.state.user.token && this.$router.push({name: 'home'});
+            });
+
             const router = useRouter();
             const loadBtn = ref(false);
 
