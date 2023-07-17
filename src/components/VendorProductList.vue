@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div v-if="!productItems" class="pb-8">
-                <div class="w-full p-3 rounded-sm border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>
@@ -69,40 +69,10 @@
     import { ShoppingCartIcon } from "@heroicons/vue/24/outline";
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../axios';
-    import { routerViewLocationKey, useRouter } from 'vue-router';
 
-    const route = useRouter();
     const productCreate = ref(false);
     const productBidCreate = ref(false);
     const productEdit = ref(false);
-
-    const getProducts = async () => {
-        let pagedata = [];
-        let resdata = [];
-        let paginate_count = 0;
-        
-        await axiosClient.get('/api/v1/bids')
-            .then(response => {
-                response.data.map(function(value, key) {
-                    if(paginate_count == 4) {
-                        resdata.push(pagedata);
-                        pagedata = [];
-                        pagedata.push(value);
-                        paginate_count = 1;
-                    } else {
-                        pagedata.push(value);
-                        paginate_count++;
-                    }
-                });
-
-                if(pagedata.length > 0) {
-                    resdata.push(pagedata);
-                }
-            })
-                    
-        //await new Promise(resolve => setTimeout(resolve, 3000));
-        return resdata;
-    }
 
     const getMyProducts = async () => {
         let pagedata = [];

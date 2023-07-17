@@ -485,9 +485,8 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import axiosClient from '../axios';
-import router from '../router';
-import store from '../store';
+import axiosClient from '../../axios';
+import store from '../../store';
 import {
     Bars3Icon,
     ChevronDownIcon,

@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen flex flex-col justify-between bg-white">
-    <UIMenu/>
+    <HeaderNav/>
     <div v-if="!isLoading">   
         <div v-if="!isInvalid" class="bg-white">
             <div class="pt-5">
@@ -219,13 +219,13 @@
 <script>
     import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
     import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
-    import UIMenu from "./UIMenu.vue";
-    import FooterNav from './Footer.vue';
+    import HeaderNav from "./layouts/Header.vue";
+    import FooterNav from './layouts/Footer.vue';
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
-    import ModalBid from '../components/ModalBid.vue';
-    import GuestLogin from '../components/GuestLogin.vue';
+    import ModalBid from '../components/util/BidModal.vue';
+    import GuestLogin from '../components/util/GuestLoginModal.vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
@@ -251,7 +251,7 @@
             HeartIcon,
             ArrowTrendingUpIcon,
             ArrowPathIcon,
-            UIMenu,
+            HeaderNav,
             FooterNav,
             ModalBid,
             GuestLogin
@@ -299,7 +299,6 @@
 
                 await axiosClient.get(`/api/v1/customer/bid/history/${productInfo.value.bid.id}`)
                 .then(response => {
-                    console.log(response.data);
                     bidHistory.value = response.data;
                     isMounted.value = true;
                 });

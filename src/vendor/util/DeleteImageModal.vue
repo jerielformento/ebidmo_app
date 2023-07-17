@@ -28,7 +28,6 @@
     import { Modal } from 'flowbite-vue';
     import { ArrowPathIcon } from '@heroicons/vue/24/outline';
     import axiosClient from '../../axios';
-    import { toast } from 'vue3-toastify';
 </script>
 <script>
     export default {
