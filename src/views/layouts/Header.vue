@@ -334,7 +334,7 @@
     </header>
 
     <!-- search -->
-    <div class="bg-white py-5 border-b border-gray-200">
+    <div class="py-5 border-b border-gray-200">
         <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
             <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
             <div class="flex rounded-md shadow-sm relative">

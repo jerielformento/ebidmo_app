@@ -1,8 +1,8 @@
 <template>
-    <div class="h-screen flex flex-col justify-between bg-white">
+    <div class="h-screen flex flex-col justify-between">
     <HeaderNav/>
     <div v-if="!isLoading">   
-        <div v-if="!isInvalid" class="bg-white">
+        <div v-if="!isInvalid" class="">
             <div class="pt-5">
                 <nav aria-label="Breadcrumb">
                 <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -48,6 +48,7 @@
                         :loop="true"
                         navigation
                         :pagination="{ clickable: true }"
+                        :thumbs="{ swiper: thumbsSwiper }"
                     >   
                     
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
