@@ -127,16 +127,15 @@
 </template>
 <script>
 import { ref, onMounted } from 'vue'
-import VendorProductList from '../../components/VendorProductList.vue';
-import ItemsLoader from '../../components/ItemsLoader.vue';
+import ItemsLoader from './util/ItemsLoader.vue';
 import { toast } from 'vue3-toastify';
 import { StarIcon, ShieldCheckIcon } from "@heroicons/vue/24/solid";
 import { BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
-import axiosClient from '../../axios';
-import store from '../../store';
+import axiosClient from '../axios';
+import store from '../store';
 
 export default {
-    components: { VendorProductList, ItemsLoader, StarIcon, ShieldCheckIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon },
+    components: { ItemsLoader, StarIcon, ShieldCheckIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon },
     setup() {
         const storeInfo = ref({});
         const hasStore = ref(false);

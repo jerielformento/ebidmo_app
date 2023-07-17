@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+
+// main pages
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import ForgotPassword from "../views/ForgotPassword.vue";
@@ -6,14 +8,6 @@ import Register from "../views/Register.vue";
 import AuctionDetails from "../views/AuctionDetails.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import Vendor from "../views/Vendor.vue";
-import VendorDashboard from "../views/VendorDashboard.vue";
-import VendorBoard from "../components/vendor/Home.vue";
-import VendorProducts from "../components/vendor/Products.vue";
-import VendorAuction from "../components/vendor/Auction.vue";
-import VendorTransaction from "../components/vendor/Transaction.vue";
-import VendorSettings from "../components/vendor/Settings.vue";
-import VendorAuctionView from "../components/vendor/ViewAuction.vue";
-import VendorAuctionStats from "../components/vendor/AuctionStats.vue";
 import Vendors from "../views/Vendors.vue";
 import VendorDetails from "../views/VendorDetails.vue";
 import Category from "../views/Category.vue";
@@ -23,12 +17,25 @@ import Hottest from "../views/Hottest.vue";
 import Popular from "../views/Popular.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
-import AddProduct from '../components/vendor/AddProduct.vue';
-import EditProduct from '../components/vendor/EditProduct.vue';
-import ViewAuction from '../views/ViewAuction.vue';
+import StoreProducts from '../components/StoreProducts.vue';
+import StoreAuctions from '../components/StoreAuctions.vue';
+
+// vendor module
+import VendorDashboard from "../views/VendorDashboard.vue";
+import VendorBoard from "../vendor/Home.vue";
+import VendorProducts from "../vendor/Products.vue";
+import VendorAuction from "../vendor/Auction.vue";
+import VendorTransaction from "../vendor/Transaction.vue";
+import VendorSettings from "../vendor/Settings.vue";
+import VendorAuctionView from "../vendor/ViewAuction.vue";
+import VendorAuctionStats from "../vendor/components/AuctionStats.vue";
+import AddProduct from '../vendor/components/AddProduct.vue';
+import EditProduct from '../vendor/components/EditProduct.vue';
+
+// static page
 import PageNotFound from '../views/static/PageNotFound.vue';
+
 import store from '../store';
-import axiosClient from "../axios";
 
 const routes = [
     // default route
@@ -85,8 +92,8 @@ const routes = [
     },
     {
         path: '/me/vendor',
-        //name: 'vendor-dashboard',
         component: VendorDashboard,
+        redirect: {name: 'vendor-home'},
         meta: { requiresAuth: true, title: 'Vendor | Dashboard' },
         children: [
             {
@@ -152,8 +159,21 @@ const routes = [
     {
         path: '/store/:store',
         name: 'vendor-details',
+        redirect: {name: 'store-products'},
         component: VendorDetails,
         meta: { requiresAuth: false, title: 'Vendor' },
+        children: [
+            {
+                path: '',
+                name: 'store-products',
+                component: StoreProducts
+            },
+            {
+                path: 'auctions',
+                name: 'store-auctions',
+                component: StoreAuctions
+            },
+        ]
     },
     // vendor routes
     {
@@ -162,13 +182,7 @@ const routes = [
         component: Vendors,
         meta: { requiresAuth: false, title: 'Vendors' },
     },
-    // auction routes
-    {
-        path: '/auction/view/:id',
-        name: 'create-auction',
-        component: ViewAuction,
-        meta: { requiresAuth: true, title: 'Auction View' }
-    },
+    // auction route
     {
         path: '/auction/live/:store/:id',
         name: 'auction-details',

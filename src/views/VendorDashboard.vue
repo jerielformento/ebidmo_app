@@ -49,7 +49,9 @@
       </aside>
       <div class="p-4 sm:ml-64">
          <div class="p-2 border-dashed rounded-lg">
-            <router-view></router-view>
+            <Suspense>
+               <router-view></router-view>
+            </Suspense>
          </div>
       </div>
    </div>
@@ -107,18 +109,8 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'
-import UIMenu from './UIMenu.vue';
-import FooterNav from './Footer.vue';
-import VendorProductList from '../components/VendorProductList.vue';
-import ItemsLoader from '../components/ItemsLoader.vue';
 import { toast } from 'vue3-toastify';
 import { 
-    StarIcon, 
-    ShieldCheckIcon 
-} from "@heroicons/vue/24/solid";
-import { 
-    BellIcon, 
-    MagnifyingGlassIcon, 
     CheckIcon, 
     ArrowPathIcon, 
     ShoppingCartIcon, 

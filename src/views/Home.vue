@@ -1,11 +1,11 @@
 <template>
     <div class="bg-gray-100 w-full h-screen flex flex-col justify-between">
-    <UIMenu/>
+    <HeaderNav/>
     <Suspense>
         <template #default>
             <div>
             <!-- Listing Panel -->
-            <div class="bg-white">
+            <div class="bg-gray-50">
                 <div>
                     <!--
                     Mobile filter dialog
@@ -155,11 +155,11 @@
                                 <h3 class="sr-only">Categories</h3>
                                 <p class="text-sm font-medium text-gray-900 mb-2">Categories</p>
                                 <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                    <li :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-300 px-2 rounded-md' : 'border-2 border-amber-500 bg-amber-400 px-2 rounded-md'">
-                                        <a @click="filterCategory(null)" class="cursor-pointer">All</a>
+                                    <li :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+                                        <a @click="filterCategory(null)" class="px-2 cursor-pointer block">All</a>
                                     </li>
-                                    <li v-for="cat in categories" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 px-2 rounded-md' : 'border-2 border-amber-500 bg-amber-400 px-2 rounded-md'">
-                                        <a @click="filterCategory(cat.id)" class="cursor-pointer">{{ cat.title }}</a>
+                                    <li v-for="cat in categories" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+                                        <a @click="filterCategory(cat.id)" class="px-2 cursor-pointer block">{{ cat.title }}</a>
                                     </li>
                                 </ul>
 
@@ -219,16 +219,14 @@
 </template>
 <script setup>
     import { ref, onMounted } from 'vue';
-    import UIMenu from './UIMenu.vue';
-    import FooterNav from './Footer.vue';
+    import HeaderNav from "./layouts/Header.vue";
+    import FooterNav from './layouts/Footer.vue';
     import HotCollectionList from '../components/HotCollectionList.vue';
     import ProductList from '../components/ProductList.vue';
-    import ItemsLoader from '../components/ItemsLoader.vue';
-    import axios from 'axios';
+    import ItemsLoader from '../components/util/ItemsLoader.vue';
     import axiosClient from '../axios';
     import { useStore } from 'vuex'
     import { computed } from 'vue'
-    import { ArrowPathIcon } from "@heroicons/vue/24/outline";
     const isSort = ref(false);
 </script>
 <script>

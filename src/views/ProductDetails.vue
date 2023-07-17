@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen flex flex-col justify-between bg-white">
-    <UIMenu/>
+    <HeaderNav/>
     <div v-if="!isLoading">   
         <div v-if="!isInvalid" class="bg-white">
             <div class="pt-5">
@@ -139,27 +139,6 @@
                         <p class="text-base text-gray-900" v-html="productInfo.details"></p>
                     </div>
                     </div>
-
-                    <!-- <div class="mt-10">
-                        <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
-
-                        <div class="mt-4">
-                            <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
-                            <li class="text-gray-400"><span class="text-gray-600">Hand cut and sewn locally</span></li>
-                            <li class="text-gray-400"><span class="text-gray-600">Dyed with our proprietary colors</span></li>
-                            <li class="text-gray-400"><span class="text-gray-600">Pre-washed &amp; pre-shrunk</span></li>
-                            <li class="text-gray-400"><span class="text-gray-600">Ultra-soft 100% cotton</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="mt-10">
-                        <h2 class="text-sm font-medium text-gray-900">Other Details</h2>
-
-                        <div class="mt-4 space-y-6">
-                            <p class="text-sm text-gray-600">Included other anime collectibles.</p>
-                        </div>
-                    </div> -->
                 </div>
                 </div>
             </div>
@@ -177,18 +156,30 @@
             </div>
         </div>
     </div>
+    <div v-if="isLoading">
+        <div class="bg-white">
+            <div class="h-60">
+                <!-- Product info -->
+                <div class="mx-auto mt-5 px-4 sm:px-6">
+                    <div class="w-full flex justify-center text-3xl text-gray-300">
+                        <ArrowPathIcon class="h-8 w-8 animate-spin"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <FooterNav/>
     </div>
 </template>
 <script>
     import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon } from "@heroicons/vue/24/outline";
-    import UIMenu from "./UIMenu.vue";
-    import FooterNav from './Footer.vue';
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+    import HeaderNav from "./layouts/Header.vue";
+    import FooterNav from './layouts/Footer.vue';
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
-    import ModalBid from '../components/ModalBid.vue';
+    import ModalBid from '../components/util/BidModal.vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
@@ -210,7 +201,8 @@
             ShareIcon,
             HeartIcon,
             ArrowTrendingUpIcon,
-            UIMenu,
+            ArrowPathIcon,
+            HeaderNav,
             FooterNav,
             Modal,
             ModalBid

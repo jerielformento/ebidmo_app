@@ -123,14 +123,14 @@
     </div>
 </template>
 <script setup>
-    import { ArrowPathIcon, XCircleIcon, CheckIcon } from '@heroicons/vue/24/outline';
+    import { ArrowPathIcon } from '@heroicons/vue/24/outline';
     import { XMarkIcon } from '@heroicons/vue/24/solid';
     import { ref, onMounted } from 'vue';
     import axiosClient from '../../axios';
     import { toast } from 'vue3-toastify';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     import { useRoute } from 'vue-router';
-    import DeleteImageModal from './DeleteImageModal.vue';
+    import DeleteImageModal from '../util/DeleteImageModal.vue';
 </script>
 <script>
     export default {

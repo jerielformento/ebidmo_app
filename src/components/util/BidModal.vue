@@ -50,9 +50,9 @@
 import { PlusSmallIcon, MinusSmallIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
 import { Modal } from 'flowbite-vue';
 import { ref } from 'vue';
-import axiosClient from '../axios';
+import axiosClient from '../../axios';
 import { toast } from 'vue3-toastify';
-import store from '../store';
+import store from '../../store';
 
 const isShowModal = ref(false)
 const isSubmit = ref(false);

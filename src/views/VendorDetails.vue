@@ -1,6 +1,6 @@
 <template>
     <div class="bg-gray-100 h-screen flex flex-col justify-between">
-    <UIMenu/>
+    <HeaderNav/>
     <div v-if="!isLoading">
         <div v-if="hasStore">
         <div class="bg-gray-100">
@@ -44,8 +44,16 @@
                             <div class="sm:ml-0">
                             <div class="flex space-x-2 lg:space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Store</a>
-                                <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Auction</a>
+                                <router-link :to="{ name: 'store-products' }" 
+                                    :class="(this.$route.name === 'store-products') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
+                                    class="rounded-md px-3 py-2 text-sm font-medium">
+                                    Products
+                                </router-link>
+                                <router-link :to="{ name: 'store-auctions' }" 
+                                    :class="(this.$route.name === 'store-auctions') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
+                                    class="rounded-md px-3 py-2 text-sm font-medium">
+                                    Auctions
+                                </router-link>
                                 <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reviews</a>
                             </div>
                             </div>
@@ -72,8 +80,8 @@
                 <Suspense>
                     <template #default>
                         <div>
-                        <StoreProductList :store="this.$route.params.store" :search="search"/>
-                    </div>
+                            <router-view :store="this.$route.params.store" :search="search"></router-view>
+                        </div>
                     </template>
                     <template #fallback>
                         <ItemsLoader/>
@@ -142,10 +150,10 @@
 </template>
 <script>
 import { ref, onMounted } from 'vue'
-import UIMenu from './UIMenu.vue';
-import FooterNav from './Footer.vue';
+import HeaderNav from './layouts/Header.vue';
+import FooterNav from './layouts/Footer.vue';
 import StoreProductList from '../components/StoreProductList.vue';
-import ItemsLoader from '../components/ItemsLoader.vue';
+import ItemsLoader from '../components/util/ItemsLoader.vue';
 import { toast } from 'vue3-toastify';
 import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
 import { BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
@@ -155,7 +163,7 @@ import { useRoute } from 'vue-router';
 
 
 export default {
-    components: { UIMenu, FooterNav, StoreProductList, ItemsLoader, StarIcon, ShieldCheckIcon, ShieldExclamationIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon },
+    components: { HeaderNav, FooterNav, StoreProductList, ItemsLoader, StarIcon, ShieldCheckIcon, ShieldExclamationIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon },
     setup() {
         const route = useRoute();
         const storeInfo = ref({});
@@ -226,8 +234,6 @@ export default {
             if(key.length === 0) {
                 this.search = key;
             }
-
-            //console.log(this.search);
         }, 
     }
 }

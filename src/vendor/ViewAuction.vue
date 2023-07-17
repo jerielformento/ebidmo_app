@@ -4,9 +4,10 @@
     <div class="" v-if="!isLoading">
         <div class="pt-5 mb-10">
             <!-- Product info -->
-            <div class="mx-auto bg-white border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
+            <div class="mx-auto bg-white border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:grid lg:max-w-full lg:grid-cols-4 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
             <div class="w-full lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <!-- Image gallery -->
+                <p class="text-2xl font-medium text-gray-800 mb-5">Auction Details</p>
                 <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm border bg-gray-50 py-4">
                 <swiper
                     :modules="modules"
@@ -31,10 +32,7 @@
             <!-- Options -->
             <div class="lg:col-span-4 mt-4 lg:row-span-3 lg:mt-0">
                 <h2 class="sr-only">Product information</h2>
-                <router-link :to="{name: 'vendor'}" class="text-2xl font-medium text-gray-500 hover:text-amber-500 flex items-center">
-                    <span class="mr-1">{{ productInfo.store.name }}</span>
-                    <ShieldCheckIcon class="h-6 w-6 text-green-500"/>
-                </router-link>
+                <span class="text-2xl font-medium text-gray-500 flex items-center">{{ productInfo.store.name }} <ShieldCheckIcon class="ml-1 h-6 w-6 text-green-500"/></span>
 
                 <!-- Reviews -->
                 <div class="mt-2 pb-2 border-b border-gray-200">
@@ -191,11 +189,10 @@
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
-    import ModalBid from '../../components/ModalBid.vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
-    import axiosClient from "../../axios";
+    import axiosClient from "../axios";
     import { toast } from 'vue3-toastify';
     import { useRoute } from "vue-router";
     import { Modal } from 'flowbite-vue';
@@ -223,8 +220,7 @@
             HeartIcon,
             ArrowTrendingUpIcon,
             ArrowPathIcon,
-            Modal,
-            ModalBid
+            Modal
         },
         data() {
             const route = useRoute();

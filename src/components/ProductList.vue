@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-50 pb-10">
+    <div class="pb-10">
         <div class="mx-auto max-w-2xl px-2 sm:px-2 sm:py-1 lg:max-w-7xl lg:px-2">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-700 block">
@@ -72,7 +72,7 @@
                 </div>
             </swiper-slide>
             <div v-if="swiperItems.length === 0" class="mt-6 pb-8">
-                <div class="w-full p-3 rounded-sm border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>
@@ -89,7 +89,7 @@
     import { HeartIcon, StarIcon } from "@heroicons/vue/24/solid";
     import { Autoplay, Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide } from 'swiper/vue'
-    import ItemsLoader from "./ItemsLoader.vue";
+    import ItemsLoader from './util/ItemsLoader.vue';
     import axiosClient from '../axios';
     import 'swiper/css'
     import 'swiper/css/pagination'

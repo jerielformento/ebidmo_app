@@ -5,6 +5,7 @@
                 v-if="productCreate || productEdit || auctionView" :key="$route.fullPath" 
                 :cancel="cancel" 
                 :reload="reloadProducts" 
+                :scrollToTop="scrollToTop"
                 :categories="categories" 
                 :brands="brands" 
                 :conditions="conditions"
@@ -13,18 +14,6 @@
                 <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">
                 My Listing
                 </h2>
-
-                <div class="">
-                    <div class="flex items-center justify-between">
-                    <!-- <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                        <PlusSmallIcon class="h-5 w-5"/>
-                        New Product
-                    </router-link> -->
-                </div>
-                    <!-- <a href="#" class="text-sm underline text-amber-500 inline-block"><p>View all</p></a>
-                    <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Top Bids</p></a>
-                    <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Popular</p></a> -->
-                </div>
             </div>
             <!-- table -->
             <section class="mt-5 bg-gray-50">
@@ -33,20 +22,38 @@
         <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
             <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                 <div class="w-full md:w-1/2">
-                    <form class="flex items-center">
+                    
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                                </svg>
+                                <MagnifyingGlassIcon class="w-5 h-5 text-gray-500"/>
                             </div>
-                            <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search" required="">
+                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search" required="">
                         </div>
-                    </form>
+                    
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                    <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                        <PlusSmallIcon class="h-5 w-5"/>
+                        New Product
+                    </router-link>
                     <div class="flex items-center space-x-3 w-full md:w-auto">
+                        <!-- <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
+                            <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                            Actions
+                        </button>
+                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
+                            <ul class="py-1 text-sm text-gray-700" aria-labelledby="actionsDropdownButton">
+                                <li>
+                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100">Mass Edit</a>
+                                </li>
+                            </ul>
+                            <div class="py-1">
+                                <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete all</a>
+                            </div>
+                        </div> -->
                         <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
@@ -57,7 +64,7 @@
                             </svg>
                         </button>
                         <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-sm shadow">
-                            <h6 class="mb-3 text-sm font-medium text-gray-900">Choose brand</h6>
+                            <h6 class="mb-3 text-sm font-medium text-gray-900">Choose category</h6>
                             <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                                 <li class="flex items-center" v-for="cat in categories">
                                     <input :id="cat.id" type="checkbox" :value="cat.id" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
@@ -77,10 +84,8 @@
                             <th scope="col" class="px-4 py-3">Category</th>
                             <th scope="col" class="px-4 py-3">Brand</th>
                             <th scope="col" class="px-4 py-3">Condition</th>
-                            <th scope="col" class="px-4 py-3">Min. bid</th>
-                            <th scope="col" class="px-4 py-3">Buy now</th>
-                            <th scope="col" class="px-4 py-3">High. bid</th>
-                            <th scope="col" class="px-4 py-3">Expiration</th>
+                            <th scope="col" class="px-4 py-3">Quantity</th>
+                            <th scope="col" class="px-4 py-3">Price</th>
                             <th scope="col" class="px-4 py-3">Status</th>
                             <th scope="col" class="px-4 py-3">
                                 <span class="sr-only">Actions</span>
@@ -88,50 +93,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="!reloadList" v-for="item in productItems" class="border-b">
+                        <tr v-if="!reloadList" v-for="item in productItems" class="border-b hover:bg-gray-100">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                <img :src="(item.product.thumbnail !== null) ? item.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-sm h-10 w-10 object-cover object-center">
+                                <img :src="(item.thumbnail !== null) ? item.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
                             </th>
-                            <td class="px-4 py-3">{{ item.product.name }}</td>
-                            <td class="px-4 py-3">{{ item.product.category.title }}</td>
-                            <td class="px-4 py-3">{{ item.product.brand.description }}</td>
-                            <td class="px-4 py-3">{{ item.product.condition.description }}</td>
-                            <td class="px-4 py-3">{{ item.product.currency.prefix+item.min_price }}</td>
-                            <td class="px-4 py-3">{{ item.product.currency.prefix+item.buy_now_price }}</td>
-                            <td class="px-4 py-3">{{ (item.highest !== null) ? item.product.currency.prefix+item.highest.price : 0 }}</td>
-                            <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
-                            <td class="px-4 py-3"><span :class="(moment() > moment(item.ended_at)) ? 'bg-red-400' : 'bg-green-400'" class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ (moment() > moment(item.ended_at)) ? "Expired" : "Active" }}</span></td>
-                            <td class="px-4 py-3">
+                            <td class="px-4 py-3">{{ item.name }}</td>
+                            <td class="px-4 py-3">{{ item.category.title }}</td>
+                            <td class="px-4 py-3">{{ item.brand.description }}</td>
+                            <td class="px-4 py-3">{{ item.condition.description }}</td>
+                            <td class="px-4 py-3">{{ item.quantity }}</td>
+                            <td class="px-4 py-3">{{ item.currency.prefix+item.price }}</td>
+                            <td class="px-4 py-3" v-if="item.bid !== null"><span class="bg-red-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
+                            <td class="px-4 py-3" v-else></td>
+                            <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                 <router-link 
-                                    :to="{name: 'auction-view', params: {id: item.product.slug}}" 
-                                    @click="viewAuction"
+                                    :to="{name: 'product-edit', params: {store: item.store.slug, slug: item.slug}}" 
+                                    @click="editProduct" 
+                                    class="rounded-sm bg-amber-500 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
+                                    Edit
+                                </router-link>
+                                <router-link 
+                                    :to="{name: 'product-auction', params: {id: item.slug}}" 
+                                    @click="viewAuction" 
                                     class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                    Details
+                                    View
                                 </router-link>
                             </td>
-                            <!-- <td class="px-4 py-3 flex items-center justify-end">
-                                <button id="apple-imac-27-dropdown-button" data-dropdown-toggle="apple-imac-27-dropdown" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-sm focus:outline-none" type="button">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                    </svg>
-                                </button>
-                                <div id="apple-imac-27-dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
-                                    <ul class="py-1 text-sm text-gray-700" aria-labelledby="apple-imac-27-dropdown-button">
-                                        <li>
-                                            <a href="#" class="block py-2 px-4 hover:bg-gray-100">Show</a>
-                                        </li>
-                                        <li>
-                                            <router-link :to="{name: 'product-edit', params: {store: item.store.slug, slug: item.slug}}" @click="editProduct" class="block py-2 px-4 hover:bg-gray-100">{{ item.slug}} Edit</router-link>
-                                        </li>
-                                    </ul>
-                                    <div class="py-1">
-                                        <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete</a>
-                                    </div>
-                                </div>
-                            </td> -->
                         </tr>
                         <tr v-else>
-                            <td class="px-4 py-3" colspan="11"><div class="flex justify-center"><ArrowPathIcon class="h-6 w-6 animate-spin"/></div></td>
+                            <td class="px-4 py-3" colspan="8"><div class="flex justify-center"><ArrowPathIcon class="h-6 w-6 animate-spin"/></div></td>
                         </tr>
                         
                     </tbody>
@@ -146,21 +136,18 @@
                 </span>
                 <ul class="inline-flex items-stretch -space-x-1px">
                     <li v-for="(page, index) in pagination.links">
-                    <button v-if="index === 0" @click="prevPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                        <span class="sr-only">Previous</span>
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
 
-                    <button v-else-if="index === (pagination.links.length-1)" @click="nextPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                        <span class="sr-only">Next</span>
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                        <button v-if="index === 0" @click="prevPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                            <span class="sr-only">Previous</span>
+                            <ChevronLeftIcon class="w-4 h-4"/>
+                        </button>
 
-                    <a v-else href="#" @click="gotoPage(page.label)" class="flex items-center justify-center text-sm py-2 px-3 leading-tight font-semibold" :class="(page.active) ? 'bg-amber-400 border border-gray-500 hover:bg-primary-100 hover:text-primary-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'">{{ page.label }}</a>
+                        <button v-else-if="index === (pagination.links.length-1)" @click="nextPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                            <span class="sr-only">Next</span>
+                            <ChevronRightIcon class="w-4 h-4"/>
+                        </button>
+                        
+                        <a v-else href="#" @click="gotoPage(page.label)" class="flex items-center justify-center text-sm py-2 px-3 leading-tight font-semibold" :class="(page.active) ? 'bg-amber-400 border border-gray-500 hover:bg-primary-100 hover:text-primary-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'">{{ page.label }}</a>
                     </li>
                 </ul>
             </nav>
@@ -168,7 +155,7 @@
     </div>
     </section>
             <div v-if="!productItems" class="pb-8">
-                <div class="w-full p-3 rounded-sm border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>
@@ -177,16 +164,12 @@
 </template>
 <script>
     import { ref, onMounted } from 'vue'
-    import { ShoppingCartIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+    import { ShoppingCartIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
-    import axiosClient from '../../axios';
-    import { routerViewLocationKey, useRouter } from 'vue-router';
+    import axiosClient from '../axios';
     import { initFlowbite } from 'flowbite';
-    import moment from 'moment';
 
-    const route = useRouter();
     const productCreate = ref(false);
-    const productBidCreate = ref(false);
     const productEdit = ref(false);
     const auctionView = ref(false);
     const reloadList = ref(false);
@@ -194,32 +177,6 @@
     const categories = ref(null);
     const brands = ref(null);
     const conditions = ref(null);
-
-    const getProducts = async () => {
-        let pagedata = [];
-        let resdata = [];
-        let paginate_count = 0;
-        
-        await axiosClient.get('/api/v1/bids')
-            .then(response => {
-                response.data.map(function(value, key) {
-                    if(paginate_count == 4) {
-                        resdata.push(pagedata);
-                        pagedata = [];
-                        pagedata.push(value);
-                        paginate_count = 1;
-                    } else {
-                        pagedata.push(value);
-                        paginate_count++;
-                    }
-                });
-
-                if(pagedata.length > 0) {
-                    resdata.push(pagedata);
-                }
-            });
-        return resdata;
-    }
 
     const getMyProducts = async (page) => {
         let pagedata = [];
@@ -229,8 +186,7 @@
         reloadList.value = true;
         const setPage = (page > 1) ? '?page='+page : '';
 
-        reloadList.value = true;
-        await axiosClient.get('/api/v1/products/auction'+setPage)
+        await axiosClient.get('/api/v1/products'+setPage)
             .then(response => {
                 response.data.data.map(function(value, key) {
                     pagedata.push(value);
@@ -249,13 +205,46 @@
                     links: response.data.links
                 });
             });
-  
+
+        reloadList.value = false;
+        return [resdata, pagination];
+    }
+
+    const searchMyProducts = async (page, searchKey) => {
+        let pagedata = [];
+        let resdata = [];
+        let pagination = [];
+
+        reloadList.value = true;
+        const setPage = (page > 1) ? '?page='+page : '';
+        const key = searchKey;
+        
+        await axiosClient.get('/api/v1/product/store/search/'+key+setPage)
+            .then(response => {
+                response.data.data.map(function(value, key) {
+                    pagedata.push(value);
+                });
+
+                if(pagedata.length > 0) {
+                    resdata.push(pagedata);
+                } 
+
+                pagination.push({
+                    from: response.data.from,
+                    to: response.data.to,
+                    end: response.data.last_page,
+                    current: response.data.current_page,
+                    total: response.data.total,
+                    links: response.data.links
+                });
+            });
+
         reloadList.value = false;
         return [resdata, pagination];
     }
 
     export default {
-        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon},
+        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon},
         async setup() {
             onMounted(async() => {
                 initFlowbite();
@@ -308,16 +297,14 @@
             });
             const products = await getMyProducts(1);
             const productItems = ref(products[0][0]);
-
+            
             return { 
-                moment,
                 NoImageUrl: import.meta.env.VITE_NO_IMAGE_URL,
                 pagination: products[1][0],
                 routeKey,
                 productItems,
                 productCreate,
                 productEdit,
-                productBidCreate,
                 auctionView,
                 reloadList,
                 categories,
@@ -326,28 +313,43 @@
             }
         },
         methods: {
+            async searchProduct() {
+                const key = this.$refs.itemSearch.value;
+                if(key.length !== 0) {
+                    const products = await searchMyProducts(1, key);
+                    this.productItems = products[0][0];
+                    this.pagination = products[1][0];
+                } else {
+                    this.reloadProducts();
+                }
+            },
+            searchKey() {
+                const key = this.$refs.itemSearch.value;
+                if(key.length === 0) {
+                    this.reloadProducts();
+                }
+            }, 
             createProduct() {
+                this.scrollToTop();
                 routeKey.value += 1;
                 productCreate.value = true;
             },
             cancel() {
                 productCreate.value = false;
-                productEdit.value = true;
+                productEdit.value = false;
+                auctionView.value = false;
                 this.$router.push({
                     name: 'vendor-products'
                 });
             },
             editProduct() {
+                this.scrollToTop();
                 productCreate.value = false;
+                auctionView.value = false;
                 productEdit.value = true;
             },  
-            createBidProduct() {
-                productBidCreate.value = true;
-            },
-            cancelBid() {
-                productBidCreate.value = false;
-            },
             viewAuction() {
+                this.scrollToTop();
                 auctionView.value = true;
             },
             textSubstr(text) {
@@ -360,6 +362,7 @@
                 return new_string;
             },
             async reloadProducts() {
+                console.log('ok');
                 const products = await getMyProducts(1);
                 this.productItems = products[0][0];
                 this.pagination = products[1][0];
@@ -393,6 +396,8 @@
         },
         beforeUnmount() {
             productCreate.value = false;
+            productEdit.value = false;
+            auctionView.value = false;
         }
     }
 </script>
