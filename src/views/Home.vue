@@ -5,7 +5,7 @@
         <template #default>
             <div>
             <!-- Listing Panel -->
-            <div class="bg-gray-50">
+            <div class="">
                 <div>
                     <!--
                     Mobile filter dialog
@@ -62,7 +62,7 @@
                             <div class="border-t border-gray-200 px-4 py-6">
                             <h3 class="-mx-2 -my-3 flow-root">
                                 <!-- Expand/collapse section button -->
-                                <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-0" aria-expanded="false">
+                                <button type="button" class="flex w-full items-center justify-between px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-0" aria-expanded="false">
                                 <span class="font-medium text-gray-900">Brand</span>
                                 <span class="ml-6 flex items-center">
                                     <!-- Expand icon, show/hide based on section open state. -->
@@ -166,7 +166,7 @@
                                 <div class="border-b border-gray-200 py-6">
                                 <h3 class="-my-3 flow-root">
                                     <!-- Expand/collapse section button -->
-                                    <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
+                                    <button type="button" class="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
                                     <span class="font-medium text-gray-900">Brand</span>
                                     <span class="ml-6 flex items-center">
                                         <!-- Expand icon, show/hide based on section open state. -->
