@@ -6,7 +6,7 @@
             <div class="flex lg:flex-1">
                 <router-link to="/" class="-m-1.5 p-1.5 inline-flex justify-center items-center">
                     <span class="sr-only">eBidMo</span>
-                    <img class="h-8 w-auto" src="http://localhost/images/ebidmo_text.png" alt="eBidMo">
+                    <img class="h-8 w-auto" :src="`${siteUrl}/images/ebidmo_text.png`" alt="eBidMo">
                 </router-link>
             </div>
             <div class="flex lg:hidden">
@@ -338,7 +338,11 @@ const showSubMenuHide = ref(false);
 </script>
 <script>
 export default {
-    data() {},
+    data() {
+        return {
+            siteUrl: import.meta.env.VITE_API_URL
+        }
+    },
     methods: {
         async logout() {
             await store.dispatch('csrf');
