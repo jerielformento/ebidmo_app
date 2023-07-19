@@ -4,7 +4,7 @@
       
     <form @submit.prevent="submit" class="px-8 py-5 rounded-md border bg-white border-slate-200" autocomplete="off">
         <div v-if="!registerSuccess" class="space-y-0">
-            <img class="mx-auto h-20 w-auto" src="http://localhost/images/ebidmo.png" alt="eBidMo">
+            <img class="mx-auto h-20 w-auto" :src="`${siteUrl}/images/ebidmo.png`" alt="eBidMo">
             <h2 class="text-center text-2xl font-semibold leading-9 tracking-tight mb-10 pb-2 border-b border-slate-200">Sign Up</h2>
             <div class="pb-12 pt-2">
                 <h2 class="text-base font-semibold leading-7">Personal Information</h2>
@@ -120,6 +120,7 @@ export default {
         const inputTypeConfirmPassword = ref("password");
 
         return {
+            siteUrl: import.meta.env.VITE_API_URL,
             postdata: { 
                 email: '',
                 firstname: '',

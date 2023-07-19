@@ -10,7 +10,7 @@
          <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
          <div class="mb-4 flex justify-center items-center">
             <a href="/">
-                  <img src="http://localhost/images/ebidmo_text.png" class="w-auto h-8"/>
+                  <img :src="`${siteUrl}/images/ebidmo_text.png`" class="w-auto h-8"/>
             </a>
          </div>
             <ul class="space-y-2 font-semibold text-sm text-gray-400">
@@ -147,6 +147,7 @@ export default {
         });
 
         return {
+            siteUrl: import.meta.env.VITE_API_URL,
             postdata: {
                 name: ''
             },

@@ -2,7 +2,7 @@
     <div class="flex flex-col justify-center px-6 lg:px-8 bg-gradient-to-r from-orange-400 via-amber-400 to-orange-400 h-screen shadow">
         <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm px-8 py-5 rounded-md bg-white border border-slate-200 shadow-lg">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm pb-3 mb-5 border-b border-slate-200"> 
-                <router-link to="/"><img class="mx-auto h-20 w-auto mb-3" src="http://localhost/images/ebidmo.png" alt="eBidMo"></router-link>
+                <router-link to="/"><img class="mx-auto h-20 w-auto mb-3" :src="`${siteUrl}/images/ebidmo.png`" alt="eBidMo"></router-link>
             </div>
             <form @submit.prevent="submit" class="space-y-5" action="#" method="POST">
                 <div>
@@ -86,6 +86,7 @@
         const router = useRouter();
         const loadBtn = ref(false);
         return {
+            siteUrl: import.meta.env.VITE_API_URL,
             callback: (response) => {
                 console.log("login");
                 console.log(decodeCredential(response.credential));
