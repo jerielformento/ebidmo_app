@@ -46,13 +46,13 @@
                             <div class="flex space-x-2 lg:space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <router-link :to="{ name: 'store-products' }" 
-                                    :class="(this.$route.name === 'store-products') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
-                                    class="rounded-md px-3 py-2 text-sm font-medium">
+                                    active-class="bg-gray-900 text-white"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                     Products
                                 </router-link>
                                 <router-link :to="{ name: 'store-auctions' }" 
-                                    :class="(this.$route.name === 'store-auctions') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
-                                    class="rounded-md px-3 py-2 text-sm font-medium">
+                                    active-class="bg-gray-900 text-white"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                     Auctions
                                 </router-link>
                                 <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reviews</a>
@@ -81,7 +81,7 @@
                 <Suspense>
                     <template #default>
                         <div>
-                            <router-view :store="this.$route.params.store" :search="search"></router-view>
+                            <router-view :store="route.params.store" :search="search"></router-view>
                         </div>
                     </template>
                     <template #fallback>
@@ -187,6 +187,7 @@ export default {
         });
 
         return {
+            route,
             hasStore,
             isLoading,     
             postdata: {
@@ -197,7 +198,8 @@ export default {
             },
             loadBtn,   
             storeInfo,
-            search
+            search,
+            route
         }
     },
     methods: {
