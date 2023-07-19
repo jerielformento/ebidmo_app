@@ -41,7 +41,7 @@
                             <div class="sm:ml-0">
                             <div class="flex space-x-2 lg:space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                                <router-link :to="{ name: 'vendor' }" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Store</router-link>
+                                <router-link :to="{ name: 'vendor-home' }" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Store</router-link>
                                 <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Auction</a>
                                 <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Reviews</a>
                             </div>
@@ -129,6 +129,7 @@
 import { ref, onMounted } from 'vue'
 import ItemsLoader from './util/ItemsLoader.vue';
 import { toast } from 'vue3-toastify';
+import { initFlowbite } from 'flowbite';
 import { StarIcon, ShieldCheckIcon } from "@heroicons/vue/24/solid";
 import { BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
 import axiosClient from '../axios';
@@ -143,6 +144,8 @@ export default {
         const loadBtn = ref(false);
         
         onMounted(async() => {
+            initFlowbite();
+            
             const result = await axiosClient.get('/api/v1/customer')
                 .then(response => {
                     //console.log(response.data.store);

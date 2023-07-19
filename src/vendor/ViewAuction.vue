@@ -61,7 +61,7 @@
                 <!-- Auction -->
                 <div>
                     <div v-if="productInfo.bid === null" class="mt-5 p-5 border border-gray-200 rounded-sm">
-                        <div class="block text-md font-bold text-amber-600 mb-1"><h3 class="inline-block">Set Auction Details</h3></div>
+                        <div class="block text-md font-bold text-gray-500 mb-1"><h3 class="inline-block">Set Auction Details</h3></div>
                         <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 mb-5">
                             <div class="sm:col-span-6">
                                 <label for="min-price" class="block text-sm font-medium leading-6">Minimum Bid Price</label>
@@ -78,10 +78,17 @@
                                 </div>
                             </div>
                             <div class="sm:col-span-6">
-                                <label for="buy-now-price" class="block text-sm font-medium leading-6">Buy Now Price</label>
+                                <label for="buy-now-price" class="block text-sm font-medium leading-6">Buy Now Price <span class="text-gray-400 font-normal">(optional)</span></label>
                                 <div class="mt-2">
                                     <input v-model="postdata.buy_now_price" id="buy-now-price" name="buy-now-price" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                     <small v-if="errordata.buy_now_price !== ''" class="text-red-400">{{ errordata.buy_now_price }}</small>
+                                </div>
+                            </div>
+                            <div class="sm:col-span-6">
+                                <label for="buy-now-price" class="block text-sm font-medium leading-6">Min. Number of Participants <span class="text-gray-400 font-normal">(optional)</span></label>
+                                <div class="mt-2">
+                                    <input v-model="postdata.min_participants" id="min-participants" name="min-participants" placeholder="0" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                    <small v-if="errordata.min_participants !== ''" class="text-red-400">{{ errordata.min_participants }}</small>
                                 </div>
                             </div>
                             <div class="sm:col-span-6">
@@ -93,8 +100,9 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 space-x-2 mt-5">
-                            <button @click="submit" type="submit" :disabled="isSubmit" class="flex w-full items-center justify-center rounded-sm disabled:opacity-80 border border-transparent bg-amber-500 px-8 py-3 text-base font-medium text-white hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">
+                        <div class="block space-x-2 mt-5">
+                            <button @click="submit" type="submit" :disabled="isSubmit" 
+                                class="flex items-center justify-center rounded-sm disabled:opacity-80 border border-transparent bg-green-400 px-3 py-1.5 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2">
                                 Live Auction
                                 <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="isSubmit"/>
                             </button>
@@ -295,6 +303,7 @@
                 postdata: {
                     slug: '',
                     min_price: '',
+                    min_participants: '',
                     buy_now_price: '',
                     increment_price: '',
                     expiration: ''
@@ -302,6 +311,7 @@
                 errordata: {
                     slug: '',
                     min_price: '',
+                    min_participants: '',
                     buy_now_price: '',
                     increment_price: '',
                     expiration: ''

@@ -32,37 +32,52 @@
                             <FireIcon class="h-8 w-8 text-red-200"/>
                         </div>
                         <div class="min-h-50 aspect-h-2 aspect-w-2 w-full overflow-hidden rounded-t-md bg-gray-200 group-hover:opacity-90 lg:h-50">
-                            <img :src="(text.img !== null) ? text.img : NoImageUrl" alt="" class="border border-gray-100 rounded-t-md w-full object-cover object-center lg:h-full lg:w-full">
+                            <img :src="(text.product.thumbnail !== null) ? text.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-t-md w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                         <div class="mt-3 mx-3 flex justify-between">
                             <div>
                                 <h3 class="text-sm text-amber-500">
-                                <router-link :to="{name: 'auction-details', params: { store: text.store_slug, id: text.slug }}" class="font-semibold">
+                                <router-link :to="{name: 'auction-details', params: { store: text.product.store.slug, id: text.product.slug }}" class="font-semibold">
                                     <span aria-hidden="true" class="absolute inset-0"></span>
-                                    {{ textSubstr(text.item) }}
+                                    {{ textSubstr(text.product.name) }}
                                 </router-link>
                                 </h3>
                             </div>
                         </div>
                         <div class="relative mx-3">
-                            <p class="mt-1 text-sm block font-semibold text-gray-600">{{ text.store }}</p>
-                            <p class="mt-1 text-sm text-gray-400">Min. Bid: <span class="text-green-600">{{ text.currency_prefix+text.min_price.toLocaleString() }}</span></p>
-                            <p class="mt-1 text-sm text-gray-400">Time to Bid</p>    
+                            <p class="mt-1 text-sm block font-semibold text-gray-600">{{ text.product.store.name }}</p>
+                            <p class="mt-1 text-sm text-gray-400">Min. Bid: <span class="text-green-600">{{ text.product.currency.prefix+text.min_price.toLocaleString() }}</span></p>
+                            <p class="mt-1 text-sm text-gray-400" v-if="text.status === 1">Ending in</p>   
+                            <p class="mt-1 text-sm text-gray-400" v-else>Participants: {{ text.min_participants }}/{{ text.participants_count }}</p>   
                         </div>
-                        <div class="text-2xl mx-3 text-gray-500 flex justify-between items-center relative">
+                        <div v-if="text.status === 1" class="text-2xl mx-3 text-gray-500 flex justify-between items-center relative">
                             <span class="text-sm font-semibold text-red-500" v-if="isDone">
-                                {{ expirationTimer[text.slug].days }}d
-                                {{ expirationTimer[text.slug].hours }}h
-                                {{ expirationTimer[text.slug].minutes }}m
-                                {{ expirationTimer[text.slug].seconds }}s
+                                {{ expirationTimer[text.product.slug].days }}d
+                                {{ expirationTimer[text.product.slug].hours }}h
+                                {{ expirationTimer[text.product.slug].minutes }}m
+                                {{ expirationTimer[text.product.slug].seconds }}s
                             </span>
                             <div class="text-sm font-semibold text-gray-200" v-else>...</div>
                             <router-link 
                                 :to="{name: 'auction-details', 
-                                params: { store: text.store_slug, id: text.slug }}" 
+                                params: { store: text.product.store.slug, id: text.product.slug }}" 
                                 class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                 Bid
                             </router-link>
+                        </div>
+                        <div v-else>
+                            <div class="text-2xl mx-3 text-gray-500 flex justify-between items-center relative">
+                            <span class="text-xs font-semibold text-amber-500 animate-pulse" v-if="isDone">
+                                Waiting participants
+                            </span>
+                            <div class="text-sm font-semibold text-gray-200" v-else>...</div>
+                            <router-link 
+                                :to="{name: 'auction-details', 
+                                params: { store: text.product.store.slug, id: text.product.slug }}" 
+                                class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                Join
+                            </router-link>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -194,7 +209,9 @@
                 Object.entries(products).forEach(entry => {
                     const [key, items] = entry; 
                     items.forEach(function(item) {
-                            expTimer[item.slug] = validateExpiration(item.ended_at);
+                        if(item.status === 1) {
+                            expTimer[item.product.slug] = validateExpiration(item.ended_at);
+                        }
                     });
                 });
 

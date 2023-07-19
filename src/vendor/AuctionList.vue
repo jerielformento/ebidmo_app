@@ -54,7 +54,7 @@
                                             <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                                                 <li class="flex items-center" v-for="cat in categories">
                                                     <input :id="cat.id" type="checkbox" :value="cat.id"
-                                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
+                                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-amber-500 focus:ring-primary-500">
                                                     <label :for="cat.id" class="ml-2 text-sm font-medium text-gray-900">{{
                                                         cat.title }}</label>
                                                 </li>
@@ -75,6 +75,7 @@
                                             <th scope="col" class="px-4 py-3">Min. bid</th>
                                             <th scope="col" class="px-4 py-3">Buy now</th>
                                             <th scope="col" class="px-4 py-3">High. bid</th>
+                                            <th scope="col" class="px-4 py-3">Participants</th>
                                             <th scope="col" class="px-4 py-3">Expiration</th>
                                             <th scope="col" class="px-4 py-3">Status</th>
                                             <th scope="col" class="px-4 py-3">
@@ -97,10 +98,11 @@
                                             <td class="px-4 py-3">{{ item.product.currency.prefix + item.buy_now_price }}</td>
                                             <td class="px-4 py-3">{{ (item.highest !== null) ?
                                                 item.product.currency.prefix + item.highest.price : 0 }}</td>
+                                            <td class="px-4 py-3">{{ item.min_participants }}/{{ item.participants_count }}</td>
                                             <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
                                             <td class="px-4 py-3"><span
-                                                    :class="(item.status === 0) ? 'bg-red-400' : 'bg-green-400'"
-                                                    class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ (item.status === 0) ? "Expired" : "Active" }}</span></td>
+                                                    :class="useAuctionColorCode(item.status)"
+                                                    class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ useAuctionStatus(item.status) }}</span></td>
                                             <td class="px-4 py-3">
                                                 <router-link :to="{ name: 'auction-view', params: { id: item.id } }"
                                                     @click="viewAuction"
@@ -167,6 +169,8 @@
 import { ref, onMounted } from 'vue'
 import { ShoppingCartIcon, ArrowPathIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
 import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
+import { useAuctionStatus } from '../composables/useAuctionStatus';
+import { useAuctionColorCode } from '../composables/useAuctionColorCode';
 import axiosClient from '../axios';
 import { initFlowbite } from 'flowbite';
 import moment from 'moment';
@@ -250,8 +254,8 @@ const searchMyProducts = async (page, searchKey) => {
 export default {
     components: { ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon },
     async setup() {
-        onMounted(async () => {
-            initFlowbite();
+        onMounted(async() => {
+            initFlowbite();   
 
             let sel_brand = 0;
             let sel_condition = 0;
@@ -315,7 +319,9 @@ export default {
             reloadList,
             categories,
             conditions,
-            brands
+            brands,
+            useAuctionStatus,
+            useAuctionColorCode
         }
     },
     methods: {

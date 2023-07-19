@@ -48,7 +48,6 @@
                                 <p class="mt-1 text-sm block font-semibold text-gray-600">{{ text.store.name }}</p>
                                 <p class="mt-1 text-sm text-gray-400">Category: <a href="#" class="text-amber-600 underline">{{ text.category.title }}</a></p>
                                 <p class="mt-1 text-sm text-gray-400">Brand: <a href="#" class="text-amber-600 underline">{{ text.brand.description }}</a></p>
-                                <p class="mt-1 text-sm text-gray-400">Sell Price: <span class="text-green-600">{{ text.currency.prefix+text.price.toLocaleString() }}</span></p>
                             </div>
                             <div class="mt-1 mx-3 text-2xl text-gray-500 flex justify-between items-center relative">
                                 <div class="flex items-center">
@@ -64,7 +63,7 @@
                                     :to="{name: 'product-details', 
                                     params: { store: text.store.slug, id: text.slug }}" 
                                     class="flex items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                    <PlusSmallIcon class="h-5 w-5"/> cart
+                                    View
                                 </router-link>
                             </div>
                         </div>
