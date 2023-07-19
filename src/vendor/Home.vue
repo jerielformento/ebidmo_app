@@ -51,7 +51,7 @@
       </div>
 </template>
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { ShoppingCartIcon, FireIcon, TruckIcon } from '@heroicons/vue/24/outline';
 import axiosClient from '../axios';
 
@@ -67,6 +67,7 @@ const dashboardReport = async () => {
 export default {
    components: { ShoppingCartIcon, FireIcon, TruckIcon },
    async setup() {
+      
       const stats = await dashboardReport();
       const statsReport = ref(stats);
 

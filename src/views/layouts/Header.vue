@@ -89,29 +89,15 @@
                 </div>
 
                 <router-link :to="{ name: 'category' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400">Categories</router-link>
+                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Categories</router-link>
                 <router-link :to="{ name: 'vendors' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400">Vendors</router-link>
+                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Vendors</router-link>
                 <router-link :to="{ name: 'sell' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400">Sell</router-link>
+                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Sell</router-link>
                 <router-link :to="{ name: 'support' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400">Support</router-link>
+                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Support</router-link>
             </div>
             <div v-if="store.state.user.token" class="hidden lg:flex lg:flex-1 lg:justify-end space-x-0 items-center">
-                <!-- <router-link :to="{ name: 'vendor-home' }" class="text-white rounded-md px-2 py-2 text-sm font-medium"
-                    aria-current="page" x-state:on="Current" x-state:off="Default"
-                    x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">
-                    <BuildingStorefrontIcon class="h-6 w-6 dark:text-gray-400" />
-                </router-link> -->
-                <a href="#" @click="showCartMenu = !showCartMenu"
-                    class="relative inline-flex items-center text-white rounded-md px-2 py-2 text-sm font-medium"
-                    aria-current="page" x-state:on="Current" x-state:off="Default"
-                    x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">
-                    <ShoppingBagIcon class="h-6 w-6 dark:text-gray-400" />
-                    <div
-                        class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border border-white rounded-full -top-1 -right-1 dark:border-gray-900">
-                        2</div>
-                </a>
                 <a href="#" class="relative inline-flex items-center text-white rounded-md px-2 py-2 text-sm font-medium"
                     aria-current="page" x-state:on="Current" x-state:off="Default"
                     x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">
@@ -229,11 +215,9 @@
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Support</router-link>
                             </div>
                             <div class="py-6">
-                                <router-link :to="{ name: 'vendor' }"
+                                <router-link :to="{ name: 'vendor-home' }"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Your
                                     Store</router-link>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Cart</a>
                                 <router-link :to="{ name: 'profile' }"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Your
                                     Profile</router-link>
@@ -332,223 +316,34 @@
             </div>
         </div>
     </header>
-
-    <!-- search -->
-    <div class="py-5 border-b border-gray-200">
-        <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
-            <label for="hs-trailing-button-add-on-with-icon" class="sr-only">Label</label>
-            <div class="flex rounded-md shadow-sm relative">
-                <input @keyup.enter="searchProduct" @keyup="searchKey" ref="itemSearch" type="text"
-                    id="hs-trailing-button-add-on-with-icon" placeholder="Search in eBidMo"
-                    name="hs-trailing-button-add-on-with-icon"
-                    class="py-3 px-4 block w-full border-gray-200 placeholder:text-gray-400 shadow-sm rounded-sm text-sm focus:z-10 focus:border-amber-400 focus:ring-amber-400 dark:border-gray-100 text-gray-500">
-                <button @click="searchProduct" type="button"
-                    class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
-                    <MagnifyingGlassIcon class="h-6 w-6" />
-                </button>
-                <div class="absolute w-full z-10 top-10 mt-1 rounded-b-md border border-gray-200 shadow-md">
-                    <div v-if="!this.searching" v-for="item in this.search"
-                        class="group w-full inline-block bg-white py-1 px-4 hover:bg-gray-50 cursor-pointer">
-                        <router-link :to="{ name: 'product-details', params: { store: item.store.slug, id: item.slug } }"
-                            class="text-amber-500 bg-gray-500">
-                            <div class="w-full">{{ item.name }} <span class="text-xs text-gray-400">{{
-                                item.brand.description }}</span>
-                            </div>
-                        </router-link>
-                    </div>
-                    <div v-else class="group w-full inline-block bg-white py-1 px-4 hover:bg-gray-50 cursor-pointer">
-                        <div class="w-full flex justify-center items-center p-1">
-                            <ArrowPathIcon class="animate-spin text-gray-400 h-4 w-4" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <Transition>
-        <div v-if="showCartMenu" class="relative z-40" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
-            <div class="fixed inset-0 overflow-hidden">
-                <div class="absolute inset-0 overflow-hidden">
-                    <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                        <div class="pointer-events-auto w-screen max-w-md z-20">
-                            <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                                <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                                    <div class="flex items-start justify-between">
-                                        <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart
-                                        </h2>
-                                        <div class="ml-3 flex h-7 items-center">
-                                            <button @click="showCartMenu = false" type="button"
-                                                class="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                                                <span class="sr-only">Close panel</span>
-                                                <XMarkIcon class="h-6 w-6" />
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-8">
-                                        <div class="flow-root">
-                                            <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                                <li class="flex py-6">
-                                                    <div
-                                                        class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                        <img src="http://localhost/images/ds.jpg"
-                                                            alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
-                                                            class="h-full w-full object-cover object-center">
-                                                    </div>
-                                                    <div class="ml-4 flex flex-1 flex-col">
-                                                        <div>
-                                                            <div
-                                                                class="flex justify-between text-base font-medium text-gray-900">
-                                                                <h3>
-                                                                    <a href="#">Demon Slayer</a>
-                                                                </h3>
-                                                                <p class="ml-4">$90.00</p>
-                                                            </div>
-                                                            <p class="mt-1 text-sm text-gray-500">Collectibles</p>
-                                                        </div>
-                                                        <div class="flex flex-1 items-end justify-between text-sm">
-                                                            <p class="text-gray-500">Qty 1</p>
-
-                                                            <div class="flex">
-                                                                <button type="button"
-                                                                    class="font-medium text-orange-400 hover:text-orange-500">Remove</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="flex py-6">
-                                                    <div
-                                                        class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                        <img src="http://localhost/images/zoro.jpg"
-                                                            alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch."
-                                                            class="h-full w-full object-cover object-center">
-                                                    </div>
-
-                                                    <div class="ml-4 flex flex-1 flex-col">
-                                                        <div>
-                                                            <div
-                                                                class="flex justify-between text-base font-medium text-gray-900">
-                                                                <h3>
-                                                                    <a href="#">Zoro One Piece</a>
-                                                                </h3>
-                                                                <p class="ml-4">$120.00</p>
-                                                            </div>
-                                                            <p class="mt-1 text-sm text-gray-500">Collectibles</p>
-                                                        </div>
-                                                        <div class="flex flex-1 items-end justify-between text-sm">
-                                                            <p class="text-gray-500">Qty 1</p>
-
-                                                            <div class="flex">
-                                                                <button type="button"
-                                                                    class="font-medium text-orange-400 hover:text-orange-500">Remove</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <!-- More products... -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
-                                    <div class="flex justify-between text-base font-medium text-gray-900">
-                                        <p>Subtotal</p>
-                                        <p>$210.00</p>
-                                    </div>
-                                    <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                                    <div class="mt-6">
-                                        <a href="#"
-                                            class="flex items-center justify-center rounded border border-transparent bg-slate-900 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-slate-950">Checkout</a>
-                                    </div>
-                                    <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
-                                        <p>
-                                            or
-                                            <button type="button" class="font-medium text-orange-400 hover:text-orange-500">
-                                                Continue Shopping
-                                                <span aria-hidden="true"> &rarr;</span>
-                                            </button>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </Transition>
 </template>
 <script setup>
 import { ref } from 'vue'
-import axiosClient from '../../axios';
 import store from '../../store';
 import {
     Bars3Icon,
     ChevronDownIcon,
     FireIcon,
     StarIcon,
-    BuildingStorefrontIcon,
     ShoppingBagIcon,
     XMarkIcon,
     UserCircleIcon,
-    MagnifyingGlassIcon,
-    ArrowPathIcon,
     BellIcon
 } from "@heroicons/vue/24/outline";
 
 const showSubMenu = ref(false)
-const showCartMenu = ref(false)
 const showBurgerMenu = ref(false)
 const showProfile = ref(false)
 const showSubMenuHide = ref(false);
-
 </script>
 <script>
 export default {
-    data() {
-        const searchItems = ref(null);
-
-        return {
-            search: searchItems.value,
-            searching: false
-        }
-    },
+    data() {},
     methods: {
         async logout() {
             await store.dispatch('csrf');
             await store.dispatch('logout');
-
             this.$router.go();
-        },
-        searchProduct() {
-            console.log("ok");
-            this.searching = true;
-            const key = this.$refs.itemSearch.value;
-
-            if (key !== '' && key.length > 2) {
-                axiosClient.get('/api/v1/product/search/' + key)
-                    .then(response => {
-                        this.search = response.data;
-                        this.searching = false;
-                    })
-                    .catch((errors) => {
-                        this.searching = false;
-                    });
-            } else {
-                this.searching = false;
-                this.search = null;
-            }
-        },
-        searchKey() {
-            const key = this.$refs.itemSearch.value;
-            if (key.length === 0) {
-                this.search = null;
-            }
         }
     }
 }

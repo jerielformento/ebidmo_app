@@ -31,7 +31,6 @@
                         <div class="mx-3 relative">
                             <p class="mt-1 text-sm text-gray-400">Brand: <a class="text-amber-600 underline">{{ item.brand.description }}</a></p>
                             <p class="mt-1 text-sm text-gray-400">Condition: <a class="text-amber-600 underline">{{ item.condition.description }}</a></p>
-                            <p class="mt-1 text-sm text-gray-400">Sell Price: <span class="text-green-600">{{ item.currency.prefix+item.price.toLocaleString() }}</span></p>
                         </div>
                         <div class="mt-2 mx-3 text-2xl text-gray-500 flex justify-end items-center relative">
                             <button type="submit" onclick="alert(1)" class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">

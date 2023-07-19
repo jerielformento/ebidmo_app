@@ -129,7 +129,7 @@ export default {
                     })
                     .then(response => {
                         toast.success(response.data.message, {
-                            position: toast.POSITION.TOP_CENTER,
+                            position: toast.POSITION.BOTTOM_CENTER,
                         });
 
                         noBid.value = false;
@@ -140,7 +140,7 @@ export default {
                         const err = error.response;
 
                         toast.error(err.data.message, {
-                            position: toast.POSITION.TOP_CENTER,
+                            position: toast.POSITION.BOTTOM_CENTER,
                         });
                         
                         this.reload();
@@ -152,7 +152,7 @@ export default {
             } else {
                 console.log("higher");
                 toast.error("Bid must be higher than current bid.", {
-                    position: toast.POSITION.TOP_CENTER,
+                    position: toast.POSITION.BOTTOM_CENTER,
                 });
                 isSubmit.value = false;
             }

@@ -48,26 +48,12 @@
                                 <small v-if="errordata.condition !== ''" class="text-red-400">{{ errordata.condition }}</small>
                             </div>
                         </div>
-                        <div class="sm:col-span-3">
-                            <label for="quantity" class="block text-sm font-medium leading-6">Quantity</label>
-                            <div class="mt-2">
-                                <input v-model="postdata.quantity" id="quantity" name="quantity" type="number" autocomplete="quantity" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                <small v-if="errordata.quantity !== ''" class="text-red-400">{{ errordata.quantity }}</small>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label for="price" class="block text-sm font-medium leading-6">Selling Price (PHP)</label>
-                            <div class="mt-2">
-                                <input v-model="postdata.price" id="price" name="price" type="number" autocomplete="price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                <small v-if="errordata.price !== ''" class="text-red-400">{{ errordata.price }}</small>
-                            </div>
-                        </div>
                         <div class="sm:col-span-4">
                             <label for="images" class="block text-sm font-medium leading-6">Upload Image</label>
                             <div class="mt-2">
                                 <div class="flex justify-normal items-center">
                                 <input name="images" @change="onFileChange" ref="file" multiple class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
-                                <button @click="clearUploadedFile" class="ml-1 border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-0.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                                <button @click="clearUploadedFile" class="flex items-center ml-1 border border-gray-200 rounded-sm disabled:opacity-80 bg-red-500 text-white px-3 py-0.5 text-sm font-semibold leading-6 shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                                     clear
                                 </button>
                             </div>
@@ -154,9 +140,7 @@
                     details: '',
                     brand: null,
                     condition: null,
-                    quantity: null,
                     category: null,
-                    price: '',
                     images: []
                 },
                 errordata: {
@@ -164,9 +148,7 @@
                     details: '',
                     brand: '',
                     condition: '',
-                    quantity: '',
                     category: '',
-                    price: '',
                     images: ''
                 },
                 editor: ClassicEditor,
@@ -207,8 +189,6 @@
                 formData.append('category', this.postdata.category);
                 formData.append('condition', this.postdata.condition);
                 formData.append('brand', this.postdata.brand);
-                formData.append('price', this.postdata.price);
-                formData.append('quantity', this.postdata.quantity);
              
                 const headers = { 'Content-Type': 'multipart/form-data' };
                 await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);

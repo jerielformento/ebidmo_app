@@ -14,17 +14,11 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import ProductList from './ProductList.vue';
 import ItemsLoader from './util/ItemsLoader.vue';
-
-const route = useRouter();
-const productCreate = ref(false);
-const productBidCreate = ref(false);
-const productEdit = ref(false);
 </script>
 <script>
    export default {
+      
    }
 </script>

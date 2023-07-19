@@ -67,7 +67,7 @@
                             <h6 class="mb-3 text-sm font-medium text-gray-900">Choose category</h6>
                             <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                                 <li class="flex items-center" v-for="cat in categories">
-                                    <input :id="cat.id" type="checkbox" :value="cat.id" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
+                                    <input :id="cat.id" type="checkbox" :value="cat.id" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-amber-500 focus:ring-primary-500">
                                     <label :for="cat.id" class="ml-2 text-sm font-medium text-gray-900">{{ cat.title }}</label>
                                 </li>
                             </ul>
@@ -84,8 +84,7 @@
                             <th scope="col" class="px-4 py-3">Category</th>
                             <th scope="col" class="px-4 py-3">Brand</th>
                             <th scope="col" class="px-4 py-3">Condition</th>
-                            <th scope="col" class="px-4 py-3">Quantity</th>
-                            <th scope="col" class="px-4 py-3">Price</th>
+                            <th scope="col" class="px-4 py-3">Date Created</th>
                             <th scope="col" class="px-4 py-3">Status</th>
                             <th scope="col" class="px-4 py-3">
                                 <span class="sr-only">Actions</span>
@@ -101,9 +100,8 @@
                             <td class="px-4 py-3">{{ item.category.title }}</td>
                             <td class="px-4 py-3">{{ item.brand.description }}</td>
                             <td class="px-4 py-3">{{ item.condition.description }}</td>
-                            <td class="px-4 py-3">{{ item.quantity }}</td>
-                            <td class="px-4 py-3">{{ item.currency.prefix+item.price }}</td>
-                            <td class="px-4 py-3" v-if="item.bid !== null"><span class="bg-red-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
+                            <td class="px-4 py-3">{{ moment(item.created_at).format("lll") }}</td>
+                            <td class="px-4 py-3" v-if="item.bid !== null"><span class="bg-green-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
                             <td class="px-4 py-3" v-else></td>
                             <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                 <router-link 
@@ -168,6 +166,7 @@
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../axios';
     import { initFlowbite } from 'flowbite';
+    import moment from 'moment';
 
     const productCreate = ref(false);
     const productEdit = ref(false);
@@ -247,8 +246,7 @@
         components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon},
         async setup() {
             onMounted(async() => {
-                initFlowbite();
-
+                initFlowbite(); 
                 let sel_brand = 0;
                 let sel_condition = 0;
                 let sel_category = 0;
@@ -299,6 +297,7 @@
             const productItems = ref(products[0][0]);
             
             return { 
+                moment,
                 NoImageUrl: import.meta.env.VITE_NO_IMAGE_URL,
                 pagination: products[1][0],
                 routeKey,

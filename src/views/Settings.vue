@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-100 h-screen flex flex-col justify-between">
     <HeaderNav/>
-    <div class="bg-gray-100 pb-10">
+    <div class="bg-gray-100 py-10">
         <main class="p-5">
         <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
             <div class="grid grid-cols-1 sm:grid-cols-5 items-start gap-6">

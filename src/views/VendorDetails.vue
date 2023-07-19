@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-100 h-screen flex flex-col justify-between">
     <HeaderNav/>
+    <SearchBar/>
     <div v-if="!isLoading">
         <div v-if="hasStore">
         <div class="bg-gray-100">
@@ -148,11 +149,11 @@
     <FooterNav/>
 </div>
 </template>
-<script>
+<script setup>
 import { ref, onMounted } from 'vue'
 import HeaderNav from './layouts/Header.vue';
 import FooterNav from './layouts/Footer.vue';
-import StoreProductList from '../components/StoreProductList.vue';
+import SearchBar from './layouts/SearchBar.vue';
 import ItemsLoader from '../components/util/ItemsLoader.vue';
 import { toast } from 'vue3-toastify';
 import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
@@ -160,11 +161,10 @@ import { BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon } from "@heroic
 import axiosClient from '../axios';
 import store from '../store';
 import { useRoute } from 'vue-router';
-
-
+</script>
+<script>
 export default {
-    components: { HeaderNav, FooterNav, StoreProductList, ItemsLoader, StarIcon, ShieldCheckIcon, ShieldExclamationIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon },
-    setup() {
+    data() {
         const route = useRoute();
         const storeInfo = ref({});
         const hasStore = ref(false);

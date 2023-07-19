@@ -7,7 +7,6 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import Register from "../views/Register.vue";
 import AuctionDetails from "../views/AuctionDetails.vue";
 import ProductDetails from "../views/ProductDetails.vue";
-import Vendor from "../views/Vendor.vue";
 import Vendors from "../views/Vendors.vue";
 import VendorDetails from "../views/VendorDetails.vue";
 import Category from "../views/Category.vue";
@@ -72,24 +71,6 @@ const routes = [
         meta: { requiresAuth: true, title: 'Popular' }
     },
     // vendor routes
-    {
-        path: '/me/store',
-        name: 'vendor',
-        component: Vendor,
-        meta: { requiresAuth: true, title: 'Your Store' },
-        children: [
-            {
-                path: 'product/create',
-                name: 'product-create',
-                component: AddProduct
-            },
-            {
-                path: 'product/edit/:slug',
-                name: 'product-edit',
-                component: EditProduct
-            }
-        ]
-    },
     {
         path: '/me/vendor',
         component: VendorDashboard,

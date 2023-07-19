@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-100 w-full h-screen flex flex-col justify-between">
     <HeaderNav/>
+    <SearchBar/>
     <Suspense>
         <template #default>
             <div>
@@ -221,6 +222,7 @@
     import { ref, onMounted } from 'vue';
     import HeaderNav from "./layouts/Header.vue";
     import FooterNav from './layouts/Footer.vue';
+    import SearchBar from './layouts/SearchBar.vue';
     import HotCollectionList from '../components/HotCollectionList.vue';
     import ProductList from '../components/ProductList.vue';
     import ItemsLoader from '../components/util/ItemsLoader.vue';

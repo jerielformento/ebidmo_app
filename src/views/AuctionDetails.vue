@@ -1,8 +1,9 @@
 <template>
-    <div class="h-screen flex flex-col justify-between bg-white">
+    <div class="h-screen flex flex-col justify-between">
     <HeaderNav/>
+    <SearchBar/>
     <div v-if="!isLoading">   
-        <div v-if="!isInvalid" class="bg-white">
+        <div v-if="!isInvalid">
             <div class="pt-5">
                 <nav aria-label="Breadcrumb">
                 <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -63,7 +64,7 @@
                 </div>
                 
                 <!-- Options -->
-                <div class="mt-4 lg:row-span-3 lg:mt-0">
+                <div class="h-fit mt-4 lg:row-span-3 lg:mt-0 bg-white px-5 py-5 border border-gray-200 shadow-sm rounded-md">
                     <h2 class="sr-only">Product information</h2>
                     <router-link id="tooltipButton" :to="{name: 'vendor-details', params: {store: productInfo.store.slug}}" class="text-2xl font-medium text-gray-500 hover:text-amber-500 flex items-center">
                         <span class="mr-1">{{ productInfo.store.name }}</span>
@@ -100,22 +101,25 @@
                         <div class="block text-sm"><h3 class="inline-block">Category:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.category.title }}</a></div>
                         <div class="block text-sm"><h3 class="inline-block">Brand:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.brand.description }}</a></div>
                         <div class="block text-sm"><h3 class="inline-block">Condition:</h3> <span class="text-gray-500">{{ productInfo.condition.description }}</span></div>
-                        <div class="block text-sm"><h3 class="inline-block">Quantity:</h3> <span class="text-gray-500">{{ productInfo.quantity }}</span></div>
                     </div>
 
                     <div class="text-2xl text-gray-500 mt-2 border-t border-gray-200">
                         <p class="my-2 text-2xl tracking-tight text-gray-600">Minimum Bid: <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.min_price }}</span></p>
-                        <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Remaining time to bid</h3></div>
-                        <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
+                        <div v-if="productInfo.bid.status == 1">
+                            <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Ending in</h3></div>
+                            <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
+                        </div>
+                        <div v-else-if="productInfo.bid.status == 2">
+                            <div class="block text-sm"><h3 class="font-normal text-amber-500 inline-block animate-pulse">Waiting for participants</h3></div>
+                        </div>
                     </div>
 
                     <!-- Bids -->
                     <div class="mt-5">
-
-                        <fieldset class="mt-4">
+                        <fieldset v-if="productInfo.bid.status == 1" class="mt-4">
                         <div class="grid grid-cols-2 space-x-3 sm:grid-cols-2 lg:grid-cols-2">
 
-                            <label class="ring-1 ring-green-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                            <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
                                 <div class="text-xs text-gray-600 block">Highest Bid</div>
                                 <div class="text-xl flex justify-between gap-x-2">
                                     <ArrowTrendingUpIcon class="h-6 w-6"/><span>{{ productInfo.bid.currency.prefix }}<span v-if="productInfo.bid.highest !== null">{{ productInfo.bid.highest.price }}</span><span v-else>0</span></span>
@@ -128,17 +132,28 @@
                             </label>
                         </div>
                         </fieldset>
+                        <fieldset v-else class="mt-4">
+                        <div class="grid grid-cols-1 space-x-3 sm:grid-cols-2 lg:grid-cols-1">
+
+                            <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                                <div class="text-xs text-gray-600 block mb-2">Participants</div>
+                                <div class="text-xl flex items-center justify-between gap-x-2">
+                                    <UserGroupIcon class="h-6 w-6"/><span>{{ productInfo.bid.min_participants }}</span>/<span>{{ productInfo.bid.participants_count }}</span>
+                                </div>
+                            </label>
+                        </div>
+                        </fieldset>
                     </div>
 
-
                     <div v-if="!productInfo.owner">
-                        <div class="grid grid-cols-2 space-x-2 mt-5">
-                            <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
-                            <GuestLogin v-else :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
-                            <button type="submit" class="flex w-full items-center justify-center rounded-sm border border-transparent bg-amber-500 px-8 py-3 text-base font-medium text-white hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">Buy Now</button>
-                        </div>
+                        <div v-if="productInfo.bid.status == 1">
+                            <div class="grid grid-cols-2 space-x-2 mt-5">
+                                <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
+                                <GuestLogin name="Place your bid" v-else/>
+                                <button type="submit" class="flex w-full items-center justify-center rounded-sm border border-transparent bg-amber-500 px-8 py-3 text-base font-medium text-white hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">Buy Now</button>
+                            </div>
 
-                        <div v-if="isMounted" class="mt-10">
+                            <div v-if="isMounted" class="mt-10">
                             <h2 class="font-semibold mb-2 text-gray-600">Your recent activity</h2>
                             <div class="grid space-y-2 max-h-2xl">
                                 <div v-for="bid in bidHistory">
@@ -152,6 +167,19 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
+                        <div v-else-if="productInfo.bid.status == 2" class="grid grid-cols-1 space-x-2 mt-5">
+                            <div v-if="!productInfo.bid.joiner">
+                                <JoinAuction v-if="!isGuest" :reload="reloadHistory" :bid="productInfo.bid.id" />
+                                <GuestLogin name="Join Auction" v-else/>
+                            </div>
+                            <div v-else>
+                                <div class="grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-sm shadow-sm text-md text-gray-700">
+                                    <span class="text-xs block text-sky-500">You already joined here.</span>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                     <div v-else>
                         <div class="mt-5 grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-sm shadow-sm text-md text-gray-700">
@@ -190,25 +218,21 @@
         </div>
     </div>
     <div v-if="isInvalid && !isMounted">
-        <div class="bg-white">
-            <div class="h-60">
-                <!-- Product info -->
-                <div class="mx-auto mt-5 px-4 sm:px-6">
-                    <div class="w-full flex justify-center text-3xl text-gray-300">
-                        No item found.
-                    </div>
+        <div class="h-60">
+            <!-- Product info -->
+            <div class="mx-auto mt-5 px-4 sm:px-6">
+                <div class="w-full flex justify-center text-3xl text-gray-300">
+                    No item found.
                 </div>
             </div>
         </div>
     </div>
     <div v-if="isLoading">
-        <div class="bg-white">
-            <div class="h-60">
-                <!-- Product info -->
-                <div class="mx-auto mt-5 px-4 sm:px-6">
-                    <div class="w-full flex justify-center text-3xl text-gray-300">
-                        <ArrowPathIcon class="h-8 w-8 animate-spin"/>
-                    </div>
+        <div class="h-60">
+            <!-- Product info -->
+            <div class="mx-auto mt-5 px-4 sm:px-6">
+                <div class="w-full flex justify-center text-3xl text-gray-300">
+                    <ArrowPathIcon class="h-8 w-8 animate-spin"/>
                 </div>
             </div>
         </div>
@@ -216,16 +240,18 @@
     <FooterNav/>
     </div>
 </template>
-<script>
+<script setup>
     import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon, UserGroupIcon } from "@heroicons/vue/24/outline";
     import HeaderNav from "./layouts/Header.vue";
     import FooterNav from './layouts/Footer.vue';
+    import SearchBar from './layouts/SearchBar.vue';
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
     import ModalBid from '../components/util/BidModal.vue';
     import GuestLogin from '../components/util/GuestLoginModal.vue';
+    import JoinAuction from '../components/util/JoinAuctionModal.vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
@@ -233,30 +259,14 @@
     import { useRoute } from "vue-router";
     import store from '../store';
     import { initFlowbite, Tooltip } from 'flowbite';
-    
-
-    const polling = ref(null);
-    const bidHistory = ref({});
-    const isMounted = ref(false);
-    const isInvalid = ref(false);
-
+</script>
+<script>
     export default {
-        components: {
-            Swiper,
-            SwiperSlide,
-            StarIcon,
-            ShieldCheckIcon,
-            ShieldExclamationIcon,
-            ShareIcon,
-            HeartIcon,
-            ArrowTrendingUpIcon,
-            ArrowPathIcon,
-            HeaderNav,
-            FooterNav,
-            ModalBid,
-            GuestLogin
-        },
-        setup() {
+        data() {
+            const polling = ref(null);
+            const bidHistory = ref({});
+            const isMounted = ref(false);
+            const isInvalid = ref(false);
             const route = useRoute();
             const productInfo = ref({});
             const productImages = ref({});
@@ -331,6 +341,7 @@
                 bidHistory,
                 isMounted,
                 isInvalid,
+                polling,
                 isGuest
             }
         },
@@ -346,20 +357,20 @@
                     })
                     .catch((errors) => {
                         //window.location = '/404-page-not-found';
-                        isInvalid.value = true;
+                        this.isInvalid = true;
                     });
 
                 await axiosClient.get('/api/v1/customer/bid/history/'+this.productInfo.bid.id)
                     .then(response => {
-                        bidHistory.value = response.data;
+                        this.bidHistory = response.data;
                     });
             }
         },
         beforeUnmount() {
             console.log("leave...");
-            bidHistory.value = [];
-            isInvalid.value = false;
-            clearInterval(polling.value)
+            this.bidHistory = [];
+            this.isInvalid = false;
+            clearInterval(this.polling);
         },
     }
 </script>

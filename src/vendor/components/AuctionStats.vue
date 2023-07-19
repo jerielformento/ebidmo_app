@@ -30,11 +30,16 @@
 
                     <div class="text-2xl text-gray-500 mt-2 pt-2">
                         <div v-if="!isEnded">
-                            <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Remaining time to bid</h3></div>
-                            <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
+                            <div v-if="productInfo.status === 1">
+                                <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Ending in</h3></div>
+                                <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
+                            </div>
+                            <div v-else-if="productInfo.status === 2">
+                                <h1 class="text-amber-500 text-lg font-semibold animate-pulse">Waiting for participants</h1>
+                            </div>
                         </div>
                         <div v-else>
-                            <span class="text-red-500 text-2xl font-semibold">Auction Ended</span>
+                            <h1 class="text-red-500 text-2xl font-semibold">Auction Ended</h1>
                         </div>
                     </div>
                 </div>
@@ -171,9 +176,7 @@
                             const timeRemaining = new Date(productInfo.value.ended_at);
                             const currDate = new Date();
 
-                            if(currDate.getTime() > timeRemaining.getTime()) {
-                                isEnded.value = true;
-                            } else {
+                            if(productInfo.value.status === 1) {
                                 polling.value = setInterval(() => {
                                     const currDate = new Date();
                                     const endTime = timeRemaining - currDate;
@@ -183,6 +186,10 @@
                                     days.value = parseInt(hours.value / 24);
                                     console.log("poll");
                                 }, 1000);
+                            } else if(productInfo.value.status === 2) {
+                                // no action
+                            } else {
+                                isEnded.value = true;
                             }
                         }
                     })
