@@ -6,7 +6,7 @@
         <div v-if="hasStore">
         <div class="bg-gray-100">
             <div class="mx-auto max-w-6xl">
-                <div class="bg-cover bg-center" style="height:10rem; background-image: url(http://localhost/images/store_cover.png);">
+                <div class="bg-cover bg-center" :style="`height:10rem; background-image: url(${siteUrl}/images/store_cover.png);`">
                     <div class="flex items-end h-full w-full bg-gray-900 bg-opacity-30">
                         <!-- store info -->
                         <div class="w-auto px-3 sm:px-3 sm:py-1 mb-5">
@@ -46,12 +46,12 @@
                             <div class="flex space-x-2 lg:space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <router-link :to="{ name: 'store-products' }" 
-                                    active-class="bg-gray-900 text-white"
+                                    exact-active-class="bg-gray-900 text-white"
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                     Products
                                 </router-link>
                                 <router-link :to="{ name: 'store-auctions' }" 
-                                    active-class="bg-gray-900 text-white"
+                                    exact-active-class="bg-gray-900 text-white"
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                     Auctions
                                 </router-link>
@@ -187,6 +187,7 @@ export default {
         });
 
         return {
+            siteUrl: import.meta.env.VITE_API_URL,
             route,
             hasStore,
             isLoading,     
