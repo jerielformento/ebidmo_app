@@ -4,7 +4,7 @@
             <router-view v-if="productCreate" :cancel="cancel"></router-view>
             <div class="flex justify-between items-center">
                 <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">
-                Product Listing
+                Auction Listing
                 </h2>
 
                 <div class="">
