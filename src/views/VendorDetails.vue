@@ -46,20 +46,12 @@
                             <div class="flex space-x-2 lg:space-x-4">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <router-link :to="{ name: 'store-products' }" 
-<<<<<<< HEAD
-                                    active-class="bg-gray-900 text-white"
-=======
                                     exact-active-class="bg-gray-900 text-white"
->>>>>>> development
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                     Products
                                 </router-link>
                                 <router-link :to="{ name: 'store-auctions' }" 
-<<<<<<< HEAD
-                                    active-class="bg-gray-900 text-white"
-=======
                                     exact-active-class="bg-gray-900 text-white"
->>>>>>> development
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
                                     Auctions
                                 </router-link>
@@ -195,10 +187,7 @@ export default {
         });
 
         return {
-<<<<<<< HEAD
-=======
             siteUrl: import.meta.env.VITE_API_URL,
->>>>>>> development
             route,
             hasStore,
             isLoading,     

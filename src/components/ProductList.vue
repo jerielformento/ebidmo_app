@@ -60,11 +60,7 @@
                                 <router-link 
                                     :to="{name: 'product-details', 
                                     params: { store: text.store.slug, id: text.slug }}" 
-<<<<<<< HEAD
-                                    class="flex items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-=======
                                     class="flex md:block md:text-center mt-2 items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
->>>>>>> development
                                     View
                                 </router-link>
                             </div>

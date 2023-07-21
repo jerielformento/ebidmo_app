@@ -8,93 +8,6 @@
             <!-- Listing Panel -->
             <div class="">
                 <div>
-<<<<<<< HEAD
-                    <!--
-                    Mobile filter dialog
-
-                    Off-canvas filters for mobile, show/hide basepx-2 sm:px-2 sm:py-1 lg:max-w-7xl lg:px-4d on off-canvas filters state.
-                    -->
-                    <div v-if="isSort" class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
-                    <!--
-                        Off-canvas menu backdrop, show/hide based on off-canvas menu state.
-
-                        Entering: "transition-opacity ease-linear duration-300"
-                        From: "opacity-0"
-                        To: "opacity-100"
-                        Leaving: "transition-opacity ease-linear duration-300"
-                        From: "opacity-100"
-                        To: "opacity-0"
-                    -->
-                    <div class="fixed inset-0 bg-black bg-opacity-25"></div>
-
-                    <div class="fixed inset-0 z-40 flex">
-                        <!--
-                        Off-canvas menu, show/hide based on off-canvas menu state.
-
-                        Entering: "transition ease-in-out duration-300 transform"
-                            From: "translate-x-full"
-                            To: "translate-x-0"
-                        Leaving: "transition ease-in-out duration-300 transform"
-                            From: "translate-x-0"
-                            To: "translate-x-full"
-                        -->
-                        <div class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
-                        <div class="flex items-center justify-between px-4">
-                            <h2 class="text-lg font-medium text-gray-900">Filters</h2>
-                            <button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
-                            <span class="sr-only">Close menu</span>
-                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                            </button>
-                        </div>
-
-                        <!-- Filters -->
-                        <form class="mt-4 border-t border-gray-200">
-                            <h3 class="sr-only">Categories</h3>
-                            <ul role="list" class="px-2 py-3 font-medium text-gray-900">
-                            <li>
-                                <a @click="filterCategory(null)" class="cursor-pointer block px-2 py-3">All</a>
-                            </li>
-                            <li v-for="categ in categories">
-                                <a @click="filterCategory(categ.id)" class="cursor-pointer block px-2 py-3">{{ categ.title }}</a>
-                            </li>
-                            </ul>
-
-                            <div class="border-t border-gray-200 px-4 py-6">
-                            <h3 class="-mx-2 -my-3 flow-root">
-                                <!-- Expand/collapse section button -->
-                                <button type="button" class="flex w-full items-center justify-between px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-0" aria-expanded="false">
-                                <span class="font-medium text-gray-900">Brand</span>
-                                <span class="ml-6 flex items-center">
-                                    <!-- Expand icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-                                    </svg>
-                                    <!-- Collapse icon, show/hide based on section open state. -->
-                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
-                                    </svg>
-                                </span>
-                                </button>
-                            </h3>
-                            <!-- Filter section, show/hide based on section state. -->
-                            <div class="pt-6" id="filter-section-mobile-0">
-                                <div class="space-y-6">
-                                <div v-for="brand in brands" class="flex items-center">
-                                    <input @click="filterBrand(brand.id)" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">{{ brand.description }}</label>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </form>
-                        </div>
-                    </div>
-                    </div>
-
-=======
->>>>>>> development
                     <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex sticky items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
                         <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listing</h1>
@@ -153,18 +66,6 @@
 
                     <section aria-labelledby="products-heading" class="pb-24 pt-6">
                             <h2 id="products-heading" class="sr-only">Products</h2>
-<<<<<<< HEAD
-                            <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                            <!-- Filters -->
-                            <form class="hidden md:h-auto sm:h-auto lg:block">
-                                <h3 class="sr-only">Categories</h3>
-                                <p class="text-sm font-medium text-gray-900 mb-2">Categories</p>
-                                <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                    <li :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
-                                        <a @click="filterCategory(null)" class="px-2 cursor-pointer block">All</a>
-                                    </li>
-                                    <li v-for="cat in categories" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
-=======
                             <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-5 lg:grid-cols-6">
                             <!-- Filters -->
                             <form class="md:h-auto sm:h-auto lg:block">
@@ -175,7 +76,6 @@
                                         <a @click="filterCategory(null)" class="px-2 cursor-pointer block">All</a>
                                     </li>
                                     <li v-for="cat in categories" class="break-words" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
->>>>>>> development
                                         <a @click="filterCategory(cat.id)" class="px-2 cursor-pointer block">{{ cat.title }}</a>
                                     </li>
                                 </ul>
@@ -198,19 +98,11 @@
                                     </button>
                                 </h3>
                                 <!-- Filter section, show/hide based on section state. -->
-<<<<<<< HEAD
-                                <div class="pt-6" id="filter-section-0">
-                                    <div class="space-y-4">
-                                    <div v-for="brand in brands" class="flex items-center">
-                                        <input @click="filterBrand(brand.id)" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
-                                        <label for="filter-category-0" class="ml-3 text-sm text-gray-600">{{ brand.description }}</label>
-=======
                                 <div class="pt-6">
                                     <div class="space-y-4">
                                     <div v-for="brand in brands" class="flex items-center min-w-fit">
                                         <input @click="filterBrand(brand.id)" type="checkbox" :id="`filter-section-${brand.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
                                         <label :for="`filter-section-${brand.id}`" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">{{ brand.description }}</label>
->>>>>>> development
                                     </div>
                                     </div>
                                 </div>
@@ -218,11 +110,7 @@
                             </form>
 
                             <!-- Product grid -->
-<<<<<<< HEAD
-                            <main class="lg:col-span-3">
-=======
                             <main class="md:col-span-4 lg:col-span-5">
->>>>>>> development
                                 <!-- Your content -->
                                 <HotCollectionList :filter="filter"/>
                                 <ProductList :filter="filter"/>

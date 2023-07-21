@@ -34,11 +34,7 @@
                         </div>
                         <div class="mt-3 mx-3 flex justify-between">
                             <div>
-<<<<<<< HEAD
-                                <h3 class="text-sm text-amber-500">
-=======
                                 <h3 class="text-sm text-amber-500 break-all">
->>>>>>> development
                                 <router-link :to="{name: 'auction-details', params: { store: text.product.store.slug, id: text.product.slug }}" class="font-semibold">
                                     <span aria-hidden="true" class="absolute inset-0"></span>
                                     {{ textSubstr(text.product.name) }}
@@ -68,20 +64,6 @@
                             </router-link>
                         </div>
                         <div v-else>
-<<<<<<< HEAD
-                            <div class="text-2xl mx-3 text-gray-500 flex justify-between items-center relative">
-                            <span class="text-xs font-semibold text-amber-500 animate-pulse" v-if="isDone">
-                                Waiting participants
-                            </span>
-                            <div class="text-sm font-semibold text-gray-200" v-else>...</div>
-                            <router-link 
-                                :to="{name: 'auction-details', 
-                                params: { store: text.product.store.slug, id: text.product.slug }}" 
-                                class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                Join
-                            </router-link>
-                        </div>
-=======
                             <div class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
                                 <p class="pt-2 md:py-2 text-xs font-semibold text-amber-500 animate-pulse" v-if="isDone">
                                     Waiting participants
@@ -94,7 +76,6 @@
                                     Join
                                 </router-link>
                             </div>
->>>>>>> development
                         </div>
                     </div>
                 </div>
