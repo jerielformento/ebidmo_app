@@ -15,7 +15,7 @@
          </div>
             <ul class="space-y-2 font-semibold text-sm text-gray-400">
                <li>
-                  <router-link :to="{ name: 'vendor-home' }" :class="(this.$route.name === 'vendor-home') && 'bg-gray-600 text-amber-400 hover:text-amber-400'" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <router-link :to="{ name: 'vendor-home' }" active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
                      <ChartBarIcon class="h-6 w-6" />
                      <span class="ml-3">Dashboard</span>
                   </router-link>
