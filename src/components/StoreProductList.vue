@@ -12,15 +12,21 @@
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
             <div v-if="!searchingItem" class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                 <div v-for="item in productItems" :key="item.slug">
                     <div class="group relative pb-3 rounded-md border bg-white shadow-md">
+=======
+            <div v-if="!searchingItem" class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
+                <div v-for="item in productItems" :key="item.slug" class="rounded-md border bg-white shadow-md">
+                    <div class="group relative pb-3">
+>>>>>>> development
                         <div class="min-h-50 aspect-h-2 aspect-w-2 w-full overflow-hidden rounded-t-md bg-gray-200 group-hover:opacity-90 lg:h-50">
                         <img :src="(item.thumbnail !== null) ? item.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-t-md h-full w-full object-cover object-center lg:h-full lg:w-full">
                         </div>
                         <div class="mt-3 mx-3 flex justify-between">
                             <div>
-                                <h3 class="text-sm text-amber-500">
+                                <h3 class="text-sm text-amber-500 break-words">
                                     <router-link :to="{name: 'product-details', params: { id: item.slug}}" class="font-semibold">
                                         <span aria-hidden="true" class="absolute inset-0"></span>
                                         {{ textSubstr(item.name) }}
@@ -31,6 +37,7 @@
                         <div class="mx-3 relative">
                             <p class="mt-1 text-sm text-gray-400">Brand: <a class="text-amber-600 underline">{{ item.brand.description }}</a></p>
                             <p class="mt-1 text-sm text-gray-400">Condition: <a class="text-amber-600 underline">{{ item.condition.description }}</a></p>
+<<<<<<< HEAD
                         </div>
                         <div class="mt-2 mx-3 text-2xl text-gray-500 flex justify-end items-center relative">
                             <button type="submit" onclick="alert(1)" class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
@@ -39,7 +46,26 @@
                             <a href="#" class="ml-1 rounded-sm bg-amber-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
                                 Add to wishlist
                             </a>
+=======
+>>>>>>> development
                         </div>
+                        <div class="mt-1 mx-3 text-2xl text-gray-500 flex md:block lg:flex justify-between items-center relative">
+                                <div class="flex items-center">
+                                    <div class="flex items-center">
+                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
+                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
+                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
+                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
+                                        <StarIcon class="text-gray-200 h-4 w-4 flex-shrink-0" />
+                                    </div>
+                                </div>
+                                <router-link 
+                                    :to="{name: 'product-details', 
+                                    params: { store: item.store.slug, id: item.slug }}" 
+                                    class="flex md:block md:text-center mt-2 items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                    View
+                                </router-link>
+                            </div>
                     </div>
                 </div>
             </div>

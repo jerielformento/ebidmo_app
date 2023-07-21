@@ -15,31 +15,51 @@
          </div>
             <ul class="space-y-2 font-semibold text-sm text-gray-400">
                <li>
+<<<<<<< HEAD
                   <router-link :to="{ name: 'vendor-home' }" active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+=======
+                  <router-link :to="{ name: 'vendor-home' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+>>>>>>> development
                      <ChartBarIcon class="h-6 w-6" />
                      <span class="ml-3">Dashboard</span>
                   </router-link>
                </li>
                <li>
+<<<<<<< HEAD
                   <router-link :to="{ name: 'vendor-products' }" active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+=======
+                  <router-link :to="{ name: 'vendor-products' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+>>>>>>> development
                      <ShoppingCartIcon class="h-6 w-6" />
                      <span class="ml-3">Products</span>
                   </router-link>
                </li>
                <li>
+<<<<<<< HEAD
                   <router-link :to="{ name: 'vendor-auction' }" active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+=======
+                  <router-link :to="{ name: 'vendor-auction' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+>>>>>>> development
                      <FireIcon class="h-6 w-6" />
                      <span class="ml-3">Auctions</span>
                   </router-link>
                </li>
                <li>
+<<<<<<< HEAD
                   <router-link :to="{ name: 'vendor-transaction' }" active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+=======
+                  <router-link :to="{ name: 'vendor-transaction' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+>>>>>>> development
                      <TruckIcon class="h-6 w-6" />
                      <span class="ml-3">Transaction</span>
                   </router-link>
                </li>
                <li>
+<<<<<<< HEAD
                   <router-link :to="{ name: 'vendor-settings' }" active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+=======
+                  <router-link :to="{ name: 'vendor-settings' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+>>>>>>> development
                      <Cog6ToothIcon class="h-6 w-6" />
                      <span class="ml-3">Store Settings</span>
                   </router-link>

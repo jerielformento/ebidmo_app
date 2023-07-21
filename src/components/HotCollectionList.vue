@@ -7,10 +7,8 @@
                 Hot Collections - Auction
                 </h2>
 
-                <div class="mt-3">
+                <div>
                     <a href="#" class="text-sm underline text-amber-500 inline-block"><p>View all</p></a>
-                    <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Top Bids</p></a>
-                    <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Recent Bids</p></a>
                 </div>
             </div>
     <swiper v-if="!searchingItem"
@@ -26,8 +24,8 @@
     >   
             <swiper-slide v-for="items in swiperItems" :key="items">
                 <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
-                    <div v-for="text in items" :key="text.item">
-                    <div class="group relative pb-3 rounded-md border bg-white shadow-md">
+                    <div v-for="text in items" :key="text.item" class="rounded-md border bg-white shadow-md">
+                    <div class="group relative pb-3">
                         <div class="absolute right-2 top-2 z-10 rounded-full bg-red-600">
                             <FireIcon class="h-8 w-8 text-red-200"/>
                         </div>
@@ -36,7 +34,11 @@
                         </div>
                         <div class="mt-3 mx-3 flex justify-between">
                             <div>
+<<<<<<< HEAD
                                 <h3 class="text-sm text-amber-500">
+=======
+                                <h3 class="text-sm text-amber-500 break-all">
+>>>>>>> development
                                 <router-link :to="{name: 'auction-details', params: { store: text.product.store.slug, id: text.product.slug }}" class="font-semibold">
                                     <span aria-hidden="true" class="absolute inset-0"></span>
                                     {{ textSubstr(text.product.name) }}
@@ -66,6 +68,7 @@
                             </router-link>
                         </div>
                         <div v-else>
+<<<<<<< HEAD
                             <div class="text-2xl mx-3 text-gray-500 flex justify-between items-center relative">
                             <span class="text-xs font-semibold text-amber-500 animate-pulse" v-if="isDone">
                                 Waiting participants
@@ -78,6 +81,20 @@
                                 Join
                             </router-link>
                         </div>
+=======
+                            <div class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
+                                <p class="pt-2 md:py-2 text-xs font-semibold text-amber-500 animate-pulse" v-if="isDone">
+                                    Waiting participants
+                                </p>
+                                <div class="text-sm font-semibold text-gray-200" v-else>...</div>
+                                <router-link 
+                                    :to="{name: 'auction-details', 
+                                    params: { store: text.product.store.slug, id: text.product.slug }}" 
+                                    class="md:block lg:flex md:text-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                    Join
+                                </router-link>
+                            </div>
+>>>>>>> development
                         </div>
                     </div>
                 </div>

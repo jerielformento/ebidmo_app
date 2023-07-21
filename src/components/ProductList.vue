@@ -7,10 +7,8 @@
                 Products
                 </h2>
 
-                <div class="mt-3">
+                <div>
                     <a href="#" class="text-sm underline text-amber-500 inline-block"><p>View all</p></a>
-                    <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Top Selling</p></a>
-                    <a href="#" class="ml-2 text-sm underline text-amber-500 inline-block"><p>Top Ratings</p></a>
                 </div>
             </div>
     <swiper v-if="!searchingItem"
@@ -24,10 +22,10 @@
             pauseOnMouseEnter: true
         }"
     >
-            <swiper-slide v-for="items in swiperItems" :key="items">
+            <div v-for="items in swiperItems" :key="items">
                 <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
-                    <div v-for="text in items" :key="text.item">
-                        <div class="group relative pb-3 rounded-md border bg-white shadow-md">
+                    <div v-for="text in items" :key="text.item" class="rounded-md border bg-white shadow-md">
+                        <div class="group relative pb-3">
                             <div class="absolute right-1 top-1 z-10 rounded-full cursor-pointer">
                                 <HeartIcon @click="activeHeart = !activeHeart" class="h-8 w-8" :class="activeHeart ? 'text-red-500' : 'text-gray-300'"/>
                             </div>
@@ -36,7 +34,7 @@
                             </div>
                             <div class="mt-3 px-3 flex justify-between">
                                 <div>
-                                    <h3 class="text-sm text-amber-500">
+                                    <h3 class="text-sm text-amber-500 break-all">
                                         <router-link :to="{name: 'product-details', params: { store: text.store.slug, id: text.slug }}" class="font-semibold">
                                             <span aria-hidden="true" class="absolute inset-0"></span>
                                             {{ textSubstr(text.name) }}
@@ -49,7 +47,7 @@
                                 <p class="mt-1 text-sm text-gray-400">Category: <a href="#" class="text-amber-600 underline">{{ text.category.title }}</a></p>
                                 <p class="mt-1 text-sm text-gray-400">Brand: <a href="#" class="text-amber-600 underline">{{ text.brand.description }}</a></p>
                             </div>
-                            <div class="mt-1 mx-3 text-2xl text-gray-500 flex justify-between items-center relative">
+                            <div class="mt-1 mx-3 text-2xl text-gray-500 flex md:block lg:flex justify-between items-center relative">
                                 <div class="flex items-center">
                                     <div class="flex items-center">
                                         <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
@@ -62,14 +60,18 @@
                                 <router-link 
                                     :to="{name: 'product-details', 
                                     params: { store: text.store.slug, id: text.slug }}" 
+<<<<<<< HEAD
                                     class="flex items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+=======
+                                    class="flex md:block md:text-center mt-2 items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+>>>>>>> development
                                     View
                                 </router-link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </swiper-slide>
+            </div>
             <div v-if="swiperItems.length === 0" class="mt-6 pb-8">
                 <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
@@ -175,10 +177,10 @@
         methods: {
             textSubstr(text) {
                 let new_string = '';
-                if(text.length > 20) {
-                    new_string = String(text).substring(0,20)+'..';
+                if(text.length > 28) {
+                    new_string = String(text).substring(0,28)+'..';
                 } else {
-                    new_string = String(text).substring(0,20);
+                    new_string = String(text).substring(0,28);
                 }
                 return new_string;
             }

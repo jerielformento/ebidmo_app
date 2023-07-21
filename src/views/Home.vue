@@ -8,6 +8,7 @@
             <!-- Listing Panel -->
             <div class="">
                 <div>
+<<<<<<< HEAD
                     <!--
                     Mobile filter dialog
 
@@ -92,6 +93,8 @@
                     </div>
                     </div>
 
+=======
+>>>>>>> development
                     <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="flex sticky items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
                         <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listing</h1>
@@ -150,6 +153,7 @@
 
                     <section aria-labelledby="products-heading" class="pb-24 pt-6">
                             <h2 id="products-heading" class="sr-only">Products</h2>
+<<<<<<< HEAD
                             <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                             <!-- Filters -->
                             <form class="hidden md:h-auto sm:h-auto lg:block">
@@ -160,6 +164,18 @@
                                         <a @click="filterCategory(null)" class="px-2 cursor-pointer block">All</a>
                                     </li>
                                     <li v-for="cat in categories" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+=======
+                            <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-5 lg:grid-cols-6">
+                            <!-- Filters -->
+                            <form class="md:h-auto sm:h-auto lg:block">
+                                <h3 class="sr-only">Categories</h3>
+                                <p class="text-sm font-medium text-gray-900 mb-2">Categories</p>
+                                <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
+                                    <li class="break-words" :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+                                        <a @click="filterCategory(null)" class="px-2 cursor-pointer block">All</a>
+                                    </li>
+                                    <li v-for="cat in categories" class="break-words" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+>>>>>>> development
                                         <a @click="filterCategory(cat.id)" class="px-2 cursor-pointer block">{{ cat.title }}</a>
                                     </li>
                                 </ul>
@@ -182,11 +198,19 @@
                                     </button>
                                 </h3>
                                 <!-- Filter section, show/hide based on section state. -->
+<<<<<<< HEAD
                                 <div class="pt-6" id="filter-section-0">
                                     <div class="space-y-4">
                                     <div v-for="brand in brands" class="flex items-center">
                                         <input @click="filterBrand(brand.id)" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500">
                                         <label for="filter-category-0" class="ml-3 text-sm text-gray-600">{{ brand.description }}</label>
+=======
+                                <div class="pt-6">
+                                    <div class="space-y-4">
+                                    <div v-for="brand in brands" class="flex items-center min-w-fit">
+                                        <input @click="filterBrand(brand.id)" type="checkbox" :id="`filter-section-${brand.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <label :for="`filter-section-${brand.id}`" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">{{ brand.description }}</label>
+>>>>>>> development
                                     </div>
                                     </div>
                                 </div>
@@ -194,7 +218,11 @@
                             </form>
 
                             <!-- Product grid -->
+<<<<<<< HEAD
                             <main class="lg:col-span-3">
+=======
+                            <main class="md:col-span-4 lg:col-span-5">
+>>>>>>> development
                                 <!-- Your content -->
                                 <HotCollectionList :filter="filter"/>
                                 <ProductList :filter="filter"/>
