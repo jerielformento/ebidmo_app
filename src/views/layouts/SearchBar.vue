@@ -31,7 +31,7 @@
         </div>
     </div>
 </template>
-<script setup>
+<script>
 import { ref } from 'vue'
 import axiosClient from '../../axios';
 import store from '../../store';
@@ -39,15 +39,15 @@ import {
     MagnifyingGlassIcon,
     ArrowPathIcon
 } from "@heroicons/vue/24/outline";
-</script>
-<script>
+
 export default {
-    data() {
+    setup() {
+        const searching = ref(false);
         const searchItems = ref(null);
 
         return {
             search: searchItems.value,
-            searching: false
+            searching
         }
     },
     methods: {
