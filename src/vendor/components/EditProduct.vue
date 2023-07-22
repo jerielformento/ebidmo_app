@@ -123,7 +123,10 @@
         props: {
             cancel: Function,
             scrollToTop: Function,
-            reload: Function
+            reload: Function,
+            categories: Array,
+            brands: Array,
+            conditions: Array
         },   
         data(props) {
             
