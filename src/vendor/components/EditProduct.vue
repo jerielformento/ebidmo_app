@@ -141,21 +141,23 @@
             categories.value = props.categories;
             conditions.value = props.conditions;
             brands.value = props.brands;
+            let postdata = [];
 
             onMounted(async() => {
                 let sel_brand = 0;
                 let sel_condition = 0;
                 let sel_category = 0;
                 
+
                 await axiosClient.get(`/api/v1/product/${route.params.store}/${route.params.slug}`)
                     .then(response => {
-                        this.postdata.name = response.data.name;
-                        this.postdata.details = response.data.details;
-                        this.postdata.category = response.data.category.id;
-                        this.postdata.brand = response.data.brand.id;
-                        this.postdata.condition = response.data.condition.id;
-                        this.postdata.category = response.data.category.id;
-                        this.postdata.images_active = response.data.images;
+                        postdata.name = response.data.name;
+                        postdata.details = response.data.details;
+                        postdata.category = response.data.category.id;
+                        postdata.brand = response.data.brand.id;
+                        postdata.condition = response.data.condition.id;
+                        postdata.category = response.data.category.id;
+                        postdata.images_active = response.data.images;
                         sel_brand = response.data.brand.id;
                         sel_condition = response.data.condition.id;
                         sel_category = response.data.category.id;
@@ -177,15 +179,7 @@
                 categories,
                 brands,
                 conditions,
-                postdata: {
-                    name: '',
-                    details: '',
-                    category: null,
-                    brand: null,
-                    condition: null,
-                    images: [],
-                    images_active: [],
-                },
+                postdata,
                 errordata: {
                     name: '',
                     details: '',
