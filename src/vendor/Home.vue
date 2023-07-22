@@ -54,6 +54,7 @@
 import { ref, onMounted } from 'vue';
 import { ShoppingCartIcon, FireIcon, TruckIcon } from '@heroicons/vue/24/outline';
 import axiosClient from '../axios';
+import { initDrawers } from 'flowbite';
 
 const dashboardReport = async () => {
    let stats = [];
@@ -64,10 +65,14 @@ const dashboardReport = async () => {
 
    return stats[0];
 }
+
 export default {
    components: { ShoppingCartIcon, FireIcon, TruckIcon },
    async setup() {
-      
+      onMounted(() => {
+         initDrawers();
+      });
+
       const stats = await dashboardReport();
       const statsReport = ref(stats);
 

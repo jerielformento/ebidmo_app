@@ -3,7 +3,7 @@
         <div v-if="hasStore">
         <div class="bg-gray-100">
             <div class="mx-auto max-w-6xl">
-                <div class="bg-cover bg-center" style="height:10rem; background-image: url(http://localhost/images/store_cover.png);">
+                <div class="bg-cover bg-center" :style="`height:10rem; background-image: url(${siteUrl}/images/store_cover.png);`">
                     <div class="flex items-end h-full w-full bg-opacity-30">
                         <!-- store info -->
                         <div class="w-auto px-3 sm:px-3 sm:py-1 mb-5">
@@ -159,6 +159,7 @@ export default {
         });
 
         return {
+            siteUrl: import.meta.env.VITE_API_URL,
             hasStore,
             isLoading,     
             postdata: {

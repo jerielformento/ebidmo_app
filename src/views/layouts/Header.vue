@@ -1,5 +1,5 @@
 <template>
-    <header class="dark:bg-slate-800 text-gray-200 sticky top-0 z-30 shadow-md">
+    <header class="bg-slate-800 text-gray-200 sticky top-0 z-30 shadow-md">
         <p class="flex h-8 items-center justify-center bg-green-600 px-4 text-sm font-medium text-gray-100 sm:px-6 lg:px-8">
             Try eBidMo premium account for only $20</p>
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-2" aria-label="Global">
@@ -20,7 +20,7 @@
                 <div class="relative">
                     <button @click.prevent="showSubMenu = !showSubMenu"
                         @blur="!showSubMenuHide ? showSubMenu = false : showSubMenu = true" type="button"
-                        class="flex items-center gap-x-1 text-sm font-semibold leading-6 dark:text-gray-400"
+                        class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400"
                         aria-expanded="false">
                         Auctions
                         <ChevronDownIcon class="h-5 w-5 flex-none text-gray-400" />
@@ -48,7 +48,7 @@
                                         <FireIcon class="text-red-500" />
                                     </div>
                                     <div class="flex-auto">
-                                        <router-link :to="{ name: 'hottest' }" class="block font-semibold text-gray-900">
+                                        <router-link :to="{ name: 'hottest' }" exact-active-class="bg-amber-300 pl-2 rounded-md" class="block font-semibold text-gray-900">
                                             Hottest Items
                                             <span class="absolute inset-0"></span>
                                         </router-link>
@@ -62,7 +62,7 @@
                                         <StarIcon class="text-yellow-400" />
                                     </div>
                                     <div class="flex-auto">
-                                        <router-link :to="{ name: 'popular' }" class="block font-semibold text-gray-900">
+                                        <router-link :to="{ name: 'popular' }" exact-active-class="bg-amber-300 pl-2 rounded-md" class="block font-semibold text-gray-900">
                                             Most Popular
                                             <span class="absolute inset-0"></span>
                                         </router-link>
@@ -89,19 +89,19 @@
                 </div>
 
                 <router-link :to="{ name: 'category' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Categories</router-link>
+                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Categories</router-link>
                 <router-link :to="{ name: 'vendors' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Vendors</router-link>
+                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Vendors</router-link>
                 <router-link :to="{ name: 'sell' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Sell</router-link>
+                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Sell</router-link>
                 <router-link :to="{ name: 'support' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400" active-class="dark:text-gray-200">Support</router-link>
+                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Support</router-link>
             </div>
             <div v-if="store.state.user.token" class="hidden lg:flex lg:flex-1 lg:justify-end space-x-0 items-center">
                 <a href="#" class="relative inline-flex items-center text-white rounded-md px-2 py-2 text-sm font-medium"
                     aria-current="page" x-state:on="Current" x-state:off="Default"
                     x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">
-                    <BellIcon class="h-6 w-6 dark:text-gray-400" />
+                    <BellIcon class="h-6 w-6 text-gray-400 dark:text-gray-400" />
                 </a>
 
                 <div class="flex items-center">
@@ -118,7 +118,7 @@
                                 class="relative inline-flex items-center text-white rounded-md px-2 py-2 text-sm font-medium"
                                 aria-current="page" x-state:on="Current" x-state:off="Default"
                                 x-state-description="Current: &quot;bg-gray-900 text-white&quot;, Default: &quot;text-gray-300 hover:bg-gray-700 hover:text-white&quot;">
-                                <UserCircleIcon class="h-6 w-6 dark:text-gray-400" />
+                                <UserCircleIcon class="h-6 w-6 text-gray-400 dark:text-gray-400" />
                                 <span class="ml-2 text-gray-400">{{ JSON.parse(store.state.user.data).firstname }}</span>
                             </a>
                         </div>
@@ -140,7 +140,7 @@
                                 role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                 <!-- Active: "bg-gray-100", Not Active: "" -->
                                 <router-link :to="{ name: 'vendor-home' }"
-                                    class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100" role="menuitem"
+                                    class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100 font-semibold" role="menuitem"
                                     tabindex="-1" id="user-menu-item-0">My Store</router-link>
                                 <router-link :to="{ name: 'profile' }"
                                     class="block px-4 py-2 text-sm text-gray-700 focus:bg-gray-100" role="menuitem"
@@ -157,9 +157,9 @@
             </div>
             <div v-else class="hidden lg:flex lg:flex-1 lg:justify-end space-x-5 items-center">
                 <router-link :to="{ name: 'login' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400">Login</router-link>
+                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400">Login</router-link>
                 <router-link :to="{ name: 'register' }"
-                    class="text-sm font-semibold leading-6 dark:text-gray-400">Sign Up</router-link>
+                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400">Sign Up</router-link>
             </div>
         </nav>
 
