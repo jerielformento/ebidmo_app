@@ -64,7 +64,7 @@
                         <TransitionGroup>
                             <h2 class="text-md sm:col-span-6 text-amber-500 font-semibold pt-4 border-t border-gray-100" v-if="url !== null">Thumbnail Preview</h2>
 
-                            <div class="relative sm:col-span-1" v-for="(img, index) in this.postdata.images_active" :key="img.id">
+                            <div class="relative sm:col-span-1" v-for="(img, index) in postdata.images_active" :key="img.id">
                                 <div :class="(modal.id === img.id) ? 'border-2 border-red-500' : 'border border-gray-100'" class="relative shadow-sm rounded-md bg-gray-100 aspect-h-2 aspect-w-2 overflow-hidden group-hover:opacity-90 lg:w-auto lg:h-50">
                                     <img :src="img.url" class="object-cover object-center w-full h-full">
                                 </div>
