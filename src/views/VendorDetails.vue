@@ -65,7 +65,7 @@
                                 Follow
                             </button>
                         </div>
-                        <div class="relative inset-y-0 right-0 ml-2 flex rounded-md shadow-sm h-9">
+                        <div class="relative inset-y-0 right-0 ml-2 block lg:flex rounded-md shadow-sm h-9">
                             <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" id="hs-trailing-button-add-on-with-icon" placeholder="Search in store" name="hs-trailing-button-add-on-with-icon" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-sm text-sm focus:z-10 focus:border-orange-400 focus:ring-orange-400 dark:border-gray-100 text-gray-500">
                             <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-slate-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
                                 <MagnifyingGlassIcon class="h-6 w-6"/>

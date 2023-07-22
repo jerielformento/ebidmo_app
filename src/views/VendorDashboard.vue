@@ -7,7 +7,7 @@
 
    <div v-if="hasStore">
       <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-800 dark:bg-gray-800">
          <div class="mb-4 flex justify-center items-center">
             <a href="/">
                   <img :src="`${siteUrl}/images/ebidmo_text.png`" class="w-auto h-8"/>
@@ -15,31 +15,31 @@
          </div>
             <ul class="space-y-2 font-semibold text-sm text-gray-400">
                <li>
-                  <router-link :to="{ name: 'vendor-home' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <router-link :to="{ name: 'vendor-home' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                      <ChartBarIcon class="h-6 w-6" />
                      <span class="ml-3">Dashboard</span>
                   </router-link>
                </li>
                <li>
-                  <router-link :to="{ name: 'vendor-products' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <router-link :to="{ name: 'vendor-products' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                      <ShoppingCartIcon class="h-6 w-6" />
                      <span class="ml-3">Products</span>
                   </router-link>
                </li>
                <li>
-                  <router-link :to="{ name: 'vendor-auction' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <router-link :to="{ name: 'vendor-auction' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                      <FireIcon class="h-6 w-6" />
                      <span class="ml-3">Auctions</span>
                   </router-link>
                </li>
                <li>
-                  <router-link :to="{ name: 'vendor-transaction' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <router-link :to="{ name: 'vendor-transaction' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                      <TruckIcon class="h-6 w-6" />
                      <span class="ml-3">Transaction</span>
                   </router-link>
                </li>
                <li>
-                  <router-link :to="{ name: 'vendor-settings' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <router-link :to="{ name: 'vendor-settings' }" exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400" class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                      <Cog6ToothIcon class="h-6 w-6" />
                      <span class="ml-3">Store Settings</span>
                   </router-link>
@@ -123,7 +123,6 @@ import {
 import axiosClient from '../axios';
 import store from '../store';
 </script>
-
 <script>
 export default {
    data() {

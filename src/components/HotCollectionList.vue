@@ -48,18 +48,18 @@
                             <p class="mt-1 text-sm text-gray-400" v-if="text.status === 1">Ending in</p>   
                             <p class="mt-1 text-sm text-gray-400" v-else>Participants: {{ text.min_participants }}/{{ text.participants_count }}</p>   
                         </div>
-                        <div v-if="text.status === 1" class="text-2xl mx-3 text-gray-500 flex justify-between items-center relative">
-                            <span class="text-sm font-semibold text-red-500" v-if="isDone">
+                        <div v-if="text.status === 1" class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
+                            <p class="pt-2 md:py-2 text-xs font-semibold text-red-500" v-if="isDone">
                                 {{ expirationTimer[text.product.slug].days }}d
                                 {{ expirationTimer[text.product.slug].hours }}h
                                 {{ expirationTimer[text.product.slug].minutes }}m
                                 {{ expirationTimer[text.product.slug].seconds }}s
-                            </span>
+                            </p>
                             <div class="text-sm font-semibold text-gray-200" v-else>...</div>
                             <router-link 
                                 :to="{name: 'auction-details', 
                                 params: { store: text.product.store.slug, id: text.product.slug }}" 
-                                class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                class="md:block lg:flex md:text-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                 Bid
                             </router-link>
                         </div>

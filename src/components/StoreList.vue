@@ -35,25 +35,19 @@
                         </div>
                         <div class="relative">
                             <p class="text-sm font-normal text-gray-400">100 Followers</p>
-                            <!-- <p class="mt-1 text-sm text-gray-500">Brand: <a class="text-amber-600 underline">{{ item.brand.description }}</a></p>
-                            <p class="mt-1 text-sm text-gray-500">Condition: <a class="text-amber-600 underline">{{ item.condition.description }}</a></p>
-                            <p class="mt-1 text-sm text-gray-500">Quantity: <span class="text-gray-600">{{ item.quantity }}</span></p> -->
                         </div>
                         <div class="mt-1 text-2xl text-gray-500 flex justify-between items-center relative">
                             <div class="flex">
-                                    <div class="flex items-center">
-                                        <!-- Active: "text-gray-900", Default: "text-gray-200" -->
-                                        <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
-                                        <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
-                                        <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
-                                        <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
-                                        <StarIcon class="text-gray-200 h-5 w-5 flex-shrink-0" />
-                                        <span class="text-sm font-semibold ml-1">4.0</span>
-                                    </div>
+                                <div class="flex items-center">
+                                    <!-- Active: "text-gray-900", Default: "text-gray-200" -->
+                                    <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
+                                    <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
+                                    <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
+                                    <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
+                                    <StarIcon class="text-gray-200 h-5 w-5 flex-shrink-0" />
+                                    <span class="text-sm font-semibold ml-1">4.0</span>
                                 </div>
-                                <button type="submit" onclick="alert(1)" class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                    Visit Store
-                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -25,7 +25,7 @@
                             <label for="category" class="block text-sm font-medium leading-6">Category</label>
                             <div class="mt-2">
                                 <select v-model="postdata.category" id="category" name="category" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+                                    <option v-for="category in categories" :value="category.id" :key="category.id">{{ category.title }}</option>
                                 </select>
                                 <small v-if="errordata.category !== ''" class="text-red-400">{{ errordata.category }}</small>
                             </div>
@@ -34,7 +34,7 @@
                             <label for="brand" class="block text-sm font-medium leading-6">Brand</label>
                             <div class="mt-2">
                                 <select v-model="postdata.brand" id="brand" name="brand" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="brand in brands" :value="brand.id" :selected="brand.is_active">{{ brand.description }}</option>
+                                    <option v-for="brand in brands" :value="brand.id" :selected="brand.is_active" :key="brand.id">{{ brand.description }}</option>
                                 </select>
                                 <small v-if="errordata.brand !== ''" class="text-red-400">{{ errordata.brand }}</small>
                             </div>
@@ -43,7 +43,7 @@
                             <label for="condition" class="block text-sm font-medium leading-6">Condition</label>
                             <div class="mt-2">
                                 <select v-model="postdata.condition" id="condition" name="condition" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="condition in conditions" :value="condition.id" :selected="condition.is_active">{{ condition.description }}</option>
+                                    <option v-for="condition in conditions" :value="condition.id" :selected="condition.is_active" :key="condition.id">{{ condition.description }}</option>
                                 </select>
                                 <small v-if="errordata.condition !== ''" class="text-red-400">{{ errordata.condition }}</small>
                             </div>
@@ -123,12 +123,10 @@
         props: {
             cancel: Function,
             scrollToTop: Function,
-            reload: Function,
-            categories: Array,
-            brands: Array,
-            conditions: Array
+            reload: Function
         },   
         data(props) {
+            
             const isSubmit = ref(false);
             const deleteModal = ref(false);
             const isMounted = ref(false);
@@ -217,7 +215,6 @@
             },
             async submit() {
                 this.isSubmit = true;
-                console.log(this.postdata);
                 const formData = new FormData();
                 const files = this.$refs.file.files;
                 const totalfiles = this.$refs.file.files.length;

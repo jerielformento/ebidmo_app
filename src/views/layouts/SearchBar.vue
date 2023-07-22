@@ -41,6 +41,7 @@ import {
 } from "@heroicons/vue/24/outline";
 
 export default {
+    components: { MagnifyingGlassIcon },
     setup() {
         const searching = ref(false);
         const searchItems = ref(null);
