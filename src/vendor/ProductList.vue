@@ -363,7 +363,7 @@
                 const products = await getMyProducts(1);
                 this.productItems = products[0][0];
                 this.pagination = products[1][0];
-                initDropdowns();
+                initFlowbite();
             },
             async prevPage(page, url) {
                 if(url !== null) {
