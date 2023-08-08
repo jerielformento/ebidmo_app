@@ -55,7 +55,7 @@
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
                             <div class="mx-auto max-w-3xl border-slate-600">
                                 <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-sm sm:block lg:block">
-                                    <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
+                                    <div><img :src="text.url" alt="" class="w-full h-full object-cover object-center"></div>
                                 </div>
                             </div>
                         </swiper-slide>
@@ -72,7 +72,7 @@
                     <swiper-slide v-for="text in swiperItems" :key="text.url">
                             <div class="mx-auto max-w-3xl border-slate-600">
                                 <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-sm sm:block lg:block">
-                                    <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
+                                    <div><img :src="text.url" alt="" class="w-full h-full object-cover object-center"></div>
                                 </div>
                             </div>
                     </swiper-slide>
