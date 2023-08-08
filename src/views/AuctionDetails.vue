@@ -49,6 +49,7 @@
                         :loop="true"
                         navigation
                         :pagination="{ clickable: true }"
+                        :thumbs="{ swiper: thumbsSwiper }"
                     >   
                     
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
@@ -59,6 +60,24 @@
                             </div>
                         </swiper-slide>
                     </swiper>
+                    
+                    <swiper
+                    :modules="[Thumbs]"
+                    watch-slides-progress
+                    :slides-per-view="6"
+                    :space-between="5"
+                    @swiper="setThumbsSwiper"
+                    class="mt-1"
+                >
+                    <swiper-slide v-for="text in swiperItems" :key="text.url">
+                            <div class="mx-auto max-w-3xl border-slate-600">
+                                <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-sm sm:block lg:block">
+                                    <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
+                                </div>
+                            </div>
+                    </swiper-slide>
+ 
+                </swiper>
                     </div>
                     
                 </div>
@@ -247,8 +266,10 @@
     import FooterNav from './layouts/Footer.vue';
     import SearchBar from './layouts/SearchBar.vue';
     import { ref, onMounted } from 'vue'
-    import { Pagination, Navigation } from 'swiper'
+    import { Pagination, Navigation, Thumbs } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
+
+
     import ModalBid from '../components/util/BidModal.vue';
     import GuestLogin from '../components/util/GuestLoginModal.vue';
     import JoinAuction from '../components/util/JoinAuctionModal.vue';
@@ -263,6 +284,11 @@
 <script>
     export default {
         data() {
+            const thumbsSwiper = ref(null);
+            const setThumbsSwiper = (swiper) => {
+                thumbsSwiper.value = swiper;
+            };
+
             const polling = ref(null);
             const bidHistory = ref({});
             const isMounted = ref(false);
@@ -330,7 +356,10 @@
             const swiperItems = ref(productImages);
 
             return {
-                modules: [Pagination, Navigation], 
+                modules: [Pagination, Navigation, Thumbs], 
+                Thumbs,
+                thumbsSwiper,
+                setThumbsSwiper,
                 swiperItems,
                 days,
                 hours,
@@ -374,3 +403,11 @@
         },
     }
 </script>
+<style scoped>
+    .swiper-thumbs .swiper-slide-thumb-active {
+        border:2px solid #F9C253;
+    }
+    .swiper-thumbs .swiper-slide:not(.swiper-slide-thumb-active) {
+        opacity:0.8;
+    }
+</style>

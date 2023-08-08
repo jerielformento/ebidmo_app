@@ -49,6 +49,7 @@
                         :loop="true"
                         navigation
                         :pagination="{ clickable: true }"
+                        :thumbs="{ swiper: thumbsSwiper }"
                     >   
                     
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
@@ -58,6 +59,24 @@
                                 </div>
                             </div>
                         </swiper-slide>
+                    </swiper>
+
+                    <swiper
+                        :modules="[Thumbs]"
+                        watch-slides-progress
+                        :slides-per-view="6"
+                        :space-between="5"
+                        @swiper="setThumbsSwiper"
+                        class="mt-1"
+                    >
+                        <swiper-slide v-for="text in swiperItems" :key="text.url">
+                                <div class="mx-auto max-w-3xl border-slate-600">
+                                    <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-sm sm:block lg:block">
+                                        <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
+                                    </div>
+                                </div>
+                        </swiper-slide>
+    
                     </swiper>
                     </div>
                     
@@ -180,7 +199,7 @@
     import StoreProductSuggestion from "../components/StoreProductSuggestion.vue";
     import StoreSimilarProductSuggestion from "../components/StoreSimilarProductSuggestion.vue";
     import { ref, onMounted } from 'vue'
-    import { Pagination, Navigation } from 'swiper'
+    import { Pagination, Navigation, Thumbs } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
@@ -215,6 +234,11 @@ const getProductSuggestion = async (item) => {
     }
     export default {
         data() {
+            const thumbsSwiper = ref(null);
+            const setThumbsSwiper = (swiper) => {
+                thumbsSwiper.value = swiper;
+            };
+
             const isMounted = ref(false);
             const isInvalid = ref(false);
             const route = useRoute();
@@ -255,7 +279,10 @@ const getProductSuggestion = async (item) => {
             const swiperItems = ref(productImages);
 
             return {
-                modules: [Pagination, Navigation], 
+                modules: [Pagination, Navigation, Thumbs], 
+                Thumbs,
+                thumbsSwiper,
+                setThumbsSwiper,
                 swiperItems,
                 productInfo,
                 isLoading,
@@ -273,3 +300,11 @@ const getProductSuggestion = async (item) => {
         },
     }
 </script>
+<style scoped>
+    .swiper-thumbs .swiper-slide-thumb-active {
+        border:2px solid #ff9f0e;
+    }
+    .swiper-thumbs .swiper-slide:not(.swiper-slide-thumb-active) {
+        opacity:0.8;
+    }
+</style>
