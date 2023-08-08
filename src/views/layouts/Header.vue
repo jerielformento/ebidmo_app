@@ -214,7 +214,7 @@
                                 <router-link :to="{ name: 'support' }"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Support</router-link>
                             </div>
-                            <div class="py-6">
+                            <div class="py-6" v-if="!isGuest">
                                 <router-link :to="{ name: 'vendor-home' }"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Your
                                     Store</router-link>
@@ -226,8 +226,10 @@
                                 <a href="#" @click="logout"
                                     class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sign
                                     out</a>
-                                <!-- <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
-            <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Create Account</a> -->
+                            </div>
+                            <div v-else>
+                                <router-link :to="{ name: 'login' }" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</router-link>
+                                <router-link :to="{ name: 'register' }" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sign up</router-link>
                             </div>
                         </div>
                     </div>
@@ -339,8 +341,12 @@ const showSubMenuHide = ref(false);
 <script>
 export default {
     data() {
+        const isGuest = ref(true);
+        isGuest.value = (store.state.user.token) ? false : true;
+
         return {
-            siteUrl: import.meta.env.VITE_API_URL
+            siteUrl: import.meta.env.VITE_API_URL,
+            isGuest
         }
     },
     methods: {
