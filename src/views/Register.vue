@@ -1,5 +1,5 @@
 <template>
-<div class="mx-auto px-4 py-8 sm:px-6 bg-gradient-to-r from-orange-400 via-amber-400 to-orange-400 h-screen shadow">
+<div class="mx-auto px-4 py-8 sm:px-6 bg-gradient-to-r from-orange-400 via-amber-400 to-orange-400 h-full md:h-screen lg:h-screen shadow">
     <div class="mx-auto max-w-2xl">
       
     <form @submit.prevent="submit" class="px-8 py-5 rounded-md border bg-white border-slate-200" autocomplete="off">
