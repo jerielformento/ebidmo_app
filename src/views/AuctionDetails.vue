@@ -376,13 +376,13 @@
         },
         methods: {
             async reloadHistory() {
-                this.isLoading = true;
+                //this.isLoading = true;
 
                 await axiosClient.get(`/api/v1/bid/${this.$route.params.store}/${this.$route.params.id}`).
                     then(response => {
                         this.productInfo = response.data;
                         this.productImages = response.data.images;
-                        this.isLoading = false; 
+                        //this.isLoading = false; 
                     })
                     .catch((errors) => {
                         //window.location = '/404-page-not-found';
