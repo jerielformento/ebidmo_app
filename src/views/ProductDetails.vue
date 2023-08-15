@@ -249,7 +249,7 @@ const getProductSuggestion = async (item) => {
             onMounted(async() => {
                 initFlowbite();
 
-                await axiosClient.get(`/api/v1/product/${route.params.store}/${route.params.id}`).
+                await axiosClient.get(`/api/v1/products/${route.params.store}/${route.params.id}`).
                     then(response => {
                         productInfo.value = response.data;
                         productImages.value = response.data.images

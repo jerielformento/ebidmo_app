@@ -3,8 +3,7 @@
         <div class="mx-auto max-w-2xl px-2 sm:px-2 sm:py-1 lg:max-w-7xl lg:px-2">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-700 block">
-                <FireIcon class="h-8 w-8 inline-block text-red-500"/>
-                Hot Collections - Auction
+                Happening Now
                 </h2>
 
                 <div>
@@ -26,8 +25,9 @@
                 <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                     <div v-for="text in items" :key="text.item" class="rounded-md border bg-white shadow-md">
                     <div class="group relative pb-3">
-                        <div class="absolute right-2 top-2 z-10 rounded-full bg-red-600">
-                            <FireIcon class="h-8 w-8 text-red-200"/>
+                        <div class="absolute right-2 top-2 z-10 rounded-full">
+                            <span :class="useAuctionColorCode(text.status)"
+                                class="text-white text-xs font-semibold rounded-sm py-1 px-2 bg-opacity-80">{{ useAuctionStatus(text.status) }}</span>
                         </div>
                         <div class="min-h-50 aspect-h-2 aspect-w-2 w-full overflow-hidden rounded-t-md bg-gray-200 group-hover:opacity-90 lg:h-50">
                             <img :src="(text.product.thumbnail !== null) ? text.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-t-md w-full object-cover object-center lg:h-full lg:w-full">
@@ -44,37 +44,37 @@
                         </div>
                         <div class="relative mx-3">
                             <p class="mt-1 text-sm block font-semibold text-gray-600">{{ text.product.store.name }}</p>
-                            <p class="mt-1 text-sm text-gray-400">Min. Bid: <span class="text-green-600">{{ text.product.currency.prefix+text.min_price.toLocaleString() }}</span></p>
+                            <p class="mt-1 text-sm text-gray-400">Starting bid: <span class="text-green-600">{{ text.product.currency.prefix+text.min_price.toLocaleString() }}</span></p>
                             <p class="mt-1 text-sm text-gray-400" v-if="text.status === 1">Ending in</p>   
                             <p class="mt-1 text-sm text-gray-400" v-else>Participants: {{ text.min_participants }}/{{ text.participants_count }}</p>   
                         </div>
                         <div v-if="text.status === 1" class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
-                            <p class="pt-2 md:py-2 text-xs font-semibold text-red-500" v-if="isDone">
+                            <p class="pt-2 md:py-2 text-sm font-semibold text-red-500" v-if="isDone">
                                 {{ expirationTimer[text.product.slug].days }}d
                                 {{ expirationTimer[text.product.slug].hours }}h
                                 {{ expirationTimer[text.product.slug].minutes }}m
                                 {{ expirationTimer[text.product.slug].seconds }}s
                             </p>
                             <div class="text-sm font-semibold text-gray-200" v-else>...</div>
-                            <router-link 
+                            <!-- <router-link 
                                 :to="{name: 'auction-details', 
                                 params: { store: text.product.store.slug, id: text.product.slug }}" 
                                 class="md:block lg:flex md:text-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                 Bid
-                            </router-link>
+                            </router-link> -->
                         </div>
                         <div v-else>
                             <div class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
-                                <p class="pt-2 md:py-2 text-xs font-semibold text-amber-500 animate-pulse" v-if="isDone">
+                                <p class="pt-2 md:py-2 text-sm font-semibold text-amber-500 animate-pulse" v-if="isDone">
                                     Waiting participants
                                 </p>
                                 <div class="text-sm font-semibold text-gray-200" v-else>...</div>
-                                <router-link 
+                                <!-- <router-link 
                                     :to="{name: 'auction-details', 
                                     params: { store: text.product.store.slug, id: text.product.slug }}" 
                                     class="md:block lg:flex md:text-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                     Join
-                                </router-link>
+                                </router-link> -->
                             </div>
                         </div>
                     </div>
@@ -101,6 +101,8 @@
     import { Swiper, SwiperSlide } from 'swiper/vue'
     import ItemsLoader from './util/ItemsLoader.vue';
     import axiosClient from '../axios';
+    import { useAuctionColorCode } from '../composables/useAuctionColorCode';
+    import { useAuctionStatus } from '../composables/useAuctionStatus';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
@@ -122,7 +124,7 @@
             });
         }
 
-        await axiosClient.get('/api/v1/bids/all'+categ+brands)
+        await axiosClient.get('/api/v1/auctions/all'+categ+brands)
                 .then(response => {
                     response.data.map(function(value, key) {
                         if(paginate_count == 4) {
@@ -230,7 +232,9 @@
                 swiperItems,
                 expirationTimer,
                 isDone,
-                searchingItem
+                searchingItem,
+                useAuctionStatus,
+                useAuctionColorCode
             }
         },
         methods: {

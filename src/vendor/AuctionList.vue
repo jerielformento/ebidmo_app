@@ -194,7 +194,7 @@ const getMyProducts = async (page) => {
     const setPage = (page > 1) ? '?page=' + page : '';
 
     reloadList.value = true;
-    await axiosClient.get('/api/v1/products/auction' + setPage)
+    await axiosClient.get('/api/v1/auctions' + setPage)
         .then(response => {
             response.data.data.map(function (value, key) {
                 pagedata.push(value);
@@ -227,7 +227,7 @@ const searchMyProducts = async (page, searchKey) => {
     const setPage = (page > 1) ? '?page=' + page : '';
     const key = searchKey;
 
-    await axiosClient.get('/api/v1/auction/store/search/' + key + setPage)
+    await axiosClient.get('/api/v1/store/auctions/search/' + key + setPage)
         .then(response => {
             response.data.data.map(function (value, key) {
                 pagedata.push(value);

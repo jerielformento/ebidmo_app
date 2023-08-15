@@ -64,7 +64,7 @@ export default {
             const key = this.$refs.itemSearch.value;
 
             if (key !== '' && key.length > 2) {
-                axiosClient.get('/api/v1/product/search/' + key)
+                axiosClient.get('/api/v1/products/search/' + key)
                     .then(response => {
                         this.search = response.data;
                         this.searching = false;

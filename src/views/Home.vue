@@ -84,7 +84,7 @@
                                 <h3 class="-my-3 flow-root">
                                     <!-- Expand/collapse section button -->
                                     <button type="button" class="flex w-full items-center justify-between py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
-                                    <span class="font-medium text-gray-900">Brand</span>
+                                    <span class="font-medium text-gray-900">Brands</span>
                                     <span class="ml-6 flex items-center">
                                         <!-- Expand icon, show/hide based on section open state. -->
                                         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -112,7 +112,7 @@
                             <!-- Product grid -->
                             <main class="md:col-span-4 lg:col-span-5">
                                 <!-- Your content -->
-                                <HotCollectionList :filter="filter"/>
+                                <LiveAuctionList :filter="filter"/>
                                 <ProductList :filter="filter"/>
                             </main>
                             </div>
@@ -139,7 +139,7 @@
     import HeaderNav from "./layouts/Header.vue";
     import FooterNav from './layouts/Footer.vue';
     import SearchBar from './layouts/SearchBar.vue';
-    import HotCollectionList from '../components/HotCollectionList.vue';
+    import LiveAuctionList from '../components/LiveAuctionList.vue';
     import ProductList from '../components/ProductList.vue';
     import ItemsLoader from '../components/util/ItemsLoader.vue';
     import axiosClient from '../axios';

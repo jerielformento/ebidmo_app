@@ -3,8 +3,7 @@
         <div class="mx-auto max-w-2xl px-2 sm:px-2 sm:py-1 lg:max-w-7xl lg:px-2">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-700 block">
-                <ShoppingCartIcon class="h-8 w-8 inline-block text-orange-500" />
-                Products
+                Listed Items
                 </h2>
 
                 <div>
@@ -48,7 +47,7 @@
                                 <p class="mt-1 text-sm text-gray-400">Brand: <a href="#" class="text-amber-600 underline">{{ text.brand.description }}</a></p>
                             </div>
                             <div class="mt-1 mx-3 text-2xl text-gray-500 flex md:block lg:flex justify-between items-center relative">
-                                <div class="flex items-center">
+                                <!-- <div class="flex items-center">
                                     <div class="flex items-center">
                                         <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
                                         <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
@@ -56,13 +55,13 @@
                                         <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
                                         <StarIcon class="text-gray-200 h-4 w-4 flex-shrink-0" />
                                     </div>
-                                </div>
-                                <router-link 
+                                </div> -->
+                                <!-- <router-link 
                                     :to="{name: 'product-details', 
                                     params: { store: text.store.slug, id: text.slug }}" 
                                     class="flex md:block md:text-center mt-2 items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                     View
-                                </router-link>
+                                </router-link> -->
                             </div>
                         </div>
                     </div>

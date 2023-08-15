@@ -80,7 +80,7 @@
 
         const key = (search !== null && search !== "") ? "?search="+search : "";
 
-        await axiosClient.get('/api/v1/store/'+store+'/products'+key)
+        await axiosClient.get('/api/v1/stores/'+store+'/products'+key)
             .then(response => {
                 response.data.map(function(value, key) {
                     pagedata.push(value);

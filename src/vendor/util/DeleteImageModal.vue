@@ -50,7 +50,7 @@
             async submit() {
                 this.isSubmit = true;
                 
-                await axiosClient.delete('api/v1/product/image/remove/' + this.$props.id)
+                await axiosClient.delete('api/v1/products/image/' + this.$props.id)
                     .then(response => {
                         console.log(this.$props.index);
                         this.deleteSubmit(this.$props.index);
