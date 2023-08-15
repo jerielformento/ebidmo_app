@@ -39,7 +39,7 @@ const isSubmit = ref(false);
 const default_price = ref(0);
 const bidprice = ref(0);
 const incremental = ref(0);
-const bidId = ref(null);
+const auctionId = ref(null);
 const minprice = ref(0);
 const noBid = ref(false);
 
@@ -52,7 +52,7 @@ export default {
         Modal, PlusSmallIcon, MinusSmallIcon, ArrowPathIcon
     },
     setup(props) {
-        bidId.value = props.bid;
+        auctionId.value = props.bid;
         minprice.value = props.mp;
         incremental.value = props.inc;
 
@@ -71,7 +71,7 @@ export default {
             default_price,
             bidprice,
             incremental,
-            bidId
+            auctionId
         }
     },  
     methods: {
@@ -87,7 +87,7 @@ export default {
                 // send request to api
                 await store.dispatch('csrf');
                 await axiosClient.post('/api/v1/customer/bid/join', {
-                        bid_id: bidId.value
+                        auction_id: auctionId.value
                     })
                     .then(response => {
                         toast.success(response.data.message, {

@@ -272,7 +272,7 @@
                     });
 
                 if(productInfo.value.bid !== null) {
-                    await axiosClient.get(`/api/v1/bid/auction/activity/${productInfo.value.bid.id}`)
+                    await axiosClient.get(`/api/v1/auctions/activity/${productInfo.value.bid.id}`)
                         .then(response => {
                             console.log(response.data);
                             bidHistory.value = response.data;
@@ -328,7 +328,7 @@
                 console.log(this.postdata);
 
                 await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);
-                await axiosClient.post('/api/v1/bid', this.postdata)
+                await axiosClient.post('/api/v1/auctions', this.postdata)
                     .then(response => {
                         toast.success(response.data.message, {
                             position: toast.POSITION.TOP_CENTER,

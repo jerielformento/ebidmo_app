@@ -192,7 +192,7 @@
              
                 const headers = { 'Content-Type': 'multipart/form-data' };
                 await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);
-                await axiosClient.post('/api/v1/product', formData, {headers}).
+                await axiosClient.post('/api/v1/products', formData, {headers}).
                     then(response => {
                         toast.success(response.data.message, {
                             position: toast.POSITION.TOP_CENTER,

@@ -42,31 +42,21 @@
                             class="absolute -left-8 top-full z-20 mt-3 w-screen max-w-md overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-gray-900/5">
                             <div class="p-1">
                                 <div
-                                    class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-orange-50">
-                                    <div
-                                        class="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
-                                        <FireIcon class="text-red-500" />
-                                    </div>
+                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-orange-50">
                                     <div class="flex-auto">
                                         <router-link :to="{ name: 'hottest' }" exact-active-class="bg-amber-300 pl-2 rounded-md" class="block font-semibold text-gray-900">
-                                            Hottest Items
+                                            Future Auctions
                                             <span class="absolute inset-0"></span>
                                         </router-link>
-                                        <p class="mt-1 text-gray-600">View all top bid items</p>
                                     </div>
                                 </div>
                                 <div
-                                    class="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-orange-50">
-                                    <div
-                                        class="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gray-50 group-hover:bg-white">
-                                        <StarIcon class="text-yellow-400" />
-                                    </div>
+                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-orange-50">
                                     <div class="flex-auto">
                                         <router-link :to="{ name: 'popular' }" exact-active-class="bg-amber-300 pl-2 rounded-md" class="block font-semibold text-gray-900">
-                                            Most Popular
+                                            Live Auctions
                                             <span class="absolute inset-0"></span>
                                         </router-link>
-                                        <p class="mt-1 text-gray-600">Top collections review</p>
                                     </div>
                                 </div>
                             </div>
@@ -92,8 +82,6 @@
                     class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Categories</router-link>
                 <router-link :to="{ name: 'vendors' }"
                     class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Vendors</router-link>
-                <router-link :to="{ name: 'sell' }"
-                    class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Sell</router-link>
                 <router-link :to="{ name: 'support' }"
                     class="text-sm font-semibold leading-6 text-gray-400 dark:text-gray-400" active-class="text-gray-50 dark:text-gray-200">Support</router-link>
             </div>
@@ -198,19 +186,15 @@
                                     <!-- 'Product' sub-menu, show/hide based on menu state. -->
                                     <div class="mt-2 space-y-2" id="disclosure-1">
                                         <router-link :to="{ name: 'hottest' }"
-                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Hottest
-                                            Items</router-link>
+                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Future Auctions</router-link>
                                         <router-link :to="{ name: 'popular' }"
-                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Most
-                                            Popular</router-link>
+                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Live Auctions</router-link>
                                     </div>
                                 </div>
                                 <router-link :to="{ name: 'category' }"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Categories</router-link>
                                 <router-link :to="{ name: 'vendors' }"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Vendors</router-link>
-                                <router-link :to="{ name: 'sell' }"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sell</router-link>
                                 <router-link :to="{ name: 'support' }"
                                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Support</router-link>
                             </div>

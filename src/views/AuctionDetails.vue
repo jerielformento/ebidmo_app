@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="text-2xl text-gray-500 mt-2 border-t border-gray-200">
-                        <p class="my-2 text-2xl tracking-tight text-gray-600">Minimum Bid: <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.min_price }}</span></p>
+                        <p class="my-2 text-2xl tracking-tight text-gray-600">Starting bid: <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.min_price }}</span></p>
                         <div v-if="productInfo.bid.status == 1">
                             <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Ending in</h3></div>
                             <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
@@ -308,7 +308,7 @@
 
                 isGuest.value = (store.state.user.token) ? false : true;
 
-                const result = await axiosClient.get(`/api/v1/bid/${route.params.store}/${route.params.id}`).
+                const result = await axiosClient.get(`/api/v1/auctions/${route.params.store}/${route.params.id}`).
                     then(response => {
                         productInfo.value = response.data;
                         productImages.value = response.data.images;
@@ -378,7 +378,7 @@
             async reloadHistory() {
                 //this.isLoading = true;
 
-                await axiosClient.get(`/api/v1/bid/${this.$route.params.store}/${this.$route.params.id}`).
+                await axiosClient.get(`/api/v1/auctions/${this.$route.params.store}/${this.$route.params.id}`).
                     then(response => {
                         this.productInfo = response.data;
                         this.productImages = response.data.images;

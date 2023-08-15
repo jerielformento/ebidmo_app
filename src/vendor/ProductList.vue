@@ -216,7 +216,7 @@
         const setPage = (page > 1) ? '?page='+page : '';
         const key = searchKey;
         
-        await axiosClient.get('/api/v1/product/store/search/'+key+setPage)
+        await axiosClient.get('/api/v1/store/products/search/'+key+setPage)
             .then(response => {
                 response.data.data.map(function(value, key) {
                     pagedata.push(value);

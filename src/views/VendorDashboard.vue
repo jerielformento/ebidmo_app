@@ -164,7 +164,7 @@ export default {
             this.loadBtn = true;
             // send request to api
             await store.dispatch('csrf');
-            await axiosClient.post('/api/v1/store', this.postdata)
+            await axiosClient.post('/api/v1/stores', this.postdata)
                 .then(response => {
                     toast.success(response.data.message, {
                         position: toast.POSITION.TOP_CENTER,

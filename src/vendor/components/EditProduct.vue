@@ -149,7 +149,7 @@
                 let sel_category = 0;
                 
 
-                await axiosClient.get(`/api/v1/product/${route.params.store}/${route.params.slug}`)
+                await axiosClient.get(`/api/v1/products/${route.params.store}/${route.params.slug}`)
                     .then(response => {
                         postdata.name = response.data.name;
                         postdata.details = response.data.details;
@@ -232,7 +232,7 @@
 
                 const headers = {'Content-Type': 'multipart/form-data'};
                 await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);
-                await axiosClient.post(`/api/v1/product/${this.$route.params.slug}`, formData, {headers}).
+                await axiosClient.post(`/api/v1/products/${this.$route.params.slug}`, formData, {headers}).
                     then(response => {
                         toast.success(response.data.message, {
                             position: toast.POSITION.TOP_CENTER,
