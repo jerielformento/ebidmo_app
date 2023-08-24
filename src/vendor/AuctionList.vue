@@ -172,7 +172,7 @@ import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
 import { useAuctionStatus } from '../composables/useAuctionStatus';
 import { useAuctionColorCode } from '../composables/useAuctionColorCode';
 import axiosClient from '../axios';
-import { initFlowbite } from 'flowbite';
+import { initDrawers } from 'flowbite';
 import moment from 'moment';
 
 const productCreate = ref(false);
@@ -255,7 +255,7 @@ export default {
     components: { ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon },
     async setup() {
         onMounted(async() => {
-            initFlowbite();   
+            initDrawers();   
 
             let sel_brand = 0;
             let sel_condition = 0;

@@ -36,23 +36,7 @@
                 </div>
                 </div>
                 <div>
-                <button type="submit" :disabled="loadBtn" class="flex w-full justify-center items-center rounded-sm bg-slate-900 disabled:opacity-80 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                    Sign in
-                    <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="loadBtn"/>
-                </button>
-                <!-- <p class="block text-center text-gray-400 text-sm mt-3">Or continue with</p>
-                <div class="flex items-center justify-between space-x-2 mt-2">
-                    <div class="bg-red-500 text-gray-100 hover:text-white shadow font-bold text-sm py-2 px-4 rounded flex justify-start items-center cursor-pointer w-64">
-                        <svg viewBox="0 0 24 24" class="fill-current mr-3 w-6 h-5" xmlns="http://www.w3.org/2000/svg"><path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z"/></svg>
-                        <span class="border-l border-red-400 h-6 w-1 block"></span>
-                        <span class="pl-3">google</span>
-                    </div>
-                    <div class="bg-blue-500 text-gray-100 hover:text-white shadow text-sm font-bold py-2 px-4 rounded flex justify-start items-center cursor-pointer w-64">
-                        <svg viewBox="0 0 24 24" class="fill-current mr-3 w-6 h-6" xmlns="http://www.w3.org/2000/svg"><path d="M23.998 12c0-6.628-5.372-12-11.999-12C5.372 0 0 5.372 0 12c0 5.988 4.388 10.952 10.124 11.852v-8.384H7.078v-3.469h3.046V9.356c0-3.008 1.792-4.669 4.532-4.669 1.313 0 2.686.234 2.686.234v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.469h-2.796v8.384c5.736-.9 10.124-5.864 10.124-11.853z"/></svg>
-                        <span class="border-l border-blue-400 h-6 w-1 block mr-1"></span>
-                        <span class="pl-3">facebook</span>
-                    </div>
-                </div> -->
+                <SubmitButton class="w-full" text="Sign in" :state="loadBtn"/>
                 </div>
             </form>
             <p class="mt-5 text-center text-sm text-gray-500">
@@ -67,6 +51,7 @@
             </p>
         </div>
     </div>
+    <LoaderModal v-if="authLoader">Authenticating...</LoaderModal>
 </template>
 <script setup>
     import { ref, onMounted } from 'vue';
@@ -75,7 +60,10 @@
     import { toast } from 'vue3-toastify';
     import { GoogleLogin, decodeCredential } from 'vue3-google-login';
     import 'vue3-toastify/dist/index.css';
+    import LoaderModal from '../components/util/LoaderModal.vue';
     import { UserCircleIcon, LockClosedIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
+    import Spinner from '../components/forms/Spinner.vue';
+    import SubmitButton from '../components/forms/SubmitButton.vue';
 </script>
 <script>
     export default {
@@ -84,12 +72,16 @@
             store.state.user.token && this.$router.push({ name: "home" });
         });
         const router = useRouter();
+        const authLoader = ref(false);
         const loadBtn = ref(false);
         return {
             siteUrl: import.meta.env.VITE_API_URL,
             callback: (response) => {
-                console.log("login");
-                console.log(decodeCredential(response.credential));
+                this.authLoader = true;
+                console.log("auth...");
+                const google = decodeCredential(response.credential);
+                console.log(google);
+                this.auth(google);
             },
             postdata: {
                 username: "",
@@ -101,7 +93,8 @@
                 password: "",
                 remember: false
             },
-            loadBtn
+            loadBtn,
+            authLoader
         };
     },
     methods: {
@@ -126,7 +119,63 @@
             })
                 .finally(() => {
                 this.loadBtn = false;
+                this.authLoader = false;
             });
+        },
+        async auth(request) {
+            this.loadBtn = true;
+            // send request to api
+            await store.dispatch('csrf');
+            /*
+            'username' => 'required|string|unique:customers',
+            'firstname' => 'required|regex:/^[a-zA-Z .]+$/u',
+            'lastname' => 'required|regex:/^[a-zA-Z .]+$/u',
+            'middlename' => 'sometimes|regex:/^[a-zA-Z ]+$/u|nullable',
+            'phone' => 'sometimes|alpha_num',
+            'email' => 'required|regex:/^[a-zA-Z.-_@]+$/u|unique:customers_profile,email',
+            'password' => 'required|string|confirmed'
+            */
+            await store.dispatch('auth', {
+                username: request.email,
+                firstname: request.given_name,
+                lastname: request.family_name,
+                middlename: '',
+                phone: '',
+                email: request.email,
+                password: '@ebidmoP@$$!!',
+                password_confirmation: '@ebidmoP@$$!!'
+            })
+                .then(response => {
+                    this.registerSuccess = true;
+                    
+                    /* toast.success(response.data.message, {
+                        position: toast.POSITION.TOP_CENTER,
+                    }); */
+                    this.$router.go();
+                    
+
+                    console.log(response);
+                })
+                .catch((error) => {
+                    const err = error.response;
+
+                    // reset error data
+                    Object.entries(this.errordata).forEach(entry => {
+                        const [key, value] = entry;
+                        this.errordata[key] = '';
+                    });
+
+                    // get return object errors and pass to error inputs
+                    Object.entries(err.data.errors).forEach(entry => {
+                        const [key, value] = entry;
+                        this.errordata[key] = value[0];
+                    });
+
+                    console.log(this.errordata);
+                })
+                .finally(() => {
+                    this.loadBtn = false;
+                });
         },
     },
     components: { GoogleLogin }

@@ -163,7 +163,7 @@
     import { ShoppingCartIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../axios';
-    import { initFlowbite } from 'flowbite';
+    import { initDrawers } from 'flowbite';
     import moment from 'moment';
 
     const productCreate = ref(false);
@@ -244,7 +244,7 @@
         components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon},
         async setup() {
             onMounted(async() => {
-                initFlowbite(); 
+                initDrawers(); 
                 let sel_brand = 0;
                 let sel_condition = 0;
                 let sel_category = 0;

@@ -42,19 +42,28 @@
                             class="absolute -left-8 top-full z-20 mt-3 w-screen max-w-md overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-gray-900/5">
                             <div class="p-1">
                                 <div
-                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-orange-50">
+                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-gray-100">
                                     <div class="flex-auto">
-                                        <router-link :to="{ name: 'hottest' }" exact-active-class="bg-amber-300 pl-2 rounded-md" class="block font-semibold text-gray-900">
-                                            Future Auctions
+                                        <router-link :to="{ name: 'auctions' }" class="block font-semibold text-gray-900">
+                                            All
                                             <span class="absolute inset-0"></span>
                                         </router-link>
                                     </div>
                                 </div>
                                 <div
-                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-orange-50">
+                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-gray-100">
                                     <div class="flex-auto">
-                                        <router-link :to="{ name: 'popular' }" exact-active-class="bg-amber-300 pl-2 rounded-md" class="block font-semibold text-gray-900">
-                                            Live Auctions
+                                        <router-link :to="{ name: 'auction-future' }" class="block font-semibold text-gray-900">
+                                            Future
+                                            <span class="absolute inset-0"></span>
+                                        </router-link>
+                                    </div>
+                                </div>
+                                <div
+                                    class="group relative flex items-center gap-x-6 rounded-lg p-2 text-sm leading-6 hover:bg-gray-100">
+                                    <div class="flex-auto">
+                                        <router-link :to="{ name: 'auction-live' }" class="block font-semibold text-gray-900">
+                                            Live
                                             <span class="absolute inset-0"></span>
                                         </router-link>
                                     </div>
@@ -186,9 +195,9 @@
                                     <!-- 'Product' sub-menu, show/hide based on menu state. -->
                                     <div class="mt-2 space-y-2" id="disclosure-1">
                                         <router-link :to="{ name: 'hottest' }"
-                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Future Auctions</router-link>
+                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Future</router-link>
                                         <router-link :to="{ name: 'popular' }"
-                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Live Auctions</router-link>
+                                            class="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">Live</router-link>
                                     </div>
                                 </div>
                                 <router-link :to="{ name: 'category' }"

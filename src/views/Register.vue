@@ -59,7 +59,7 @@
                         <label for="password" class="block text-sm font-medium leading-6">Password</label>
                         <div class="mt-2 relative inset-y-0 right-0 flex rounded-md shadow-sm h-9">
                             <input v-model="postdata.password" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="password" name="password" :type="inputTypePassword" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                            <button @click.prevent="toggleTypePassword" type="button" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-gray-50 border border-gray-200 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
+                            <button @click.prevent="toggleTypePassword" type="button" tabindex="-1" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-gray-50 border border-gray-200 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
                                 <EyeIcon v-if="inputTypePassword == 'password'" />
                                 <EyeSlashIcon v-else/>
                             </button>
@@ -70,7 +70,7 @@
                         <label for="confirm-password" class="block text-sm font-medium leading-6">Confirm Password</label>
                         <div class="mt-2 relative inset-y-0 right-0 flex rounded-md shadow-sm h-9">
                             <input v-model="postdata.password_confirmation" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="confirm-password" name="confirm-password" :type="inputTypeConfirmPassword" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                            <button @click.prevent="toggleTypeConfirmPassword" type="button" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-gray-50 border border-gray-200 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
+                            <button @click.prevent="toggleTypeConfirmPassword" type="button" tabindex="-1" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-gray-50 border border-gray-200 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
                                 <EyeIcon v-if="inputTypeConfirmPassword == 'password'" />
                                 <EyeSlashIcon v-else/>
                             </button>
@@ -80,10 +80,7 @@
             </div>
             <div class="pt-3 border-t border-gray-900/10 flex items-center justify-end gap-x-6">
                 <router-link :to="{name: 'login'}" class="text-sm font-semibold leading-6 text-gray-500">Back to Login</router-link>
-                <button type="submit" :disabled="loadBtn" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 disabled:opacity-80 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                    <span>Submit</span>
-                    <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="loadBtn"/>
-                </button>
+                <SubmitButton text="Submit" :state="loadBtn"/>
             </div>
         </div>
         <div v-if="registerSuccess" class="space-y-0 text-center">
@@ -104,9 +101,9 @@
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
     import { CheckCircleIcon } from "@heroicons/vue/24/solid";
-    import { EyeIcon, EyeSlashIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+    import { EyeIcon, EyeSlashIcon } from "@heroicons/vue/24/outline";
+    import SubmitButton from '../components/forms/SubmitButton.vue';
 </script>
-
 <script>
 export default {
     data() {
