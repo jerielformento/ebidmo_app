@@ -41,20 +41,20 @@
             <button @click="closeModal" :disabled="isSubmit" type="button" class="flex items-center justify-center rounded-sm border disabled:opacity-80 border-gray-200 bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">Close</button>
             <button @click.prevent="submit" :disabled="isSubmit" type="button" class="ml-2 flex items-center justify-center rounded-sm border disabled:opacity-80 border-transparent bg-slate-900 px-4 py-2 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">
                 Submit
-                <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="isSubmit"/>
+                <Spinner v-if="isSubmit"/>
             </button>
         </div>
       </template>
     </Modal>
 </template>
 <script>
-import { PlusSmallIcon, MinusSmallIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
+import { PlusSmallIcon, MinusSmallIcon } from '@heroicons/vue/24/outline';
 import { Modal } from 'flowbite-vue';
 import { ref } from 'vue';
 import axiosClient from '../../axios';
 import { toast } from 'vue3-toastify';
 import store from '../../store';
-
+import Spinner from '../forms/Spinner.vue';
 const isShowModal = ref(false)
 const isSubmit = ref(false);
 const default_price = ref(0);
@@ -71,7 +71,7 @@ export default {
         inc: Number, bid: Number, mp: Number
     },
     components: {
-        Modal, PlusSmallIcon, MinusSmallIcon, ArrowPathIcon
+        Modal, PlusSmallIcon, MinusSmallIcon, Spinner
     },
     setup(props) {
         auctionId.value = props.bid;

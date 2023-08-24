@@ -8,8 +8,8 @@ const store = createStore({
             title: null
         },
         user: {
-            data: sessionStorage.getItem("_logu_prsnl_inf"),
-            token: sessionStorage.getItem('_ebm_app_session'),
+            data: localStorage.getItem("_logu_prsnl_inf"),
+            token: localStorage.getItem('_ebm_app_session'),
         },
         guest: {
             permission: localStorage.getItem('_guest'),
@@ -24,6 +24,13 @@ const store = createStore({
             return axiosClient.post('/api/register', user)
                 .then(({data}) => {
                     //commit('setUser', data);
+                    return data;
+                })
+        },
+        auth({commit}, user) {
+            return axiosClient.post('/api/authenticate', user)
+                .then(({data}) => {
+                    commit('setUser', data);
                     return data;
                 })
         },
@@ -45,7 +52,7 @@ const store = createStore({
         logout: (state) => {
             state.user.token = null;
             state.user.data = {};
-            sessionStorage.clear();
+            localStorage.clear();
             localStorage.setItem("_guest", true);
         },
         setUser: (state, userData) => {
@@ -56,8 +63,8 @@ const store = createStore({
             // set logged in user access
             state.user.token = userData.token;
             state.user.data = userData.user;
-            sessionStorage.setItem("_logu_prsnl_inf", JSON.stringify(userData.user));
-            sessionStorage.setItem("_ebm_app_session", userData.token);
+            localStorage.setItem("_logu_prsnl_inf", JSON.stringify(userData.user));
+            localStorage.setItem("_ebm_app_session", userData.token);
         }
     },
     modules: {}

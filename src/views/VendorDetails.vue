@@ -107,7 +107,7 @@
                                 </div>
                                 <button @click.prevent="create" :disabled="loadBtn" type="submit" class="flex items-center justify-end rounded-sm disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                     Create
-                                    <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="loadBtn"/>
+                                    <Spinner v-if="loadBtn"/>
                                 </button>
                             </div>
                             <div class="sm:col-span-3 border-2 border-dashed border-gray-200 p-3 text-gray-500">
@@ -157,10 +157,11 @@ import SearchBar from './layouts/SearchBar.vue';
 import ItemsLoader from '../components/util/ItemsLoader.vue';
 import { toast } from 'vue3-toastify';
 import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-import { BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+import { BellIcon, MagnifyingGlassIcon, CheckIcon } from "@heroicons/vue/24/outline";
 import axiosClient from '../axios';
 import store from '../store';
 import { useRoute } from 'vue-router';
+import Spinner from '../components/forms/Spinner.vue';
 </script>
 <script>
 export default {

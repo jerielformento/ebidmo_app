@@ -272,7 +272,7 @@
                     });
 
                 if(productInfo.value.bid !== null) {
-                    await axiosClient.get(`/api/v1/auctions/activity/${productInfo.value.bid.id}`)
+                    await axiosClient.get(`/api/v1/auction/activity/${productInfo.value.bid.id}`)
                         .then(response => {
                             console.log(response.data);
                             bidHistory.value = response.data;

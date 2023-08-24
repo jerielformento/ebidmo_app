@@ -102,8 +102,7 @@
                             <!-- Product grid -->
                             <main class="md:col-span-4 lg:col-span-5">
                                 <!-- Your content -->
-                                <LiveAuctionList :filter="filter"/>
-                                <ProductList :filter="filter"/>
+                                <AuctionList :filter="filter"/>
                             </main>
                             </div>
                         </section>
@@ -117,7 +116,6 @@
         <template #fallback>
         <div>
         <ItemsLoader/>
-        <ItemsLoader/>
         </div>
         </template>
     </Suspense>
@@ -129,8 +127,7 @@
     import HeaderNav from "./layouts/Header.vue";
     import FooterNav from './layouts/Footer.vue';
     import SearchBar from './layouts/SearchBar.vue';
-    import LiveAuctionList from '../components/LiveAuctionList.vue';
-    import ProductList from '../components/ProductList.vue';
+    import AuctionList from '../components/AuctionList.vue';
     import ItemsLoader from '../components/util/ItemsLoader.vue';
     import axiosClient from '../axios';
     import { useStore } from 'vuex'

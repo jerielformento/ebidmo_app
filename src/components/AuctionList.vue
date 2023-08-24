@@ -3,7 +3,7 @@
         <div class="mx-auto max-w-2xl px-2 sm:px-2 sm:py-1 lg:max-w-7xl lg:px-2">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-700 block">
-                Happening Now
+                Auctions
                 </h2>
 
                 <div>
@@ -21,7 +21,8 @@
             pauseOnMouseEnter: true
         }"
     >   
-            <swiper-slide v-for="items in swiperItems" :key="items">
+
+            <div v-for="items in swiperItems" :key="items">
                 <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                     <div v-for="text in items" :key="text.item" class="rounded-md border bg-white shadow-md">
                     <div class="group relative pb-3">
@@ -80,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            </swiper-slide>
+            </div>
             <div v-if="swiperItems.length === 0" class="mt-6 pb-8">
                 <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>

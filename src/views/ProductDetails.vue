@@ -182,7 +182,7 @@
             <!-- Product info -->
             <div class="mx-auto mt-5 px-4 sm:px-6">
                 <div class="w-full flex justify-center text-3xl text-gray-300">
-                    <ArrowPathIcon class="h-8 w-8 animate-spin"/>
+                    <Spinner class="h-8 w-8"/>
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
 </template>
 <script setup>
     import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon } from "@heroicons/vue/24/outline";
     import HeaderNav from "./layouts/Header.vue";
     import FooterNav from './layouts/Footer.vue';
     import SearchBar from './layouts/SearchBar.vue';
@@ -207,6 +207,7 @@
     import axiosClient from "../axios";
     import { useRoute } from "vue-router";
     import { initFlowbite, Tooltip } from "flowbite";
+    import Spinner from "../components/forms/Spinner.vue";
 </script>
 <script>
 const getProductSuggestion = async (item) => {

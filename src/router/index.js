@@ -12,8 +12,7 @@ import VendorDetails from "../views/VendorDetails.vue";
 import Category from "../views/Category.vue";
 import Sell from "../views/Sell.vue";
 import Support from "../views/Support.vue";
-import Hottest from "../views/Hottest.vue";
-import Popular from "../views/Popular.vue";
+import Auctions from "../views/Auctions.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import StoreProducts from '../components/StoreProducts.vue';
@@ -56,19 +55,26 @@ const routes = [
         component: Settings,
         meta: { requiresAuth: true, title: 'Settings' },
     },
-    // hottest items route
+    // auction items route
     {
-        path: '/hottest',
-        name: 'hottest',
-        component: Hottest,
-        meta: { requiresAuth: true, title: 'Hottest' }
-    },
-    // hottest items route
-    {
-        path: '/popular',
-        name: 'popular',
-        component: Popular,
-        meta: { requiresAuth: true, title: 'Popular' }
+        path: '/auctions',
+        name: 'auctions',
+        component: Auctions,
+        meta: { requiresAuth: true, title: 'Auctions' },
+        children: [
+            {
+                path: '?filter=future',
+                name: 'auction-future',
+                component: Auctions,
+                meta: { title: 'Auctions | Future' },
+            },
+            {
+                path: '?filter=live',
+                name: 'auction-live',
+                component: Auctions,
+                meta: { title: 'Auctions | Live' },
+            },
+        ]
     },
     // vendor routes
     {

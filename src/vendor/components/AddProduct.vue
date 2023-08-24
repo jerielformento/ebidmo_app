@@ -53,7 +53,7 @@
                             <div class="mt-2">
                                 <div class="flex justify-normal items-center">
                                 <input name="images" @change="onFileChange" ref="file" multiple class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
-                                <button @click="clearUploadedFile" class="flex items-center ml-1 border border-gray-200 rounded-sm disabled:opacity-80 bg-red-500 text-white px-3 py-0.5 text-sm font-semibold leading-6 shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                                <button @click="clearUploadedFile" class="flex items-center ml-1 border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-100 text-gray-700 px-3 py-0.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                                     clear
                                 </button>
                             </div>
