@@ -48,22 +48,13 @@
                                 <small v-if="errordata.condition !== ''" class="text-red-400">{{ errordata.condition }}</small>
                             </div>
                         </div>
-                        <div class="sm:col-span-2">
-                            <label for="location" class="block text-sm font-medium leading-6">Location</label>
-                            <div class="mt-2">
-                                <select v-model="postdata.location" id="location" name="location" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="location in locations" :value="location.id">{{ location.description }}</option>
-                                </select>
-                                <small v-if="errordata.location !== ''" class="text-red-400">{{ errordata.location }}</small>
-                            </div>
-                        </div>
-                        <div class="sm:col-span-6">
+                        <div class="sm:col-span-4">
                             <label for="images" class="block text-sm font-medium leading-6">Upload Image</label>
                             <div class="mt-2">
                                 <div class="flex justify-normal items-center">
-                                <input name="images" @change="onFileChange" ref="file" multiple accept="image/png, image/jpeg" class="block w-auto text-xs text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
-                                <button @click="clearUploadedFile" class="flex items-center ml-1 border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-100 text-gray-700 p-2 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
-                                    <XMarkIcon class="text-red-500 h-5 w-5" />
+                                <input name="images" @change="onFileChange" ref="file" multiple class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
+                                <button @click="clearUploadedFile" class="flex items-center ml-1 border border-gray-200 rounded-sm disabled:opacity-80 bg-red-500 text-white px-3 py-0.5 text-sm font-semibold leading-6 shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                                    clear
                                 </button>
                             </div>
                                 <p class="text-sm font-normal text-gray-400">File ext: jpg, png</p>
@@ -85,7 +76,7 @@
                             </button>
                             <button @click="submit" type="submit" :disabled="isSubmit" class="mt-3 flex items-center justify-center rounded-sm disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                 Save Product
-                                <Spinner v-if="isSubmit"/>
+                                <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="isSubmit"/>
                             </button>
                         </div>
                     </div>
@@ -94,20 +85,20 @@
         </div>
         <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-sm">
             <div class="mx-auto sm:py-1 flex items-center justify-center">
-                <Spinner class="h-6 w-6"/>
+                <ArrowPathIcon class="animate-spin h-5 w-5 ml-1"/>
             </div>
         </div>        
     </Transition>
     </div>
 </template>
 <script>
-    import Spinner from '../../components/forms/Spinner.vue';
+    import { ArrowPathIcon } from '@heroicons/vue/24/outline';
     import { XMarkIcon } from '@heroicons/vue/24/solid';
     import { ref, onMounted } from 'vue';
     import axiosClient from '../../axios';
     import { toast } from 'vue3-toastify';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-    import { initFlowbite } from 'flowbite';
+    
     const isSubmit = ref(false);
 
     export default {
@@ -117,16 +108,14 @@
             reload: Function,
             categories: Array,
             conditions: Array,
-            brands: Array,
-            locations: Array
+            brands: Array
         },
-        components: { Spinner, XMarkIcon },
+        components: { ArrowPathIcon, XMarkIcon },
         setup() {
             const isMounted = ref(false);
             const url = ref(null);
 
             onMounted(async() => {
-                initFlowbite();
                 isMounted.value = true;
             });
 
@@ -137,15 +126,21 @@
                 isMounted
             }
         },
-        data() { 
+        data() {
+            const brands = this.$props.brands;
+            const conditions = this.$props.conditions;
+            const categories = this.$props.categories;
+
             return {
+                brands: brands,
+                conditions: conditions,
+                categories: categories,
                 postdata: {
                     name: '',
                     details: '',
                     brand: null,
                     condition: null,
                     category: null,
-                    location: null,
                     images: []
                 },
                 errordata: {
@@ -154,7 +149,6 @@
                     brand: '',
                     condition: '',
                     category: '',
-                    location: '',
                     images: ''
                 },
                 editor: ClassicEditor,
@@ -172,25 +166,13 @@
                 this.postdata.images = this.$refs.file.files;
                 
                 let getf = [];
-                let error_file = 0;
                 //console.log(files);
                 Object.entries(files).forEach(entry => {
-                    if(entry[1].type === 'image/jpeg' || entry[1].type === 'image/png') {
-                        getf.push(URL.createObjectURL(entry[1]));
-                        URL.revokeObjectURL(entry[1]);
-                    } else {
-                        error_file += 1;
-                    }
+                    getf.push(URL.createObjectURL(entry[1]));
+                    URL.revokeObjectURL(entry[1]);
                 });
+                this.url = getf;
 
-                if(error_file > 0) {
-                    this.clearUploadedFile();
-                    toast.error("Invalid file extension", {
-                        position: toast.POSITION.BOTTOM_CENTER,
-                    });
-                } else {
-                    this.url = getf;
-                }
             },
             async submit() {
                 isSubmit.value = true;
@@ -207,7 +189,6 @@
                 formData.append('category', this.postdata.category);
                 formData.append('condition', this.postdata.condition);
                 formData.append('brand', this.postdata.brand);
-                formData.append('location', this.postdata.location);
              
                 const headers = { 'Content-Type': 'multipart/form-data' };
                 await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);

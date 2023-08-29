@@ -84,34 +84,20 @@
                     </div>
                 </div>
                 <div class="mt-5 py-5 col-span-3 md:col-span-3 lg:col-span-1">
-                    <h2 class="font-semibold mb-2 text-gray-400">Activity Log</h2>
-                    <div class="grid space-y-2 max-h-2xl px-3 border rounded-md shadow-sm border-gray-200">
-                        <!-- History -->
-                        <ul class="max-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <li v-for="bid in bidHistory" class="py-3 sm:pb-4">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-shrink-0">
-                                        <UserCircleIcon class="h-8 w-8 text-gray-300 bg-gray-50 border border-gray-300 rounded-full"/>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-600 truncate dark:text-white">
-                                            {{ bid.customer.username }}
-                                        </p>
-                                        <p class="text-sm text-gray-400 truncate dark:text-gray-400">
-                                            {{ moment(bid.time).format("lll") }}
-                                        </p>
-                                    </div>
-                                    <div class="inline-flex items-center text-base font-semibold text-green-500 dark:text-white">
-                                        {{ productInfo.currency.prefix+bid.price.toLocaleString() }}
-                                    </div>
+                    <h2 class="font-semibold mb-2 text-gray-600">Activity Log</h2>
+                    <div class="grid space-y-2 max-h-2xl">
+                        <div v-for="bid in bidHistory">
+                            <div class="grid grid-cols-1 font-semibold items-center p-3 bg-amber-400 border border-gray-200 ring-2 ring-inset ring-slate-800 rounded-md shadow-sm text-md text-gray-700">
+                                <span class="text-xs text-gray-800 flex justify-between">Bid: {{ productInfo.currency.prefix }}{{ bid.price }} <ArrowTrendingUpIcon class="h-4 w-4 text-amber-800"/></span>
+                                <div class="mt-1 flex justify-between items-center">
+                                    <span class="text-xs block text-gray-800 font-semibold">{{ bid.customer.username }}</span>
+                                    <span class="text-xs block text-gray-600">{{ bid.time }}</span>
                                 </div>
-                            </li>
-                            <li v-if="bidHistory.length === 0" class="py-3 sm:pb-4">
-                                <div class="flex items-center space-x-4">
-                                    <span class="text-xs block text-gray-400">No activity found.</span>
-                                </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
+                        <div v-if="bidHistory.length === 0" class="grid grid-cols-1 items-center p-3 bg-gray-50 border border-gray-200 rounded-sm shadow-sm text-md text-gray-700">
+                            <span class="text-xs block text-gray-400">No activity found.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,7 +106,7 @@
     </div>
     <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-sm">
             <div class="mx-auto sm:py-1 flex items-center justify-center">
-                <Spinner class="h-6 w-6"/>
+                <ArrowPathIcon class="animate-spin h-5 w-5 ml-1"/>
             </div>
         </div>
     </Transition>
@@ -128,8 +114,7 @@
 </template>
 <script>
     import { StarIcon, ShieldCheckIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, TrophyIcon, ArrowLongLeftIcon, Cog6ToothIcon, InformationCircleIcon, UserCircleIcon } from "@heroicons/vue/24/outline";
-    import Spinner from "../../components/forms/Spinner.vue";
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon, TrophyIcon, ArrowLongLeftIcon, Cog6ToothIcon, InformationCircleIcon } from "@heroicons/vue/24/outline";
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
@@ -158,17 +143,16 @@
         components: {
             Swiper,
             SwiperSlide,
-            Spinner,
             StarIcon,
             ShieldCheckIcon,
             ShareIcon,
             HeartIcon,
             ArrowTrendingUpIcon,
+            ArrowPathIcon,
             TrophyIcon,
             ArrowLongLeftIcon,
             Cog6ToothIcon,
-            InformationCircleIcon,
-            UserCircleIcon
+            InformationCircleIcon
         },
         data() {
             const route = useRoute();

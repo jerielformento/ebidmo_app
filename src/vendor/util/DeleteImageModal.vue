@@ -1,5 +1,5 @@
 <template>
-    <Modal size="md" @close="cancel" class="absolute top-20 z-50">
+    <Modal size="md" class="absolute top-20 z-50">
       <template #header>
         <div class="flex items-center text-lg text-gray-600 font-bold">
           Image

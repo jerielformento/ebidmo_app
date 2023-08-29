@@ -2,13 +2,11 @@ export function useAuctionColorCode(status) {
     let setColor = "";
 
     if(status === 1) {
-        setColor = "bg-red-500 animate-pulse";
+        setColor = "bg-green-400";
     } else if(status === 2) {
-        setColor = "bg-gray-500";
-    } else if(status === 3) {
-        setColor = "bg-amber-500";
+        setColor = "bg-sky-300";
     } else {
-        setColor = "bg-green-500";
+        setColor = "bg-red-400";
     }
 
     return setColor;

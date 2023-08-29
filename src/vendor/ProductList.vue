@@ -2,14 +2,13 @@
     <div class="bg-gray-100 pb-10">
         <div class="mx-auto sm:py-1">
             <router-view 
-                v-if="productCreate || productEdit || viewAuction" :key="$route.fullPath" 
+                v-if="productCreate || productEdit || auctionView" :key="$route.fullPath" 
                 :cancel="cancel" 
                 :reload="reloadProducts" 
                 :scrollToTop="scrollToTop"
                 :categories="categories" 
                 :brands="brands" 
                 :conditions="conditions"
-                :locations="locations"
             ></router-view>
             <div class="flex justify-between items-center">
                 <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">
@@ -28,7 +27,7 @@
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <MagnifyingGlassIcon class="w-5 h-5 text-gray-500"/>
                         </div>
-                        <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search" required="">
+                        <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search" required="">
                     </div>
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
@@ -53,7 +52,7 @@
                                 <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete all</a>
                             </div>
                         </div> -->
-                        <!-- <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
+                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                             </svg>
@@ -70,7 +69,7 @@
                                     <label :for="cat.id" class="ml-2 text-sm font-medium text-gray-900">{{ cat.title }}</label>
                                 </li>
                             </ul>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -95,43 +94,30 @@
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                 <img :src="(item.thumbnail !== null) ? item.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
                             </th>
-                            <td class="px-4 py-3">
-                                
-                                <router-link 
-                                    :to="{name: 'product-auction', params: {id: item.slug}}" 
-                                    @click="viewAuction" 
-                                    class="text-amber-500 hover:underline">
-                                    {{ item.name }}
-                                </router-link>
-                            </td>
+                            <td class="px-4 py-3">{{ item.name }}</td>
                             <td class="px-4 py-3">{{ item.category.title }}</td>
                             <td class="px-4 py-3">{{ item.brand.description }}</td>
                             <td class="px-4 py-3">{{ item.condition.description }}</td>
                             <td class="px-4 py-3">{{ moment(item.created_at).format("lll") }}</td>
-                            <td class="px-4 py-3" v-if="item.auction !== null"><span class="bg-green-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
+                            <td class="px-4 py-3" v-if="item.bid !== null"><span class="bg-green-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
                             <td class="px-4 py-3" v-else></td>
                             <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                 <router-link 
                                     :to="{name: 'product-edit', params: {store: item.store.slug, slug: item.slug}}" 
                                     @click="editProduct" 
-                                    class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                    class="rounded-sm bg-amber-500 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
                                     Edit
                                 </router-link>
-                                <!-- <router-link 
+                                <router-link 
                                     :to="{name: 'product-auction', params: {id: item.slug}}" 
                                     @click="viewAuction" 
                                     class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                     View
-                                </router-link> -->
-                                <button v-if="item.auction === null"
-                                        @click="setAuction(item.slug)" 
-                                        class="rounded-sm bg-green-400 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                        Auction
-                                </button>
+                                </router-link>
                             </td>
                         </tr>
                         <tr v-else>
-                            <td class="px-4 py-3" colspan="8"><div class="flex justify-center"><Spinner class="h-6 w-6"/></div></td>
+                            <td class="px-4 py-3" colspan="8"><div class="flex justify-center"><ArrowPathIcon class="h-6 w-6 animate-spin"/></div></td>
                         </tr>
                         
                     </tbody>
@@ -164,38 +150,38 @@
         </div>
     </div>
     </section>
+            <div v-if="!productItems" class="pb-8">
+                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
+                    <h2 class="text-gray-300">No available product to show.</h2>
+                </div>
+            </div>
     </div>
-    <AddAuctionModal v-if="createAuction" :cancel="cancel" :reload="reloadProducts" :id="modal.id"/>
 </div>
 </template>
 <script>
-    import { ref, onMounted, getCurrentInstance } from 'vue'
-    import { ShoppingCartIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
+    import { ref, onMounted } from 'vue'
+    import { ShoppingCartIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../axios';
-    import { initDrawers } from 'flowbite';
-    import Spinner from '../components/forms/Spinner.vue';
+    import { initFlowbite } from 'flowbite';
     import moment from 'moment';
-    import AddAuctionModal from './util/AddAuctionModal.vue';
-    
+
     const productCreate = ref(false);
     const productEdit = ref(false);
     const auctionView = ref(false);
-    const createAuction = ref(false);
     const reloadList = ref(false);
     const routeKey = ref(0);
     const categories = ref(null);
     const brands = ref(null);
     const conditions = ref(null);
-    const locations = ref(null);
-    
+
     const getMyProducts = async (page) => {
         let pagedata = [];
         let resdata = [];
         let pagination = [];
 
         reloadList.value = true;
-        const setPage = '?page='+page;
+        const setPage = (page > 1) ? '?page='+page : '';
 
         await axiosClient.get('/api/v1/products'+setPage)
             .then(response => {
@@ -255,14 +241,13 @@
     }
 
     export default {
-        components: {Spinner, AddAuctionModal, ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon},
+        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, PencilSquareIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon},
         async setup() {
             onMounted(async() => {
-                initDrawers(); 
+                initFlowbite(); 
                 let sel_brand = 0;
                 let sel_condition = 0;
                 let sel_category = 0;
-                let sel_location = 0;
 
                 await axiosClient.get('/api/util/product/categories').
                     then(response => { 
@@ -305,29 +290,11 @@
                         });
                         conditions.value = gb;
                     });
-
-                await axiosClient.get('/api/util/product/locations').
-                    then(response => { 
-                        let gb = [];
-
-                        response.data.map(function(value, key) {
-                            gb.push({
-                                id: value.id,
-                                description: value.name,
-                                is_active: ((value.id === sel_location) ? true : false)
-                            });
-                        });
-                        locations.value = gb;
-                    });
             });
             const products = await getMyProducts(1);
             const productItems = ref(products[0][0]);
             
             return { 
-                modal: {
-                    id: '',
-                    index: 0
-                },
                 moment,
                 NoImageUrl: import.meta.env.VITE_NO_IMAGE_URL,
                 pagination: products[1][0],
@@ -336,12 +303,10 @@
                 productCreate,
                 productEdit,
                 auctionView,
-                createAuction,
                 reloadList,
                 categories,
                 conditions,
-                brands,
-                locations
+                brands
             }
         },
         methods: {
@@ -370,7 +335,6 @@
                 productCreate.value = false;
                 productEdit.value = false;
                 auctionView.value = false;
-                createAuction.value = false;
                 this.$router.push({
                     name: 'vendor-products'
                 });
@@ -385,10 +349,6 @@
                 this.scrollToTop();
                 auctionView.value = true;
             },
-            setAuction(id) {
-                this.modal.id = id;
-                createAuction.value = true;
-            },
             textSubstr(text) {
                 let new_string = '';
                 if(text.length > 28) {
@@ -399,9 +359,11 @@
                 return new_string;
             },
             async reloadProducts() {
+                console.log('ok');
                 const products = await getMyProducts(1);
                 this.productItems = products[0][0];
                 this.pagination = products[1][0];
+                initFlowbite();
             },
             async prevPage(page, url) {
                 if(url !== null) {

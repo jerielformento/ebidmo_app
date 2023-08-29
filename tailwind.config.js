@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
 module.exports = {
   darkMode: 'class',
   content: [
@@ -11,11 +10,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gray: colors.coolGray,
-        blue: colors.blue,
-        red: colors.rose,
-        pink: colors.fuchsia,
-      },
+        primary: {
+          "50":"#efb573", // pagination active bg
+          "100":"#efb573", // pagination active hover
+          "200":"#d97706",
+          "300":"#d97706",
+          "400":"#d97706",
+          "500":"#e89f4c", // search focus
+          "600":"#d97706", // checkbox bg
+          "700":"#e88617", // button bg
+          "800":"#d97706",
+          "900":"#d97706"
+        }
+      } //d97706
     },
   },
   plugins: [
@@ -23,7 +30,7 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('flowbite-vue'),
-    require('flowbite/plugin'),
+    require('flowbite')
   ],
 }
 
