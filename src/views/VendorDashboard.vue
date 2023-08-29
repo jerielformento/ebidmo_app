@@ -14,6 +14,10 @@
                <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
                   <h2
                      class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                     <a href="/" class="flex items-center">
+                        <img :src="`${siteUrl}/images/ebidmo_text.png`" class="h-8 mr-3" alt="Flowbite Logo" />
+                        <span class="self-center text-xl font-bold whitespace-nowrap dark:text-white">Vendor Account</span>
+                     </a>
                      <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-5">
                         <div class="sm:col-span-3">
                            <div class="mb-2">
@@ -114,6 +118,29 @@
             </aside>
             <div class="p-4 sm:ml-64">
                <div class="p-2 border-dashed rounded-lg">
+                  
+                  <h2 class="text-2xl font-bold mb-4 flex items-center text-gray-700"><BuildingStorefrontIcon class="h-7 w-7 mr-2"/> {{ JSON.parse(store.state.user.data).store_name }}</h2>
+                  <!-- Breadcrumb -->
+                  <nav
+                     class="flex px-3 py-2 mb-4 text-gray-700 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
+                     aria-label="Breadcrumb">
+                     <ol class="inline-flex items-center space-x-0 md:space-x-2">
+                        <li class="inline-flex items-center">
+                           <router-link :to="{ name: 'vendor-home' }"
+                              class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-amber-500 dark:text-gray-400 dark:hover:text-white">
+                              <HomeIcon class="h-5 w-5 mr-1" /> Home
+                           </router-link>
+                        </li>
+                        <li aria-current="page">
+                           <div class="flex items-center">
+                              <ChevronRightIcon class="h-4 w-4"/>
+                              <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-400">
+                                 {{ route.meta.title }}
+                              </span>
+                           </div>
+                        </li>
+                     </ol>
+                  </nav>
                   <Suspense>
                      <router-view :key="route"></router-view>
                   </Suspense>
@@ -127,10 +154,14 @@
             <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
                <h2
                   class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                  <a href="/" class="flex items-center">
+                     <img :src="`${siteUrl}/images/ebidmo_text.png`" class="h-8 mr-3" alt="Flowbite Logo" />
+                     <span class="self-center text-xl font-bold whitespace-nowrap dark:text-white">Vendor Account</span>
+                  </a>
                   <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-5">
                      <div class="sm:col-span-3">
                         <div class="mb-2">
-                           <span class="font-bold text-lg">Setup your own store now</span>
+                           <span class="font-bold text-lg text-gray-500">Setup your own store now</span>
                         </div>
                         <label for="store-name" class="block text-sm font-medium leading-6">Store Name</label>
                         <div class="my-2">
@@ -190,11 +221,7 @@
       </div>
    </div>
    <div v-else>
-      <div class="bg-gray-100 pb-5 mt-10">
-         <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16 flex justify-center text-gray-600">
-            <Spinner /> Authenticating ...
-         </div>
-      </div>
+      <LoaderModal>Authenticating...</LoaderModal>
    </div>
 </template>
 <script setup>
@@ -208,12 +235,17 @@ import {
    TruckIcon,
    Bars3Icon,
    Cog6ToothIcon,
-   ArrowLongLeftIcon
+   ArrowLongLeftIcon,
+   BuildingStorefrontIcon,
+   ChevronRightIcon,
+   HomeIcon
 } from "@heroicons/vue/24/outline";
 import axiosClient from '../axios';
 import store from '../store';
-import Spinner from '../components/forms/Spinner.vue';
 import Button from '../components/forms/Button.vue';
+import { useRoute } from 'vue-router';
+import LoaderModal from '../components/util/LoaderModal.vue';
+const route = useRoute();
 </script>
 <script>
 export default {

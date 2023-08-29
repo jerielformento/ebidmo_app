@@ -6,9 +6,9 @@
         <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
             <router-view v-if="productCreate" :cancel="cancel"></router-view>
             <div class="flex justify-between items-center">
-                <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">
-                Support
-                </h2>
+                <div class="w-full p-3 rounded-md border-2 border-dashed h-32 flex items-center justify-center">
+                    <h2 class="text-gray-400">This page is currently not available at the moment.</h2>
+                </div>
             </div>
         </div>
     </div>

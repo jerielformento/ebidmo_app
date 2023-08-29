@@ -16,6 +16,7 @@
     "@ckeditor/ckeditor5-vue": "^5.1.0",
     "@heroicons/vue": "^2.0.18",
     "@mdi/font": "^7.2.96",
+    "@vuepic/vue-datepicker": "^6.0.2",
     "axios": "^1.4.0",
     "datatables.net-bs5": "^1.13.4",
     "datatables.net-buttons-bs5": "^2.3.6",

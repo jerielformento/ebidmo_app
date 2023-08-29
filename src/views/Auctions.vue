@@ -9,73 +9,44 @@
             <div class="">
                 <div>
                     <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex sticky items-baseline justify-between border-b border-gray-200 pb-6 pt-6">
-                        <h1 class="text-2xl font-bold tracking-tight text-gray-900">Listing</h1>
-
-                        <div class="flex items-center">
-                        <div class="relative inline-block text-left">
-                            <div>
-                            <button @click="isSort = !isSort" type="button" class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900" id="menu-button" aria-expanded="false" aria-haspopup="true">
-                                Sort
-                                <svg class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            </div>
-
-                            <!--
-                            Dropdown menu, show/hide based on menu state.
-
-                            Entering: "transition ease-out duration-100"
-                                From: "transform opacity-0 scale-95"
-                                To: "transform opacity-100 scale-100"
-                            Leaving: "transition ease-in duration-75"
-                                From: "transform opacity-100 scale-100"
-                                To: "transform opacity-0 scale-95"
-                            -->
-                            <div v-if="isSort" class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                            <div class="py-1" role="none">
-                                <!--
-                                Active: "bg-gray-100", Not Active: ""
-
-                                Selected: "font-medium text-gray-900", Not Selected: "text-gray-500"
-                                -->
-                                <a href="#" class="font-medium text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</a>
-                                <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</a>
-                                <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
-                                <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
-                                <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a>
-                            </div>
-                            </div>
-                        </div>
-
-                        <button type="button" class="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                            <span class="sr-only">View grid</span>
-                            <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4.25 2A2.25 2.25 0 002 4.25v2.5A2.25 2.25 0 004.25 9h2.5A2.25 2.25 0 009 6.75v-2.5A2.25 2.25 0 006.75 2h-2.5zm0 9A2.25 2.25 0 002 13.25v2.5A2.25 2.25 0 004.25 18h2.5A2.25 2.25 0 009 15.75v-2.5A2.25 2.25 0 006.75 11h-2.5zm9-9A2.25 2.25 0 0011 4.25v2.5A2.25 2.25 0 0013.25 9h2.5A2.25 2.25 0 0018 6.75v-2.5A2.25 2.25 0 0015.75 2h-2.5zm0 9A2.25 2.25 0 0011 13.25v2.5A2.25 2.25 0 0013.25 18h2.5A2.25 2.25 0 0018 15.75v-2.5A2.25 2.25 0 0015.75 11h-2.5z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <button type="button" class="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden">
-                            <span class="sr-only">Filters</span>
-                            <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M2.628 1.601C5.028 1.206 7.49 1 10 1s4.973.206 7.372.601a.75.75 0 01.628.74v2.288a2.25 2.25 0 01-.659 1.59l-4.682 4.683a2.25 2.25 0 00-.659 1.59v3.037c0 .684-.31 1.33-.844 1.757l-1.937 1.55A.75.75 0 018 18.25v-5.757a2.25 2.25 0 00-.659-1.591L2.659 6.22A2.25 2.25 0 012 4.629V2.34a.75.75 0 01.628-.74z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        </div>
-                    </div>
-
                     <section aria-labelledby="products-heading" class="pb-24 pt-6">
                             <h2 id="products-heading" class="sr-only">Products</h2>
                             <div class="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-5 lg:grid-cols-6">
                             <!-- Filters -->
                             <form class="md:h-auto sm:h-auto lg:block">
+                                <h3 class="sr-only">Filter</h3>                         
+                                <label for="minmax" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price Range</label>
+                                <span class="text-sm text-gray-600">Starting bid: {{ price_range }}</span>
+                                <input ref="minmax" type="range" min="100" max="500" step="100" @input="changePrice" @change="filterPrice" class="w-full bg-gray-300 accent-amber-400 h-2 rounded-lg cursor-pointer dark:bg-gray-700">
+
+                                <h3 class="my-4 font-semibold text-sm text-gray-900 dark:text-white">Filter</h3>
+                                <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input id="list-radio-license" type="radio" checked value="" name="list-radio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-600 dark:focus:ring-amber-500 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="list-radio-license" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">All</label>
+                                        </div>
+                                    </li>
+                                    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input id="list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-600 dark:focus:ring-amber-500 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="list-radio-id" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Live</label>
+                                        </div>
+                                    </li>
+                                    <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input id="list-radio-millitary" type="radio" value="" name="list-radio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-600 dark:focus:ring-amber-500 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="list-radio-millitary" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Future</label>
+                                        </div>
+                                    </li>
+                                </ul>
                                 <h3 class="sr-only">Categories</h3>
-                                <p class="text-sm font-medium text-gray-900 mb-2">Categories</p>
+                                <p class="text-sm font-medium text-gray-900 my-4">Categories</p>
                                 <ul role="list" class="space-y-2 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                    <li class="break-words" :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+                                    <li class="break-words" :class="filter.category === null ? 'border-2 border-gray-800 bg-amber-400 rounded-md' : 'border-2 border-amber-400 bg-amber-300 rounded-md'">
                                         <a @click="filterCategory(null)" class="px-2 cursor-pointer block">All</a>
                                     </li>
-                                    <li v-for="cat in categories" class="break-words" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-300 rounded-md' : 'border-2 border-amber-500 bg-amber-400 rounded-md'">
+                                    <li v-for="cat in categories" class="break-words" :class="filter.category === cat.id ? 'border-2 border-gray-800 bg-amber-400 rounded-md' : 'border-2 border-amber-400 bg-amber-300 rounded-md'">
                                         <a @click="filterCategory(cat.id)" class="px-2 cursor-pointer block">{{ cat.title }}</a>
                                     </li>
                                 </ul>
@@ -91,7 +62,8 @@
                                 <div class="pt-6">
                                     <div class="space-y-4">
                                     <div v-for="brand in brands" class="flex items-center min-w-fit">
-                                        <input @click="filterBrand(brand.id)" type="checkbox" :id="`filter-section-${brand.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input v-if="qbrand === brand.id" checked @click="filterBrand(brand.id)" type="checkbox" :id="`filter-section-${brand.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input v-else @click="filterBrand(brand.id)" type="checkbox" :id="`filter-section-${brand.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
                                         <label :for="`filter-section-${brand.id}`" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">{{ brand.description }}</label>
                                     </div>
                                     </div>
@@ -99,6 +71,8 @@
                                 </div>
                             </form>
 
+                                
+              
                             <!-- Product grid -->
                             <main class="md:col-span-4 lg:col-span-5">
                                 <!-- Your content -->
@@ -132,6 +106,8 @@
     import axiosClient from '../axios';
     import { useStore } from 'vuex'
     import { computed } from 'vue'
+    import { initFlowbite } from 'flowbite'
+
     const isSort = ref(false);
 </script>
 <script>
@@ -142,12 +118,14 @@
             const selBrand = ref(null);
             const categories = ref(null);
             const brands = ref(null);
+            const priceRange = ref(0);
             const filter = ref({
                     category: null,
                     brand: null
                 });
 
             onMounted(async() => {
+                initFlowbite();
                 let sel_brand = 0;
                 let sel_condition = 0;
                 let sel_category = 0;
@@ -187,6 +165,7 @@
                 categories,
                 brands,
                 user: computed(() => store.state.user),
+                price_range: computed(() => priceRange)
             }
         },
         methods: {
@@ -203,6 +182,12 @@
                     this.temp_brands.splice(index, 1);
                 }
                 this.filter.brand = this.temp_brands;
+            },
+            changePrice() {
+                this.price_range.value = parseInt(this.$refs.minmax.value);
+            },
+            filterPrice() {
+                console.log(this.price_range.value);
             }
         }
     }
