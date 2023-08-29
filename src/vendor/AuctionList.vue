@@ -25,41 +25,8 @@
                                             <MagnifyingGlassIcon class="w-5 h-5 text-gray-500" />
                                         </div>
                                         <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
+                                            class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
                                             placeholder="Search" required="">
-                                    </div>
-
-                                </div>
-                                <div
-                                    class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                                    <div class="flex items-center space-x-3 w-full md:w-auto">
-                                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
-                                            type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                                                class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                            Filter
-                                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                                            </svg>
-                                        </button>
-                                        <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-sm shadow">
-                                            <h6 class="mb-3 text-sm font-medium text-gray-900">Choose brand</h6>
-                                            <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                                <li class="flex items-center" v-for="cat in categories">
-                                                    <input :id="cat.id" type="checkbox" :value="cat.id"
-                                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-amber-500 focus:ring-primary-500">
-                                                    <label :for="cat.id" class="ml-2 text-sm font-medium text-gray-900">{{
-                                                        cat.title }}</label>
-                                                </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +65,10 @@
                                             <td class="px-4 py-3">{{ item.product.currency.prefix + item.buy_now_price }}</td>
                                             <td class="px-4 py-3">{{ (item.highest !== null) ?
                                                 item.product.currency.prefix + item.highest.price : 0 }}</td>
-                                            <td class="px-4 py-3">{{ item.min_participants }}/{{ item.participants_count }}</td>
+                                            <td class="px-4 py-3">
+                                                <span v-if="item.min_participants !== null">{{ item.min_participants }}/{{ item.participants_count }}</span>
+                                                <span v-else>N/A</span>
+                                            </td>
                                             <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
                                             <td class="px-4 py-3"><span
                                                     :class="useAuctionColorCode(item.status)"
@@ -114,7 +84,7 @@
                                         <tr v-else>
                                             <td class="px-4 py-3" colspan="11">
                                                 <div class="flex justify-center">
-                                                    <ArrowPathIcon class="h-6 w-6 animate-spin" />
+                                                    <Spinner class="h-6 w-6" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -156,23 +126,19 @@
                         </div>
                     </div>
                 </section>
-                <div v-if="!productItems" class="pb-8">
-                    <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
-                        <h2 class="text-gray-300">No available product to show.</h2>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { ref, onMounted } from 'vue'
-import { ShoppingCartIcon, ArrowPathIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
+import { ShoppingCartIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
 import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
 import { useAuctionStatus } from '../composables/useAuctionStatus';
 import { useAuctionColorCode } from '../composables/useAuctionColorCode';
 import axiosClient from '../axios';
-import { initFlowbite } from 'flowbite';
+import { initDrawers } from 'flowbite';
+import Spinner from '../components/forms/Spinner.vue';
 import moment from 'moment';
 
 const productCreate = ref(false);
@@ -252,10 +218,10 @@ const searchMyProducts = async (page, searchKey) => {
 }
 
 export default {
-    components: { ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ArrowPathIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon },
+    components: { Spinner, ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon },
     async setup() {
         onMounted(async() => {
-            initFlowbite();   
+            initDrawers();   
 
             let sel_brand = 0;
             let sel_condition = 0;

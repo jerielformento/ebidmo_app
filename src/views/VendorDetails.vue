@@ -199,8 +199,7 @@ export default {
             },
             loadBtn,   
             storeInfo,
-            search,
-            route
+            search
         }
     },
     methods: {

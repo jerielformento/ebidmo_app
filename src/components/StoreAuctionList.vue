@@ -14,42 +14,9 @@
                 </div>
             </div>
 
-            <div v-if="!searchingItem" class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
-                <div v-for="item in productItems" :key="item.id">
-                    <div class="group relative pb-3 rounded-md border bg-white shadow-md">
-                        <div class="min-h-50 aspect-h-2 aspect-w-2 w-full overflow-hidden rounded-t-md bg-gray-200 group-hover:opacity-90 lg:h-50">
-                        <img :src="(item.product.thumbnail !== null) ? item.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-t-md h-full w-full object-cover object-center lg:h-full lg:w-full">
-                        </div>
-                        <div class="mt-3 mx-3 flex justify-between">
-                            <div>
-                                <h3 class="text-sm text-amber-500">
-                                    <router-link :to="{name: 'auction-details', params: { id: item.product.slug}}" class="font-semibold">
-                                        <span aria-hidden="true" class="absolute inset-0"></span>
-                                        {{ textSubstr(item.product.name) }}
-                                    </router-link>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="mx-3 relative">
-                            <p class="mt-1 text-sm text-gray-400">Min. Bid: <span class="text-green-600">{{ item.product.currency.prefix+item.min_price.toLocaleString() }}</span></p>
-                            <p class="mt-1 text-sm text-gray-400">Time to Bid</p>
-                        </div>
-                        <div class="mt-2 mx-3 text-2xl text-gray-500 flex justify-between items-center relative">
-                            <span class="text-sm font-semibold text-red-500" v-if="isDone">
-                                {{ expirationTimer[item.product.slug].days }}d
-                                {{ expirationTimer[item.product.slug].hours }}h
-                                {{ expirationTimer[item.product.slug].minutes }}m
-                                {{ expirationTimer[item.product.slug].seconds }}s
-                            </span>
-                            <div class="text-sm font-semibold text-gray-200" v-else>...</div>
-                            <router-link 
-                                :to="{name: 'auction-details', 
-                                params: { store: item.product.store.slug, id: item.product.slug }}" 
-                                class="rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                Bid
-                            </router-link>
-                        </div>
-                    </div>
+            <div v-if="!searchingItem && isDone" class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-4 px-1 pb-8">
+                <div v-for="item in productItems" :key="item.id" class="rounded-md border bg-white shadow-md">
+                    <AuctionCard :item="item" :timer="expirationTimer[item.product.slug]"/>
                 </div>
             </div>
             <div v-else class="mt-3 gap-y-10 pb-8 max-w-full">
@@ -69,6 +36,10 @@
     import { HeartIcon, StarIcon, PlusSmallIcon } from "@heroicons/vue/24/solid";
     import ItemsLoader from './util/ItemsLoader.vue';
     import axiosClient from '../axios';
+    import { useAuctionColorCode } from '../composables/useAuctionColorCode';
+    import { useAuctionStatus } from '../composables/useAuctionStatus';
+    import { setExpirationTimer } from '../composables/setExpirationTimer';
+    import AuctionCard from './forms/AuctionCard.vue';
 
     const productCreate = ref(false);
     const productBidCreate = ref(false);
@@ -98,29 +69,8 @@
         return [resdata, pagedata];
     }
 
-    const validateExpiration = (itemExpAt) => {
-        const days = ref(0);
-        const hours = ref(0);
-        const minutes = ref(0);
-        const seconds = ref(0);
-        const timeRemaining = new Date(itemExpAt);
-        const currDate = new Date();
-        const endTime = timeRemaining - currDate;
-        seconds.value = parseInt(endTime / 1000);
-        minutes.value = parseInt(seconds.value / 60);
-        hours.value = parseInt(minutes.value / 60);
-        days.value = parseInt(hours.value / 24);
-
-        return {
-            'days': days.value,
-            'hours': (hours.value % 24),
-            'minutes': (minutes.value % 60),
-            'seconds': (seconds.value % 60)
-        };
-    }
-
     export default {
-        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ItemsLoader},
+        components: {ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon, ItemsLoader, AuctionCard},
         props: ['store', 'search'],
         watch: {
             async search(newVal, oldVal) {
@@ -147,7 +97,11 @@
                 Object.entries(resdata[0]).forEach(entry => {
                     const [key, items] = entry; 
                     items.forEach(function(item) {
-                            expTimer[item.product.slug] = validateExpiration(item.ended_at);
+                        if(item.status === 2) {
+                            expTimer[item.product.slug] = setExpirationTimer(item.started_at);
+                        } else {
+                            expTimer[item.product.slug] = setExpirationTimer(item.ended_at);
+                        }
                     });
                 });
 
@@ -173,7 +127,9 @@
                 props,
                 searchingItem,
                 expirationTimer,
-                isDone
+                isDone,
+                useAuctionColorCode,
+                useAuctionStatus
             }
         },
         methods: {

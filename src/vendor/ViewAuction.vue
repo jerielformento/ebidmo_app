@@ -7,8 +7,8 @@
             <div class="mx-auto bg-white border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:grid lg:max-w-full lg:grid-cols-4 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
             <div class="w-full lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <!-- Image gallery -->
-                <p class="text-2xl font-medium text-gray-800 mb-5">Auction Details</p>
-                <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm border bg-gray-50 py-4">
+                <p class="text-2xl font-medium text-gray-800 mb-5">Item Details</p>
+                <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm py-4">
                 <swiper
                     :modules="modules"
                     :space-between="20"
@@ -55,97 +55,33 @@
                     <div class="block text-sm"><h3 class="inline-block">Category:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.category.title }}</a></div>
                     <div class="block text-sm"><h3 class="inline-block">Brand:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.brand.description }}</a></div>
                     <div class="block text-sm"><h3 class="inline-block">Condition:</h3> <span class="text-gray-500">{{ productInfo.condition.description }}</span></div>
-                    <div class="block text-sm"><h3 class="inline-block">Quantity:</h3> <span class="text-gray-500">{{ productInfo.quantity }}</span></div>
+                    <div class="block text-sm"><h3 class="inline-block">Location:</h3> <span class="text-gray-500">{{ productInfo.item_location.name }}</span></div>
                 </div>
 
                 <!-- Auction -->
                 <div>
-                    <div v-if="productInfo.bid === null" class="mt-5 p-5 border border-gray-200 rounded-sm">
-                        <div class="block text-md font-bold text-gray-500 mb-1"><h3 class="inline-block">Set Auction Details</h3></div>
-                        <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 mb-5">
-                            <div class="sm:col-span-6">
-                                <label for="min-price" class="block text-sm font-medium leading-6">Minimum Bid Price</label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.min_price" id="min-price" name="min-price" type="number" autocomplete="min-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.min_price !== ''" class="text-red-400">{{ errordata.min_price }}</small>
-                                </div>
-                            </div>
-                            <div class="sm:col-span-6">
-                                <label for="increment-price" class="block text-sm font-medium leading-6">Incremental Price</label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.increment_price" id="increment-price" name="increment-price" type="number" autocomplete="increment-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.increment_price !== ''" class="text-red-400">{{ errordata.increment_price }}</small>
-                                </div>
-                            </div>
-                            <div class="sm:col-span-6">
-                                <label for="buy-now-price" class="block text-sm font-medium leading-6">Buy Now Price <span class="text-gray-400 font-normal">(optional)</span></label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.buy_now_price" id="buy-now-price" name="buy-now-price" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.buy_now_price !== ''" class="text-red-400">{{ errordata.buy_now_price }}</small>
-                                </div>
-                            </div>
-                            <div class="sm:col-span-6">
-                                <label for="buy-now-price" class="block text-sm font-medium leading-6">Min. Number of Participants <span class="text-gray-400 font-normal">(optional)</span></label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.min_participants" id="min-participants" name="min-participants" placeholder="0" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.min_participants !== ''" class="text-red-400">{{ errordata.min_participants }}</small>
-                                </div>
-                            </div>
-                            <div class="sm:col-span-6">
-                                <label for="expiration" class="block text-sm font-medium leading-6">Expiration Date</label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.expiration !== ''" class="text-red-400">{{ errordata.expiration }}</small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="block space-x-2 mt-5">
-                            <button @click="submit" type="submit" :disabled="isSubmit" 
-                                class="flex items-center justify-center rounded-sm disabled:opacity-80 border border-transparent bg-green-400 px-3 py-1.5 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2">
-                                Live Auction
-                                <ArrowPathIcon class="animate-spin h-5 w-5 ml-1" v-if="isSubmit"/>
-                            </button>
-                        </div>
-                    </div>
-                    <div v-else>
+                    <div v-if="productInfo.auction !== null">
                         <div>
-                            <div class="text-2xl text-gray-500 mt-2 pt-2 border-t border-gray-200">
-                                <div v-if="!isEnded">
-                                    <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Remaining time to bid</h3></div>
+                            <div class="text-2xl text-gray-500 mt-2 border-t border-gray-200">
+                                <p class="my-2 text-2xl tracking-tight text-gray-600">Starting bid: <span class="text-green-500">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.min_price }}</span></p>
+                                <div v-if="productInfo.auction.status == 1">
+                                    <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Ending in</h3></div>
                                     <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
                                 </div>
-                                <div v-else>
-                                    <span class="text-red-500">Auction Ended</span>
+                                <div v-else-if="productInfo.auction.status == 2">
+                                    <div class="block text-sm"><h3 class="font-semibold text-amber-500 inline-block animate-pulse">Waiting for participants</h3></div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="mt-3 grid grid-cols-1 items-center text-sm p-3 border border-gray-200 rounded-md shadow-sm">
                             <div class="block font-semibold text-gray-800 mb-1"><h3 class="inline-block">Auction Details</h3></div>
-                            <div class="block"><h3 class="inline-block">Minimum Price:</h3> <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.min_price }}</span></div>
-                            <div class="block"><h3 class="inline-block">Buy Now Price:</h3> <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.buy_now_price }}</span></div>
-                            <div class="block"><h3 class="inline-block">Incremental Bid Cost:</h3> <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.increment_by }}</span></div>
-                            <div class="block"><h3 class="inline-block">Expiration:</h3> <span class="text-gray-600">{{ moment(productInfo.bid.ended_at).format("lll") }}</span></div>
+                            <div class="block"><h3 class="inline-block">Minimum Price:</h3> <span class="text-green-600">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.min_price }}</span></div>
+                            <div class="block"><h3 class="inline-block">Buy Now Price:</h3> <span class="text-green-600">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.buy_now_price }}</span></div>
+                            <div class="block"><h3 class="inline-block">Incremental Bid Cost:</h3> <span class="text-green-600">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.increment_by }}</span></div>
+                            <div class="block"><h3 class="inline-block">Expiration:</h3> <span class="text-gray-600">{{ moment(productInfo.auction.ended_at).format("lll") }}</span></div>
                             
-                            <!-- <div v-if="productInfo.bid.status === 1" class="block mt-3"><h3 class="inline-block">Status:</h3> <span class="text-green-600 font-semibold">Active</span></div> -->
-                        </div>
-                        <div class="mt-5">
-                            <h2 class="font-semibold mb-2 text-gray-600">Activity Log</h2>
-                            <div class="grid space-y-2 max-h-2xl">
-                                <div v-for="bid in bidHistory">
-                                    <div class="grid grid-cols-1 items-center p-3 bg-amber-400 border border-gray-200 ring-2 ring-inset ring-slate-800 rounded-md shadow-sm text-md text-gray-700">
-                                        <span class="text-xs font-semibold text-gray-800 flex justify-between">Bid: {{ productInfo.bid.currency.prefix }}{{ bid.price }} <ArrowTrendingUpIcon class="h-4 w-4 text-amber-800"/></span>
-                                        <div class="mt-1 flex justify-between items-center">
-                                            <span class="text-xs block text-gray-800 font-semibold">{{ bid.customer.username }}</span>
-                                            <span class="text-xs block text-gray-600">{{ bid.time }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div v-if="bidHistory.length === 0" class="grid grid-cols-1 items-center p-3 bg-gray-50 border border-gray-200 rounded-sm shadow-sm text-md text-gray-700">
-                                    <span class="text-xs block text-gray-400">No activity found.</span>
-                                </div>
-                            </div>
+                            <!-- <div v-if="productInfo.auction.status === 1" class="block mt-3"><h3 class="inline-block">Status:</h3> <span class="text-green-600 font-semibold">Active</span></div> -->
                         </div>
                     </div>
                 </div>
@@ -185,15 +121,16 @@
     </div>
     <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-sm">
             <div class="mx-auto sm:py-1 flex items-center justify-center">
-                <ArrowPathIcon class="animate-spin h-5 w-5 ml-1"/>
+                <Spinner class="h-6 w-6"/>
             </div>
         </div>
     </Transition>
     </div>
 </template>
 <script>
-    import { StarIcon, ShieldCheckIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
+    import { StarIcon, ShieldCheckIcon, UserCircleIcon } from "@heroicons/vue/24/solid";
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon } from "@heroicons/vue/24/outline";
+    import Spinner from "../components/forms/Spinner.vue";
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
@@ -205,7 +142,7 @@
     import { useRoute } from "vue-router";
     import { Modal } from 'flowbite-vue';
     import moment from 'moment';
-
+    
     const polling = ref(null);
     const isSubmit = ref(false);
     const isMounted = ref(false);
@@ -227,7 +164,8 @@
             ShareIcon,
             HeartIcon,
             ArrowTrendingUpIcon,
-            ArrowPathIcon,
+            UserCircleIcon,
+            Spinner,
             Modal
         },
         data() {
@@ -240,16 +178,17 @@
             const minutes = ref(0);
             const seconds = ref(0);
             const isEnded = ref(false);
-            
+
             onMounted(async() => {
+
                 const result = await axiosClient.get(`/api/v1/customer/auction/${route.params.id}`).
                     then(response => {
                         productInfo.value = response.data;
                         productImages.value = response.data.images
                         isLoading.value = false; 
 
-                        if(productInfo.value.bid !== null) {
-                            const timeRemaining = new Date(productInfo.value.bid.ended_at);
+                        if(productInfo.value.auction !== null) {
+                            const timeRemaining = new Date(productInfo.value.auction.ended_at);
                             const currDate = new Date();
 
                             if(currDate.getTime() > timeRemaining.getTime()) {
@@ -271,8 +210,8 @@
                         window.location = '/404-page-not-found';
                     });
 
-                if(productInfo.value.bid !== null) {
-                    await axiosClient.get(`/api/v1/auctions/activity/${productInfo.value.bid.id}`)
+                if(productInfo.value.auction !== null) {
+                    await axiosClient.get(`/api/v1/auction/activity/${productInfo.value.auction.id}`)
                         .then(response => {
                             console.log(response.data);
                             bidHistory.value = response.data;
@@ -322,57 +261,8 @@
             }
         },
         methods: {
-            async submit() {
-                isSubmit.value = true;
-                
-                console.log(this.postdata);
-
-                await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);
-                await axiosClient.post('/api/v1/auctions', this.postdata)
-                    .then(response => {
-                        toast.success(response.data.message, {
-                            position: toast.POSITION.TOP_CENTER,
-                        });
-
-                        isSubmit.value = false;
-                        this.cancel();
-                        this.scrollToTop();
-                        this.reload();
-                    })
-                    .catch((error) => {
-                        isSubmit.value = false;
-                        const err = error.response;
-
-                        toast.error(err.data.message, {
-                            position: toast.POSITION.TOP_CENTER,
-                        });
-
-                        // reset error data
-                        Object.entries(this.errordata).forEach(entry => {
-                            const [key, value] = entry;
-                            this.errordata[key] = '';
-                        });
-
-                        // get return object errors and pass to error inputs
-                        Object.entries(err.data.errors).forEach(entry => {
-                            const [key, value] = entry;
-                            this.errordata[key] = value[0];
-                        });
-                    })
-                    .finally(() => {
-
-                    });
-            },
-            updateCurrentDate() {
-                this.postdata.expiration = moment(this.$refs.datepicker.value).format("YYYY-MM-DD HH:mm:ss");
-            },
             scrollToTop() {
                 window.scrollTo(0,0);
-            },
-            redirectError() {
-                route.push({
-                    name: 'home'
-                });
             }
         },
         beforeUnmount() {
