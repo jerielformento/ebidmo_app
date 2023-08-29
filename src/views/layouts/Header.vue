@@ -52,11 +52,11 @@
             </div>
             <div v-else class="flex items-center md:order-2">
                 <ul
-                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-2 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    class="flex flex-wrap font-medium rounded-lg md:flex-row md:space-x-2 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
                         <router-link :to="{ name: 'login' }"
                             active-class="text-gray-50 dark:text-gray-200"
-                            class="text-gray-400 hover:text-white font-medium rounded-md text-sm px-4 py-2 text-center mr-3 md:mr-0">Log in</router-link>
+                            class="text-gray-400 hover:text-white font-medium rounded-md text-sm px-4 py-2 text-center mr-3 sm:mr-1 md:mr-0">Log in</router-link>
                     </li>
                     <li>
                         <router-link :to="{ name: 'register' }"
