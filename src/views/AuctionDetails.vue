@@ -9,7 +9,7 @@
                 <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                     <li>
                     <div class="flex items-center">
-                        <a href="#" class="mr-2 text-sm font-medium text-gray-900">Auctions</a>
+                        <router-link :to="{ name: 'auctions' }" class="mr-2 text-sm font-medium text-gray-900">Auctions</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -42,7 +42,7 @@
                 <div class="mx-auto max-w-2xl px-4 pb-16 pt-5 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-16 lg:pt-5">
                 <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     <!-- Image gallery -->
-                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm border bg-gray-50 py-4">
+                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm py-4">
                     <swiper
                         :modules="modules"
                         :space-between="20"
@@ -120,76 +120,102 @@
                         <div class="block text-sm"><h3 class="inline-block">Category:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.category.title }}</a></div>
                         <div class="block text-sm"><h3 class="inline-block">Brand:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.brand.description }}</a></div>
                         <div class="block text-sm"><h3 class="inline-block">Condition:</h3> <span class="text-gray-500">{{ productInfo.condition.description }}</span></div>
+                        <div class="block text-sm"><h3 class="inline-block">Location:</h3> <span class="text-gray-500">{{ productInfo.item_location.name }}</span></div>
                     </div>
 
-                    <div class="text-2xl text-gray-500 mt-2 border-t border-gray-200">
-                        <p class="my-2 text-2xl tracking-tight text-gray-600">Starting bid: <span class="text-green-600">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.min_price }}</span></p>
-                        <div v-if="productInfo.bid.status == 1">
+                    <div class="text-2xl text-gray-500 mt-2 border-t border-gray-200" v-if="!endedAuction">
+                        <p class="my-5 text-2xl tracking-tight text-gray-600">Starting bid: <span class="text-green-500">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.min_price }}</span></p>
+                        <div v-if="productInfo.auction.status == 1">
                             <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Ending in</h3></div>
                             <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
                         </div>
-                        <div v-else-if="productInfo.bid.status == 2">
-                            <div class="block text-sm"><h3 class="font-normal text-amber-500 inline-block animate-pulse">Waiting for participants</h3></div>
+                        <div v-else-if="productInfo.auction.status == 2 && (productInfo.auction.type == 1 || productInfo.auction.type == 2)">
+                            <div class="block text-sm"><h3 class="font-medium text-red-500 inline-block">Starts in</h3></div>
+                            <span class="text-gray-700">{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s</span>
                         </div>
+                        <div v-else-if="productInfo.auction.status == 2 && productInfo.auction.type == 2">
+                            <div class="block text-sm" v-if="productInfo.auction.type == 2"><h3 class="font-semibold text-amber-500 inline-block animate-pulse">Waiting for participants</h3></div>
+                        </div>
+                    </div>
+                    <div class="text-2xl text-gray-500 mt-2 border-t border-gray-200" v-else>
+                        <p class="mt-3 text-gray-700">Auction Ended</p>
                     </div>
 
                     <!-- Bids -->
-                    <div class="mt-5">
-                        <fieldset v-if="productInfo.bid.status == 1" class="mt-4">
+                    <div class="mt-5" v-if="!endedAuction">
+                        <fieldset v-if="productInfo.auction.status == 1" class="mt-4">
                         <div class="grid grid-cols-2 space-x-3 sm:grid-cols-2 lg:grid-cols-2">
 
-                            <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
-                                <div class="text-xs text-gray-600 block">Highest Bid</div>
+                            <label class="ring-1 ring-gray-50 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                                <div class="text-xs text-green-400 block">Highest Bid</div>
                                 <div class="text-xl flex justify-between gap-x-2">
-                                    <ArrowTrendingUpIcon class="h-6 w-6"/><span>{{ productInfo.bid.currency.prefix }}<span v-if="productInfo.bid.highest !== null">{{ productInfo.bid.highest.price }}</span><span v-else>0</span></span>
+                                    <ArrowTrendingUpIcon class="h-6 w-6"/><span>{{ productInfo.auction.currency.prefix }}<span v-if="productInfo.auction.highest !== null">{{ productInfo.auction.highest.price }}</span><span v-else>0</span></span>
                                 </div>
                             </label>
 
-                            <label class="ring-1 ring-amber-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
-                                <div class="text-xs text-gray-600 block">Buy Now</div>
-                                <div class="text-xl">{{ productInfo.bid.currency.prefix }}{{ productInfo.bid.buy_now_price }}</div>
+                            <label class="ring-1 ring-gray-50 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                                <div class="text-xs text-amber-500 block">Buy Now</div>
+                                <div class="text-xl">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.buy_now_price }}</div>
                             </label>
                         </div>
                         </fieldset>
-                        <fieldset v-else class="mt-4">
-                        <div class="grid grid-cols-1 space-x-3 sm:grid-cols-2 lg:grid-cols-1">
+                        <fieldset v-else-if="productInfo.auction.type == 2" class="mt-4">
+                            <div class="grid grid-cols-1 space-x-3 sm:grid-cols-2 lg:grid-cols-1">
 
-                            <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
-                                <div class="text-xs text-gray-600 block mb-2">Participants</div>
-                                <div class="text-xl flex items-center justify-between gap-x-2">
-                                    <UserGroupIcon class="h-6 w-6"/><span>{{ productInfo.bid.min_participants }}</span>/<span>{{ productInfo.bid.participants_count }}</span>
-                                </div>
-                            </label>
-                        </div>
+                                <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                                    <div class="text-xs text-gray-600 block mb-2">Participants</div>
+                                    <div class="text-xl flex items-center justify-between gap-x-2">
+                                        <UserGroupIcon class="h-6 w-6"/><span>{{ productInfo.auction.min_participants }}</span>/<span>{{ productInfo.auction.participants_count }}</span>
+                                    </div>
+                                </label>
+                            </div>
                         </fieldset>
                     </div>
 
                     <div v-if="!productInfo.owner">
-                        <div v-if="productInfo.bid.status == 1">
-                            <div class="grid grid-cols-2 space-x-2 mt-5">
-                                <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.bid.highest !== null) ? productInfo.bid.highest.price : 0)" :mp="productInfo.bid.min_price" :inc="productInfo.bid.increment_by" :bid="productInfo.bid.id" />
+                        <div v-if="productInfo.auction.status == 1">
+                            <div class="grid grid-cols-2 space-x-2 mt-5" v-if="!endedAuction">
+                                <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.auction.highest !== null) ? productInfo.auction.highest.price : 0)" :mp="productInfo.auction.min_price" :inc="productInfo.auction.increment_by" :bid="productInfo.auction.id" />
                                 <GuestLogin name="Place your bid" v-else/>
-                                <button type="submit" class="flex w-full items-center justify-center rounded-sm border border-transparent bg-amber-500 px-8 py-3 text-base font-medium text-white hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">Buy Now</button>
+                                <button type="submit" class="flex w-full items-center justify-center rounded-sm border border-transparent bg-amber-400 px-8 py-3 text-base font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">Buy Now</button>
                             </div>
 
                             <div v-if="isMounted" class="mt-10">
-                            <h2 class="font-semibold mb-2 text-gray-600">Your recent activity</h2>
-                            <div class="grid space-y-2 max-h-2xl">
-                                <div v-for="bid in bidHistory">
-                                    <div class="grid grid-cols-1 items-center p-3 bg-amber-400 border border-gray-200 ring-2 ring-inset ring-slate-800 rounded-md shadow-sm text-md text-gray-700">
-                                        <span class="text-xs font-semibold text-gray-800 flex justify-between">Bid: {{ productInfo.bid.currency.prefix+bid.price.toLocaleString() }} <ArrowTrendingUpIcon class="h-4 w-4 text-amber-800"/></span>
-                                        <span class="text-xs block text-gray-500">{{ bid.time }}</span>
-                                    </div>
-                                </div>
-                                <div v-if="bidHistory.length === 0" class="grid grid-cols-1 items-center p-3 bg-gray-50 border border-gray-200 rounded-sm shadow-sm text-md text-gray-700">
-                                    <span class="text-xs block text-gray-400">No activity found.</span>
-                                </div>
+                            <h2 class="font-semibold mb-2 text-gray-400">Recent bid activity</h2>
+                            <div class="grid space-y-2 max-h-2xl px-3 border rounded-md shadow-sm border-gray-200">
+                
+                                <!-- History -->
+                                <ul class="max-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                    <li v-for="bid in bidHistory" class="py-3 sm:pb-4">
+                                        <div class="flex items-center space-x-4">
+                                            <div class="flex-shrink-0">
+                                                <UserCircleIcon class="h-8 w-8 text-gray-300 bg-gray-50 border border-gray-300 rounded-full"/>
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-600 truncate dark:text-white">
+                                                    {{ bid.customer.username }}
+                                                </p>
+                                                <p class="text-sm text-gray-400 truncate dark:text-gray-400">
+                                                    {{ moment(bid.time).format("lll") }}
+                                                </p>
+                                            </div>
+                                            <div class="inline-flex items-center text-base font-semibold text-green-500 dark:text-white">
+                                                {{ productInfo.auction.currency.prefix+bid.price.toLocaleString() }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li v-if="bidHistory.length === 0" class="py-3 sm:pb-4">
+                                        <div class="flex items-center space-x-4">
+                                            <span class="text-xs block text-gray-400">No activity found.</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         </div>
-                        <div v-else-if="productInfo.bid.status == 2" class="grid grid-cols-1 space-x-2 mt-5">
-                            <div v-if="!productInfo.bid.joiner">
-                                <JoinAuction v-if="!isGuest" :reload="reloadHistory" :bid="productInfo.bid.id" />
+                        <div v-else-if="productInfo.auction.status == 2 && productInfo.auction.type == 2" class="grid grid-cols-1 space-x-2 mt-5">
+                            <div v-if="!productInfo.auction.joiner">
+                                <JoinAuction v-if="!isGuest" :reload="reloadHistory" :bid="productInfo.auction.id" />
                                 <GuestLogin name="Join Auction" v-else/>
                             </div>
                             <div v-else>
@@ -261,7 +287,7 @@
 </template>
 <script setup>
     import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, UserGroupIcon } from "@heroicons/vue/24/outline";
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, UserGroupIcon, UserCircleIcon } from "@heroicons/vue/24/outline";
     import HeaderNav from "./layouts/Header.vue";
     import FooterNav from './layouts/Footer.vue';
     import SearchBar from './layouts/SearchBar.vue';
@@ -279,10 +305,12 @@
     import store from '../store';
     import { initFlowbite, Tooltip } from 'flowbite';
     import Spinner from "../components/forms/Spinner.vue";
+    import moment from 'moment';
 </script>
 <script>
     export default {
         data() {
+            const endedAuction = ref(false);
             const thumbsSwiper = ref(null);
             const setThumbsSwiper = (swiper) => {
                 thumbsSwiper.value = swiper;
@@ -314,8 +342,11 @@
                         isLoading.value = false; 
 
                         //console.log();
-                        const timeRemaining = new Date(productInfo.value.bid.ended_at);
-                        
+                        let timeRemaining = new Date(productInfo.value.auction.ended_at);
+                        if(productInfo.value.auction.status === 2) {
+                            timeRemaining = new Date(productInfo.value.auction.started_at);
+                        }
+
                         polling.value = setInterval(() => {
                             const currDate = new Date();
                             const endTime = timeRemaining - currDate;
@@ -324,7 +355,10 @@
                             minutes.value = parseInt(seconds.value / 60);
                             hours.value = parseInt(minutes.value / 60);
                             days.value = parseInt(hours.value / 24);
-                            console.log("poll");
+                            //{{days}}d {{ hours % 24 }}h {{ minutes % 60 }}m {{ seconds % 60 }}s
+                            if(days.value < 0 || hours.value < 0 || minutes.value < 0 || seconds.value < 0) {
+                                endedAuction.value = true;
+                            }
                         }, 1000);
                     })
                     .catch((errors) => {
@@ -332,7 +366,7 @@
                         isInvalid.value = true;
                     });
 
-                await axiosClient.get(`/api/v1/customer/bid/history/${productInfo.value.bid.id}`)
+                await axiosClient.get(`/api/v1/customer/bid/history/${productInfo.value.auction.id}`)
                 .then(response => {
                     bidHistory.value = response.data;
                     isMounted.value = true;
@@ -355,6 +389,7 @@
             const swiperItems = ref(productImages);
 
             return {
+                endedAuction,
                 modules: [Pagination, Navigation, Thumbs], 
                 Thumbs,
                 thumbsSwiper,
@@ -388,7 +423,7 @@
                         this.isInvalid = true;
                     });
 
-                await axiosClient.get('/api/v1/customer/bid/history/'+this.productInfo.bid.id)
+                await axiosClient.get('/api/v1/customer/bid/history/'+this.productInfo.auction.id)
                     .then(response => {
                         this.bidHistory = response.data;
                     });

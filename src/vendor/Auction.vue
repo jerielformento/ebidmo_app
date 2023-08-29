@@ -1,6 +1,5 @@
 <template>
       <div>
-    <h2 class="text-2xl mb-2">Auction</h2>
       <Suspense>
          <template #default>
             <div>

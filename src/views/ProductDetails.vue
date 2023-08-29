@@ -9,7 +9,7 @@
                 <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                     <li>
                     <div class="flex items-center">
-                        <a href="#" class="mr-2 text-sm font-medium text-gray-900">Products</a>
+                        <router-link :to="{ name: 'category' }" class="mr-2 text-sm font-medium text-gray-900">Category</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -17,7 +17,7 @@
                     </li>
                     <li>
                     <div class="flex items-center">
-                        <a href="#" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.category.title }}</a>
+                        <router-link :to="{ name: 'category', query: { category: productInfo.category.id }}" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.category.title }}</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -25,7 +25,7 @@
                     </li>
                     <li>
                     <div class="flex items-center">
-                        <a href="#" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.brand.description }}</a>
+                        <router-link :to="{ name: 'category', query: { brand: productInfo.brand.id }}" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.brand.description }}</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -42,7 +42,7 @@
                 <div class="mx-auto max-w-2xl px-4 pb-16 pt-5 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-16 lg:pt-5">
                 <div class="w-full lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     <!-- Image gallery -->
-                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm border bg-gray-50 py-4">
+                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm py-4">
                     <swiper
                         :modules="modules"
                         :space-between="20"
@@ -120,6 +120,7 @@
                         <div class="block text-sm"><h3 class="inline-block">Category:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.category.title }}</a></div>
                         <div class="block text-sm"><h3 class="inline-block">Brand:</h3> <a href="#" class="underline text-amber-500">{{ productInfo.brand.description }}</a></div>
                         <div class="block text-sm"><h3 class="inline-block">Condition:</h3> <span class="text-gray-500">{{ productInfo.condition.description }}</span></div>
+                        <div class="block text-sm"><h3 class="inline-block">Location:</h3> <span class="text-gray-500">{{ productInfo.item_location.name }}</span></div>
                     </div>
                     <div v-if="!productInfo.owner" class="grid grid-cols-2 space-x-2 mt-5">
                         

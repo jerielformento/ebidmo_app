@@ -14,6 +14,7 @@ import Sell from "../views/Sell.vue";
 import Support from "../views/Support.vue";
 import Auctions from "../views/Auctions.vue";
 import Profile from "../views/Profile.vue";
+import Acknowledgement from "../views/Acknowledgement.vue";
 import Settings from "../views/Settings.vue";
 import StoreProducts from '../components/StoreProducts.vue';
 import StoreAuctions from '../components/StoreAuctions.vue';
@@ -48,6 +49,13 @@ const routes = [
         name: 'profile',
         component: Profile,
         meta: { requiresAuth: true, title: 'Your Profile' },
+        children: [
+            {
+                path: 'acknowledgement',
+                name: 'acknowledge',
+                component: Acknowledgement
+            }
+        ]
     },
     {
         path: '/me/settings',
@@ -60,28 +68,14 @@ const routes = [
         path: '/auctions',
         name: 'auctions',
         component: Auctions,
-        meta: { requiresAuth: true, title: 'Auctions' },
-        children: [
-            {
-                path: '?filter=future',
-                name: 'auction-future',
-                component: Auctions,
-                meta: { title: 'Auctions | Future' },
-            },
-            {
-                path: '?filter=live',
-                name: 'auction-live',
-                component: Auctions,
-                meta: { title: 'Auctions | Live' },
-            },
-        ]
+        meta: { title: 'Auctions' },
     },
     // vendor routes
     {
         path: '/me/vendor',
         component: VendorDashboard,
         redirect: {name: 'vendor-home'},
-        meta: { requiresAuth: true, title: 'Vendor | Dashboard' },
+        meta: { requiresAuth: true, title: 'Dashboard' },
         children: [
             {
                 path: '',
@@ -92,25 +86,25 @@ const routes = [
                 path: 'products',
                 name: 'vendor-products',
                 component: VendorProducts,
-                meta: { title: 'Vendor | Products' },
+                meta: { title: 'Products' },
                 children: [
                     {
                         path: 'create',
                         name: 'product-create',
                         component: AddProduct,
-                        meta: { title: 'Vendor | Add Product' },
+                        meta: { title: 'Add Product' },
                     },
                     {
                         path: 'edit/:store/:slug',
                         name: 'product-edit',
                         component: EditProduct,
-                        meta: { title: 'Vendor | Edit Product' },
+                        meta: { title: 'Edit Product' },
                     },
                     {
                         path: 'view/:id',
                         name: 'product-auction',
                         component: VendorAuctionView,
-                        meta: { title: 'Vendor | View Auction' },
+                        meta: { title: 'View Auction' },
                     },
                 ]
             },
@@ -118,13 +112,13 @@ const routes = [
                 path: 'auction',
                 name: 'vendor-auction',
                 component: VendorAuction,
-                meta: { title: 'Vendor | Auctions' },
+                meta: { title: 'Auctions' },
                 children: [
                     {
                         path: 'view/:id',
                         name: 'auction-view',
                         component: VendorAuctionStats,
-                        meta: { title: 'Vendor | Auction Stats' },
+                        meta: { title: 'Auction Stats' },
                     },
                 ]
             },
@@ -132,13 +126,13 @@ const routes = [
                 path: 'transaction',
                 name: 'vendor-transaction',
                 component: VendorTransaction,
-                meta: { title: 'Vendor | Transactions' },
+                meta: { title: 'Transactions' },
             },
             {
                 path: 'settings',
                 name: 'vendor-settings',
                 component: VendorSettings,
-                meta: { title: 'Vendor | Store Settings' },
+                meta: { title: 'Store Settings' },
             },
         ]
     },

@@ -4,6 +4,7 @@
     <div class="bg-gray-100 py-10">
         <main class="p-5">
         <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
+            <router-view></router-view>
             <div class="grid grid-cols-1 sm:grid-cols-5 items-start gap-6">
             <div class="col-span-3 bg-white p-4 rounded-sm shadow">
                 <div class="flex items-center">

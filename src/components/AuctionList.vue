@@ -5,10 +5,6 @@
                 <h2 class="text-2xl font-bold tracking-tight text-gray-700 block">
                 Auctions
                 </h2>
-
-                <div>
-                    <a href="#" class="text-sm underline text-amber-500 inline-block"><p>View all</p></a>
-                </div>
             </div>
     <swiper v-if="!searchingItem"
         :modules="modules"
@@ -45,12 +41,12 @@
                         </div>
                         <div class="relative mx-3">
                             <p class="mt-1 text-sm block font-semibold text-gray-600">{{ text.product.store.name }}</p>
-                            <p class="mt-1 text-sm text-gray-400">Starting bid: <span class="text-green-600">{{ text.product.currency.prefix+text.min_price.toLocaleString() }}</span></p>
+                            <p class="mt-1 text-sm text-gray-400">Starting bid: <span class="text-green-500">{{ text.product.currency.prefix+text.min_price.toLocaleString() }}</span></p>
                             <p class="mt-1 text-sm text-gray-400" v-if="text.status === 1">Ending in</p>   
                             <p class="mt-1 text-sm text-gray-400" v-else>Participants: {{ text.min_participants }}/{{ text.participants_count }}</p>   
                         </div>
                         <div v-if="text.status === 1" class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
-                            <p class="pt-2 md:py-2 text-sm font-semibold text-red-500" v-if="isDone">
+                            <p class="pt-2 md:py-2 text-sm font-semibold text-red-400" v-if="isDone">
                                 {{ expirationTimer[text.product.slug].days }}d
                                 {{ expirationTimer[text.product.slug].hours }}h
                                 {{ expirationTimer[text.product.slug].minutes }}m
@@ -96,7 +92,7 @@
 </template>
 
 <script>
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
     import { FireIcon } from "@heroicons/vue/24/outline";
     import { Autoplay, Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -107,7 +103,7 @@
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
-
+    
     const polling = ref(null);
     const swiperItems = ref(null);
     const searchingItem = ref(false);
