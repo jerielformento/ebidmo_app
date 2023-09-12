@@ -352,7 +352,7 @@
                         useSeoMeta({
                             ogDescription: productInfo.value.name,
                             ogTitle: productInfo.value.name,
-                            ogImage: productInfo.value.thumbnail.url,
+                            ogImage: import.meta.env.VITE_LOGO_URL,
                             ogUrl: import.meta.env.VITE_URL+route.fullPath
                         })
 
