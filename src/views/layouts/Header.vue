@@ -29,7 +29,7 @@
                         <li>
                             <router-link :to="{ name: 'profile' }"
                                 exact-active-class="font-bold"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profile</router-link>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Customer Profile</router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'settings' }"
@@ -75,27 +75,45 @@
                             <ChevronDownIcon class="h-5 w-5 ml-1"/></button>
                         <!-- Dropdown menu -->
                         <div id="dropdownNavbar"
-                            class="z-20 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                            class="z-20 w-auto hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                                 <li>
                                     <router-link :to="{ name: 'auctions' }"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">All</router-link>
+                                        class="flex items-center justify-normal px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <HomeIcon class="h-6 w-6 mr-3"/>
+                                        <div>
+                                            <span class="font-semibold">All</span>
+                                            <p class="block text-gray-500">View Listed Items</p>
+                                        </div>
+                                    </router-link>
                                 </li>
                                 <li>
-                                    <router-link :to="{ name: 'auctions', query: { filter: 'live'}}"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Live</router-link>
+                                    <router-link :to="{ name: 'auctions-live'}"
+                                        class="flex items-center justify-normal px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <FireIcon class="h-6 w-6 mr-3"/>
+                                        <div>
+                                            <span class="font-semibold">Live</span>
+                                            <p class="block text-gray-500">Latest Items</p>
+                                        </div>
+                                    </router-link>
                                 </li>
                                 <li>
-                                    <router-link :to="{ name: 'auctions', query: { filter: 'future'}}"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Future</router-link>
+                                    <router-link :to="{ name: 'auctions-future'}"
+                                        class="flex items-center justify-normal px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        <MegaphoneIcon class="h-6 w-6 mr-3"/>
+                                        <div>
+                                            <span class="font-semibold">Future</span>
+                                            <p class="block text-gray-500">Upcoming Items</p>
+                                        </div>
+                                    </router-link>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li>
-                        <router-link :to="{ name: 'category' }"
+                        <router-link :to="{ name: 'marketplace' }"
                             active-class="text-gray-50 dark:text-gray-200"
-                            class="block text-sm py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Categories</router-link>
+                            class="block text-sm py-2 pl-3 pr-4 text-gray-400 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Marketplace</router-link>
                     </li>
                     <li>
                         <router-link :to="{ name: 'vendors' }"
@@ -118,7 +136,10 @@ import store from '../../store';
 import {
     Bars3Icon,
     ChevronDownIcon,
-    UserCircleIcon
+    UserCircleIcon,
+    HomeIcon,
+    FireIcon,
+    MegaphoneIcon
 } from "@heroicons/vue/24/outline";
 import { initFlowbite } from 'flowbite';
 onMounted(() => {

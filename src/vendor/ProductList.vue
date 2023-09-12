@@ -17,152 +17,110 @@
                 </h2>
             </div>
             <!-- table -->
-            <section class="mt-5 bg-gray-50">
-    <div class="mx-auto">
-        <!-- Start coding here -->
-        <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
-            <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                <div class="w-full md:w-1/2">
-                    <label for="simple-search" class="sr-only">Search</label>
-                    <div class="relative w-full">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <MagnifyingGlassIcon class="w-5 h-5 text-gray-500"/>
-                        </div>
-                        <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search" required="">
-                    </div>
-                </div>
-                <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                    <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                        <PlusSmallIcon class="h-5 w-5"/>
-                        New Product
-                    </router-link>
-                    <div class="flex items-center space-x-3 w-full md:w-auto">
-                        <!-- <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
-                            <svg class="-ml-1 mr-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                            Actions
-                        </button>
-                        <div id="actionsDropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
-                            <ul class="py-1 text-sm text-gray-700" aria-labelledby="actionsDropdownButton">
-                                <li>
-                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100">Mass Edit</a>
-                                </li>
-                            </ul>
-                            <div class="py-1">
-                                <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Delete all</a>
+    <section class="mt-5 bg-gray-50">
+        <div class="mx-auto">
+            <!-- Start coding here -->
+            <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                    <div class="w-full md:w-1/2">
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <MagnifyingGlassIcon class="w-5 h-5 text-gray-500"/>
                             </div>
-                        </div> -->
-                        <!-- <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-sm border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-                            </svg>
-                            Filter
-                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                        </button>
-                        <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-sm shadow">
-                            <h6 class="mb-3 text-sm font-medium text-gray-900">Choose category</h6>
-                            <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                                <li class="flex items-center" v-for="cat in categories">
-                                    <input :id="cat.id" type="checkbox" :value="cat.id" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-amber-500 focus:ring-primary-500">
-                                    <label :for="cat.id" class="ml-2 text-sm font-medium text-gray-900">{{ cat.title }}</label>
-                                </li>
-                            </ul>
-                        </div> -->
+                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search" required="">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                            <PlusSmallIcon class="h-5 w-5"/>
+                            New Product
+                        </router-link>
                     </div>
                 </div>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-sm text-gray-700 bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-4 py-3">Image</th>
-                            <th scope="col" class="px-4 py-3">Item Name</th>
-                            <th scope="col" class="px-4 py-3">Category</th>
-                            <th scope="col" class="px-4 py-3">Brand</th>
-                            <th scope="col" class="px-4 py-3">Condition</th>
-                            <th scope="col" class="px-4 py-3">Date Created</th>
-                            <th scope="col" class="px-4 py-3">Status</th>
-                            <th scope="col" class="px-4 py-3">
-                                <span class="sr-only">Actions</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-if="!reloadList" v-for="item in productItems" class="border-b hover:bg-gray-100">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                <img :src="(item.thumbnail !== null) ? item.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
-                            </th>
-                            <td class="px-4 py-3">
-                                
-                                <router-link 
-                                    :to="{name: 'product-auction', params: {id: item.slug}}" 
-                                    @click="viewAuction" 
-                                    class="text-amber-500 hover:underline">
-                                    {{ item.name }}
-                                </router-link>
-                            </td>
-                            <td class="px-4 py-3">{{ item.category.title }}</td>
-                            <td class="px-4 py-3">{{ item.brand.description }}</td>
-                            <td class="px-4 py-3">{{ item.condition.description }}</td>
-                            <td class="px-4 py-3">{{ moment(item.created_at).format("lll") }}</td>
-                            <td class="px-4 py-3" v-if="item.auction !== null"><span class="bg-green-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
-                            <td class="px-4 py-3" v-else></td>
-                            <td class="px-4 py-3 flex justify-normal items-center space-x-1">
-                                <router-link 
-                                    :to="{name: 'product-edit', params: {store: item.store.slug, slug: item.slug}}" 
-                                    @click="editProduct" 
-                                    class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                    Edit
-                                </router-link>
-                                <!-- <router-link 
-                                    :to="{name: 'product-auction', params: {id: item.slug}}" 
-                                    @click="viewAuction" 
-                                    class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                    View
-                                </router-link> -->
-                                <button v-if="item.auction === null"
-                                        @click="setAuction(item.slug)" 
-                                        class="rounded-sm bg-green-400 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                        Auction
-                                </button>
-                            </td>
-                        </tr>
-                        <tr v-else>
-                            <td class="px-4 py-3" colspan="8"><div class="flex justify-center"><Spinner class="h-6 w-6"/></div></td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
-                <span class="text-sm font-normal text-gray-500">
-                    Showing
-                    <span class="font-semibold text-gray-900">{{ pagination.from }}-{{ pagination.to }}</span>
-                    of
-                    <span class="font-semibold text-gray-900">{{ pagination.total }}</span>
-                </span>
-                <ul class="inline-flex items-stretch -space-x-1px">
-                    <li v-for="(page, index) in pagination.links">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-sm text-gray-700 bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Image</th>
+                                <th scope="col" class="px-4 py-3">Item Name</th>
+                                <th scope="col" class="px-4 py-3">Category</th>
+                                <th scope="col" class="px-4 py-3">Brand</th>
+                                <th scope="col" class="px-4 py-3">Condition</th>
+                                <th scope="col" class="px-4 py-3">Date Created</th>
+                                <th scope="col" class="px-4 py-3">Status</th>
+                                <th scope="col" class="px-4 py-3">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-if="!reloadList" v-for="item in productItems" class="border-b hover:bg-gray-100">
+                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                    <img :src="(item.thumbnail !== null) ? item.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
+                                </th>
+                                <td class="px-4 py-3">
+                                    
+                                    <router-link 
+                                        :to="{name: 'product-auction', params: {id: item.slug}}" 
+                                        @click="viewAuction" 
+                                        class="text-amber-500 hover:underline">
+                                        {{ item.name }}
+                                    </router-link>
+                                </td>
+                                <td class="px-4 py-3">{{ item.category.title }}</td>
+                                <td class="px-4 py-3">{{ item.brand.description }}</td>
+                                <td class="px-4 py-3">{{ item.condition.description }}</td>
+                                <td class="px-4 py-3">{{ moment(item.created_at).format("lll") }}</td>
+                                <td class="px-4 py-3" v-if="item.auction !== null"><span class="bg-green-400 text-white text-xs font-semibold rounded-sm py-1 px-2">Auctioned</span></td>
+                                <td class="px-4 py-3" v-else></td>
+                                <td class="px-4 py-3 flex justify-normal items-center space-x-1">
+                                    <router-link 
+                                        :to="{name: 'product-edit', params: {store: item.store.slug, slug: item.slug}}" 
+                                        @click="editProduct" 
+                                        class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                        Edit
+                                    </router-link>
+                                    <button v-if="item.auction === null"
+                                            @click="setAuction(item.slug)" 
+                                            class="rounded-sm bg-green-400 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                            Auction
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr v-else>
+                                <td class="px-4 py-3" colspan="8"><div class="flex justify-center"><Spinner class="h-6 w-6"/></div></td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
+                    <span class="text-sm font-normal text-gray-500">
+                        Showing
+                        <span class="font-semibold text-gray-900">{{ pagination.from }}-{{ pagination.to }}</span>
+                        of
+                        <span class="font-semibold text-gray-900">{{ pagination.total }}</span>
+                    </span>
+                    <ul class="inline-flex items-stretch -space-x-1px">
+                        <li v-for="(page, index) in pagination.links">
 
-                        <button v-if="index === 0" @click="prevPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                            <span class="sr-only">Previous</span>
-                            <ChevronLeftIcon class="w-4 h-4"/>
-                        </button>
+                            <button v-if="index === 0" @click="prevPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                <span class="sr-only">Previous</span>
+                                <ChevronLeftIcon class="w-4 h-4"/>
+                            </button>
 
-                        <button v-else-if="index === (pagination.links.length-1)" @click="nextPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
-                            <span class="sr-only">Next</span>
-                            <ChevronRightIcon class="w-4 h-4"/>
-                        </button>
-                        
-                        <a v-else href="#" @click="gotoPage(page.label)" class="flex items-center justify-center text-sm py-2 px-3 leading-tight font-semibold" :class="(page.active) ? 'bg-amber-400 border border-gray-500 hover:bg-primary-100 hover:text-primary-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'">{{ page.label }}</a>
-                    </li>
-                </ul>
-            </nav>
+                            <button v-else-if="index === (pagination.links.length-1)" @click="nextPage(pagination.current, page.url)" :disabled="page.url === null" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                <span class="sr-only">Next</span>
+                                <ChevronRightIcon class="w-4 h-4"/>
+                            </button>
+                            
+                            <a v-else href="#" @click="gotoPage(page.label)" class="flex items-center justify-center text-sm py-2 px-3 leading-tight font-semibold" :class="(page.active) ? 'bg-amber-400 border border-gray-500 hover:bg-primary-100 hover:text-primary-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'">{{ page.label }}</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
     </section>
     </div>
     <AddAuctionModal v-if="createAuction" :cancel="cancel" :reload="reloadProducts" :id="modal.id"/>
@@ -177,7 +135,7 @@
     import Spinner from '../components/forms/Spinner.vue';
     import moment from 'moment';
     import AddAuctionModal from './util/AddAuctionModal.vue';
-    
+    import storeFilter from '../store/filter';
     const productCreate = ref(false);
     const productEdit = ref(false);
     const auctionView = ref(false);
@@ -264,61 +222,11 @@
                 let sel_category = 0;
                 let sel_location = 0;
 
-                await axiosClient.get('/api/util/product/categories').
-                    then(response => { 
-                        let gb = [];
-
-                        response.data.map(function(value, key) {
-                            gb.push({
-                                id: value.id,
-                                title: value.title,
-                                is_active: ((value.id === sel_category) ? true : false)
-                            });
-                        });
-                        categories.value = gb;
-                    });
-
-                await axiosClient.get('/api/util/product/brands').
-                    then(response => {
-                        let gb = [];
-
-                        response.data.map(function(value, key) {
-                            gb.push({
-                                id: value.id,
-                                description: value.description,
-                                is_active: ((value.id === sel_brand) ? true : false)
-                            });
-                        });
-                        brands.value = gb;
-                    });
                 
-                await axiosClient.get('/api/util/product/conditions').
-                    then(response => { 
-                        let gb = [];
-
-                        response.data.map(function(value, key) {
-                            gb.push({
-                                id: value.id,
-                                description: value.description,
-                                is_active: ((value.id === sel_condition) ? true : false)
-                            });
-                        });
-                        conditions.value = gb;
-                    });
-
-                await axiosClient.get('/api/util/product/locations').
-                    then(response => { 
-                        let gb = [];
-
-                        response.data.map(function(value, key) {
-                            gb.push({
-                                id: value.id,
-                                description: value.name,
-                                is_active: ((value.id === sel_location) ? true : false)
-                            });
-                        });
-                        locations.value = gb;
-                    });
+                categories.value = await storeFilter.dispatch('categories', sel_category);
+                brands.value = await storeFilter.dispatch('brands', sel_brand);
+                conditions.value = await storeFilter.dispatch('conditions', sel_condition);
+                locations.value = await storeFilter.dispatch('locations', sel_location);
             });
             const products = await getMyProducts(1);
             const productItems = ref(products[0][0]);

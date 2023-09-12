@@ -7,7 +7,7 @@
                 </h2>
 
                 <div>
-                    <router-link :to="{ name: 'category' }" class="text-sm font-semibold underline text-amber-500 inline-block"><p>View all</p></router-link>
+                    <router-link :to="{ name: 'marketplace' }" class="text-sm font-semibold underline text-amber-500 inline-block"><p>View all</p></router-link>
                 </div>
             </div>
     <swiper v-if="!searchingItem"

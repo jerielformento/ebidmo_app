@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <p class="text-sm font-medium text-gray-600 truncate dark:text-white">
-                                            {{ bid.customer.username }}
+                                            {{ bid.customer.profile.first_name }} {{ bid.customer.profile.last_name }}
                                         </p>
                                         <p class="text-sm text-gray-400 truncate dark:text-gray-400">
                                             {{ moment(bid.time).format("lll") }}

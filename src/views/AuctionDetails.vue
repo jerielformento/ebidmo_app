@@ -175,9 +175,9 @@
                     <div v-if="!productInfo.owner">
                         <div v-if="productInfo.auction.status == 1">
                             <div class="grid grid-cols-2 space-x-2 mt-5" v-if="!endedAuction">
-                                <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.auction.highest !== null) ? productInfo.auction.highest.price : 0)" :mp="productInfo.auction.min_price" :inc="productInfo.auction.increment_by" :bid="productInfo.auction.id" />
+                                <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.auction.highest !== null) ? productInfo.auction.highest.price : 0)" :mp="productInfo.auction.min_price" :inc="productInfo.auction.increment_by" :bid="productInfo.auction.id" :currency="productInfo.auction.currency.prefix" />
                                 <GuestLogin name="Place your bid" v-else/>
-                                <button type="submit" class="flex w-full items-center justify-center rounded-sm border border-transparent bg-amber-400 px-8 py-3 text-base font-medium text-white hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">Buy Now</button>
+                                <BuyNow name="Buy Now" :currency="productInfo.auction.currency.prefix" :price="productInfo.auction.buy_now_price" />
                             </div>
 
                             <div v-if="isMounted" class="mt-10">
@@ -193,7 +193,7 @@
                                             </div>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-gray-600 truncate dark:text-white">
-                                                    {{ bid.customer.username }}
+                                                    {{ bid.customer.profile.first_name }} {{ bid.customer.profile.last_name }}
                                                 </p>
                                                 <p class="text-sm text-gray-400 truncate dark:text-gray-400">
                                                     {{ moment(bid.time).format("lll") }}
@@ -213,7 +213,7 @@
                             </div>
                         </div>
                         </div>
-                        <div v-else-if="productInfo.auction.status == 2 && productInfo.auction.type == 2" class="grid grid-cols-1 space-x-2 mt-5">
+                        <div v-else-if="productInfo.auction.status == 2 && productInfo.auction.type == 2 && !endedAuction" class="grid grid-cols-1 space-x-2 mt-5">
                             <div v-if="!productInfo.auction.joiner">
                                 <JoinAuction v-if="!isGuest" :reload="reloadHistory" :bid="productInfo.auction.id" />
                                 <GuestLogin name="Join Auction" v-else/>
@@ -224,7 +224,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
                     <div v-else>
                         <div class="mt-5 grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-sm shadow-sm text-md text-gray-700">
@@ -239,9 +238,15 @@
                         <h1 class="text-2xl font-bold tracking-tight text-gray-800 sm:text-3xl">{{ productInfo.name }}</h1>
 
                         <div class="inline-flex space-x-3">
-                            <a href="#">
+                            <ShareNetwork
+                                network="facebook"
+                                :url="siteUrl+route.fullPath"
+                                :title="productInfo.name"
+                                :description="productInfo.name"
+                                hashtags="ebidmo,auction"
+                            >
                                 <ShareIcon class="h-6 w-6 text-amber-500"/>
-                            </a>    
+                            </ShareNetwork>
                             <a href="#">
                                 <HeartIcon class="h-6 w-6 text-gray-400"/>
                             </a>
@@ -297,6 +302,7 @@
     import ModalBid from '../components/util/BidModal.vue';
     import GuestLogin from '../components/util/GuestLoginModal.vue';
     import JoinAuction from '../components/util/JoinAuctionModal.vue';
+    import BuyNow from '../components/util/BuyNowModal.vue';
     import 'swiper/css'
     import 'swiper/css/pagination'
     import 'swiper/css/navigation'
@@ -306,6 +312,7 @@
     import { initFlowbite, Tooltip } from 'flowbite';
     import Spinner from "../components/forms/Spinner.vue";
     import moment from 'moment';
+    import { useSeoMeta } from '@vueuse/head'
 </script>
 <script>
     export default {
@@ -340,6 +347,14 @@
                         productInfo.value = response.data;
                         productImages.value = response.data.images;
                         isLoading.value = false; 
+
+                        // add meta tags
+                        useSeoMeta({
+                            ogDescription: productInfo.value.name,
+                            ogTitle: productInfo.value.name,
+                            ogImage: productInfo.value.thumbnail.url,
+                            ogUrl: import.meta.env.VITE_URL+route.fullPath
+                        })
 
                         //console.log();
                         let timeRemaining = new Date(productInfo.value.auction.ended_at);
@@ -389,6 +404,7 @@
             const swiperItems = ref(productImages);
 
             return {
+                siteUrl: import.meta.env.VITE_API_URL,
                 endedAuction,
                 modules: [Pagination, Navigation, Thumbs], 
                 Thumbs,
@@ -405,7 +421,8 @@
                 isMounted,
                 isInvalid,
                 polling,
-                isGuest
+                isGuest,
+                route
             }
         },
         methods: {

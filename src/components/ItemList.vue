@@ -18,7 +18,7 @@
         }"
     >
             <div v-for="items in swiperItems" :key="items">
-                <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
+                <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                     <div v-for="text in items" :key="text.item" class="rounded-md border bg-white shadow-md">
                         <div class="group relative pb-3">
                             <!-- <div class="absolute right-1 top-1 z-10 rounded-full cursor-pointer">
@@ -94,7 +94,14 @@
         let pagedata = [];
         let resdata = [];
         let paginate_count = 0;
-        const categ = (category !== null) ? "?category="+category : "?category=";
+        //const categ = (category !== null) ? "?category="+category : "?category=";
+
+        let categories = "";
+        if(category !== null) {
+            category.map(function(item) {
+                categories += "&category[]="+item;
+            });
+        }
         let brands = "";
         if(brand !== null) {
             brand.map(function(item) {
@@ -102,7 +109,7 @@
             });
         }
 
-        await axiosClient.get('/api/v1/products/all'+categ+brands)
+        await axiosClient.get('/api/v1/products/all?filter='+categories+brands)
             .then(response => {
                 response.data.map(function(value, key) {
                     if(paginate_count == 4) {

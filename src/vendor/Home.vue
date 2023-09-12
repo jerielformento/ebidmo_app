@@ -1,6 +1,6 @@
 <template>
    <div class="grid lg:grid-cols-3 sm:grid-cols-1 gap-4 mb-4">
-      <div class="bg-amber-400 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
+      <div class="bg-amber-300 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
          <div class="flex space-x-6 items-center">
             <ShoppingCartIcon class="h-12 w-auto text-amber-600" />
             <div>
@@ -16,7 +16,7 @@
          </div>
       </div>
 
-      <div class="bg-amber-400 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
+      <div class="bg-amber-300 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
          <div class="flex space-x-6 items-center">
             <FireIcon class="h-12 w-auto text-amber-600" />
             <div>
@@ -32,7 +32,7 @@
          </div>
       </div>
 
-      <div class="bg-amber-400 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
+      <div class="bg-amber-300 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
          <div class="flex space-x-6 items-center">
             <TruckIcon class="h-12 w-auto text-amber-600" />
             <div>

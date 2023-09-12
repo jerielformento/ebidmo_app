@@ -1,4 +1,4 @@
-import {createStore} from 'vuex'
+import { createStore } from 'vuex'
 import axiosClient from '../axios';
 
 const store = createStore({

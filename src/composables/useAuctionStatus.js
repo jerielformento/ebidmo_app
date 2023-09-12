@@ -13,3 +13,17 @@ export function useAuctionStatus(status) {
 
     return setStatus;
 }
+
+export function useAcknowledgementStatus(status) {
+    let setStatus = "";
+
+    if(status === 0) {
+        setStatus = "To Acknowledge";
+    } else if(status === 1) {
+        setStatus = "Acknowledged";
+    } else {
+        setStatus = "COMPLETED";
+    }
+
+    return setStatus;
+}
