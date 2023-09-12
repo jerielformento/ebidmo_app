@@ -102,7 +102,7 @@
                            exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
                            class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                            <TruckIcon class="h-6 w-6" />
-                           <span class="ml-3">Transaction</span>
+                           <span class="ml-3">Transactions</span>
                         </router-link>
                      </li>
                      <li>
@@ -238,7 +238,8 @@ import {
    ArrowLongLeftIcon,
    BuildingStorefrontIcon,
    ChevronRightIcon,
-   HomeIcon
+   HomeIcon,
+   CreditCardIcon
 } from "@heroicons/vue/24/outline";
 import axiosClient from '../axios';
 import store from '../store';

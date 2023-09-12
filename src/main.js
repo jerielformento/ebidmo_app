@@ -8,6 +8,10 @@ import store from './store'
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import vue3GoogleLogin from 'vue3-google-login';
 const CLIENT_ID = "505332094923-gadsrivrtqccg50s1snhpce5sso3og2t.apps.googleusercontent.com";
+import VueSocialSharing from 'vue-social-sharing'
+import { createHead } from "@vueuse/head"
+
+const head = createHead()
 
 // Vuetify
 /* import '@mdi/font/css/materialdesignicons.css'
@@ -28,4 +32,6 @@ createApp(App)
     .use(CKEditor)
     .use(router)
     .use(store)
+    .use(head)
+    .use(VueSocialSharing)
     .mount('#ebm-app') 

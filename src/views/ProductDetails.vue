@@ -9,7 +9,7 @@
                 <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                     <li>
                     <div class="flex items-center">
-                        <router-link :to="{ name: 'category' }" class="mr-2 text-sm font-medium text-gray-900">Category</router-link>
+                        <router-link :to="{ name: 'marketplace' }" class="mr-2 text-sm font-medium text-gray-900">Category</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -17,7 +17,7 @@
                     </li>
                     <li>
                     <div class="flex items-center">
-                        <router-link :to="{ name: 'category', query: { category: productInfo.category.id }}" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.category.title }}</router-link>
+                        <router-link :to="{ name: 'marketplace', query: { category: productInfo.category.id }}" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.category.title }}</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -25,7 +25,7 @@
                     </li>
                     <li>
                     <div class="flex items-center">
-                        <router-link :to="{ name: 'category', query: { brand: productInfo.brand.id }}" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.brand.description }}</router-link>
+                        <router-link :to="{ name: 'marketplace', query: { brand: productInfo.brand.id }}" class="mr-2 text-sm font-medium text-gray-900">{{ productInfo.brand.description }}</router-link>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
                         <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                         </svg>
@@ -136,11 +136,17 @@
                     <!-- Title and socials -->
                     <div class="mb-5 w-full lg:col-span-2 flex justify-between items-center">
                         <h1 class="text-2xl font-bold tracking-tight text-gray-800 sm:text-3xl">{{ productInfo.name }}</h1>
-
                         <div class="inline-flex space-x-3">
-                            <a href="#">
+                            <ShareNetwork
+                                network="facebook"
+                                :url="siteUrl+route.fullPath"
+                                :title="productInfo.name"
+                                :description="productInfo.name"
+                                hashtags="ebidmo,auction"
+                            >
                                 <ShareIcon class="h-6 w-6 text-amber-500"/>
-                            </a>    
+                            </ShareNetwork>
+                      
                             <a href="#">
                                 <HeartIcon class="h-6 w-6 text-gray-400"/>
                             </a>
@@ -208,7 +214,7 @@
     import axiosClient from "../axios";
     import { useRoute } from "vue-router";
     import { initFlowbite, Tooltip } from "flowbite";
-    import Spinner from "../components/forms/Spinner.vue";
+    import { useSeoMeta } from '@vueuse/head'
 </script>
 <script>
 const getProductSuggestion = async (item) => {
@@ -255,6 +261,15 @@ const getProductSuggestion = async (item) => {
                     then(response => {
                         productInfo.value = response.data;
                         productImages.value = response.data.images
+
+                        // add meta tags
+                        useSeoMeta({
+                            ogDescription: productInfo.value.name,
+                            ogTitle: productInfo.value.name,
+                            ogImage: productInfo.value.thumbnail.url,
+                            ogUrl: import.meta.env.VITE_URL+route.fullPath
+                        })
+
                         isLoading.value = false; 
                         isMounted.value = true;
                     })
@@ -281,6 +296,7 @@ const getProductSuggestion = async (item) => {
             const swiperItems = ref(productImages);
 
             return {
+                siteUrl: import.meta.env.VITE_API_URL,
                 modules: [Pagination, Navigation, Thumbs], 
                 Thumbs,
                 thumbsSwiper,
@@ -289,7 +305,8 @@ const getProductSuggestion = async (item) => {
                 productInfo,
                 isLoading,
                 isMounted,
-                isInvalid
+                isInvalid,
+                route
             }
         },
         methods: {

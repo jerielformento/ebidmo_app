@@ -30,12 +30,11 @@
                             <div v-if="toggleAuction">
                                 <div class="space-y-4">
                                     <div class="flex items-center min-w-fit">
-                                        <input v-if="qfilter" type="radio" @click="filterAuction(null)" id="filter-auction-0" name="filter-auction" value="" class="rounded-full cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
-                                        <input v-else type="radio" @click="filterAuction(null)" checked id="filter-auction-0" name="filter-auction" value="" class="rounded-full cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input type="radio" @click="filterAuction(null)" id="filter-auction-0" name="filter-auction" value="" class="rounded-full cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
                                         <label for="filter-auction-0" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">All</label>
                                     </div>
                                     <div v-for="atype in auction_types" class="flex items-center min-w-fit">
-                                        <input v-if="sliceFilter(qfilter) === atype.description" checked type="radio" @click="filterAuction(atype.id)" :id="`filter-auction-${atype.id}`" name="filter-auction" :value="atype.id" class="rounded-full cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
+                                        <input v-if="filter.type === atype.id" checked type="radio" @click="filterAuction(atype.id)" :id="`filter-auction-${atype.id}`" name="filter-auction" :value="atype.id" class="rounded-full cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
                                         <input v-else type="radio" @click="filterAuction(atype.id)" :id="`filter-auction-${atype.id}`" name="filter-auction" :value="atype.id" class="rounded-full cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
                                         <label :for="`filter-auction-${atype.id}`" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">{{ atype.description }}</label>
                                     </div>
@@ -139,8 +138,6 @@
                 brand: null
             });
 
-            const qfilter = this.$route.query.filter ? this.$route.query.filter : '';
-
             onMounted(async() => {
                 initFlowbite();
                 let sel_brand = 0;
@@ -151,7 +148,7 @@
                 categories.value = await storeFilter.dispatch('categories', sel_category);
                 brands.value = await storeFilter.dispatch('brands', sel_brand);
 
-                //this.filterAuction(qauction);
+                this.filterAuction(1);
             });
 
             return {
@@ -162,8 +159,7 @@
                 categories,
                 brands,
                 user: computed(() => store.state.user),
-                price_range: computed(() => priceRange),
-                qfilter
+                price_range: computed(() => priceRange)
             }
         },
         methods: {

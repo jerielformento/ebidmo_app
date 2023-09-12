@@ -11,16 +11,16 @@
             <div class="flex">
                 <div class="custom-number-input">
                     <label for="custom-input-number" class="w-full text-md">
-                        <span class="text-md block text-gray-600 font-semibold">Starting from the minimum/highest bid</span>
-                        <span class="text-sm block text-gray-500">Current highest bid: {{ default_price }}</span>
-                        <span class="text-sm block text-gray-500">Incremental cost: {{ incremental }}</span>
+                        <span class="text-md block text-gray-600 font-semibold my-2">Starting from the minimum/highest bid</span>
+                        <span class="text-sm block text-gray-500">Highest bid: <span class="font-semibold">{{ currencyPrefix }}{{ default_price }}</span></span>
+                        <span class="text-sm block text-gray-500">Incremental cost: <span class="font-semibold">{{ currencyPrefix }}{{ incremental }}</span></span>
                     </label>
-                    <div class="flex w-full rounded-lg relative bg-transparent mt-1">
-                        <button @click="decrement" type="button" class="bg-amber-500 text-gray-600 hover:text-gray-700 hover:bg-amber-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                    <div class="flex w-full rounded-lg relative bg-transparent mt-5">
+                        <button @click="decrement" type="button" class="bg-amber-500 text-gray-600 hover:text-gray-700 hover:bg-amber-400 w-20 rounded-l cursor-pointer outline-none">
                             <MinusSmallIcon class="text-white"/>
                         </button>
                         <input type="number" class="text-center w-full font-semibold text-lg disabled:border-gray-200 disabled:bg-gray-50 md:text-basecursor-default flex items-center text-gray-600 outline-none" name="custom-input-number" :value="bidprice" disabled>
-                        <button @click="increment" type="button" class="bg-amber-500 text-gray-600 hover:text-gray-700 hover:bg-amber-400 h-full w-20 rounded-r cursor-pointer">
+                        <button @click="increment" type="button" class="bg-amber-500 text-gray-600 hover:text-gray-700 hover:bg-amber-400 w-20 rounded-r cursor-pointer">
                             <PlusSmallIcon class="text-white"/>
                         </button>
                     </div>
@@ -54,13 +54,17 @@ const bidprice = ref(0);
 const incremental = ref(0);
 const auctionId = ref(null);
 const minprice = ref(0);
+const currencyPrefix = ref();
 const noBid = ref(false);
 
 export default {
     props: {
         reload: Function,
         hbid: Number, 
-        inc: Number, bid: Number, mp: Number
+        inc: Number, 
+        bid: Number, 
+        mp: Number,
+        currency: String
     },
     components: {
         Modal, PlusSmallIcon, MinusSmallIcon, Spinner
@@ -69,6 +73,7 @@ export default {
         auctionId.value = props.bid;
         minprice.value = props.mp;
         incremental.value = props.inc;
+        currencyPrefix.value = props.currency;
 
         if(props.hbid === 0) {
             default_price.value = minprice.value;
@@ -85,7 +90,8 @@ export default {
             default_price,
             bidprice,
             incremental,
-            auctionId
+            auctionId,
+            currencyPrefix
         }
     },  
     methods: {

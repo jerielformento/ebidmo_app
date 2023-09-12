@@ -9,12 +9,19 @@ import AuctionDetails from "../views/AuctionDetails.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import Vendors from "../views/Vendors.vue";
 import VendorDetails from "../views/VendorDetails.vue";
-import Category from "../views/Category.vue";
+import Marketplace from "../views/Marketplace.vue";
 import Sell from "../views/Sell.vue";
 import Support from "../views/Support.vue";
 import Auctions from "../views/Auctions.vue";
-import Profile from "../views/Profile.vue";
-import Acknowledgement from "../views/Acknowledgement.vue";
+import LiveAuctions from "../views/LiveAuctions.vue";
+import FutureAuctions from "../views/FutureAuctions.vue";
+import CustomerProfile from "../views/CustomerProfile.vue";
+import CustomerDashboard from "../customer/Dashboard.vue";
+import CustomerWonAuctions from "../customer/WonAuctions.vue";
+import CustomerTransactions from "../customer/Transactions.vue";
+import CheckoutTransaction from "../customer/components/Checkout.vue";
+import TransactionList from "../customer/components/TransactionList.vue";
+import Transactions from "../views/Transactions.vue";
 import Settings from "../views/Settings.vue";
 import StoreProducts from '../components/StoreProducts.vue';
 import StoreAuctions from '../components/StoreAuctions.vue';
@@ -45,16 +52,51 @@ const routes = [
         meta: { title: 'Home' }
     },
     {
+        path: '/me/transactions',
+        name: 'transactions',
+        component: Transactions,
+        meta: { requiresAuth: true, title: 'Transactions' },
+    },
+    {
         path: '/me/profile',
         name: 'profile',
-        component: Profile,
-        meta: { requiresAuth: true, title: 'Your Profile' },
+        component: CustomerProfile,
+        redirect: {name: 'customer-dashboard'},
+        meta: { requiresAuth: true, title: 'Dashboard' },
         children: [
             {
-                path: 'acknowledgement',
-                name: 'acknowledge',
-                component: Acknowledgement
-            }
+                path: '',
+                name: 'customer-dashboard',
+                component: CustomerDashboard,
+                meta: { title: 'Dashboard' }
+            },
+            {
+                path: 'won',
+                name: 'customer-won',
+                component: CustomerWonAuctions,
+                meta: { title: 'Won Auctions' }
+            },
+            {
+                path: 'transactions',
+                name: 'customer-transactions',
+                component: CustomerTransactions,
+                redirect: {name: 'transaction-home'},
+                meta: { title: 'Transactions' },
+                children: [
+                    {
+                        path: '',
+                        name: 'transaction-home',
+                        component: TransactionList,
+                        meta: { title: 'Transactions' }
+                    },
+                    {
+                        path: 'checkout/:id',
+                        name: 'transaction-checkout',
+                        component: CheckoutTransaction,
+                        meta: { title: 'Checkout' }
+                    },
+                ]
+            },
         ]
     },
     {
@@ -69,6 +111,20 @@ const routes = [
         name: 'auctions',
         component: Auctions,
         meta: { title: 'Auctions' },
+    },
+    // live auction route
+    {
+        path: '/auctions-live',
+        name: 'auctions-live',
+        component: LiveAuctions,
+        meta: { title: 'Live Auctions' },
+    },
+    // future auction route
+    {
+        path: '/auctions-future',
+        name: 'auctions-future',
+        component: FutureAuctions,
+        meta: { title: 'Future Auctions' },
     },
     // vendor routes
     {
@@ -178,10 +234,10 @@ const routes = [
     },
     // categories route
     {
-        path: '/categories',
-        name: 'category',
-        component: Category,
-        meta: { requiresAuth: false, title: 'Categories' }
+        path: '/marketplace',
+        name: 'marketplace',
+        component: Marketplace,
+        meta: { requiresAuth: false, title: 'Marketplace' }
     },
     // sell route
     {

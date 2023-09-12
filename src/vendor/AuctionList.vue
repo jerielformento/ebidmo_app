@@ -140,6 +140,7 @@ import axiosClient from '../axios';
 import { initDrawers } from 'flowbite';
 import Spinner from '../components/forms/Spinner.vue';
 import moment from 'moment';
+import storeFilter from '../store/filter';
 
 const productCreate = ref(false);
 const productBidCreate = ref(false);
@@ -227,47 +228,9 @@ export default {
             let sel_condition = 0;
             let sel_category = 0;
 
-            await axiosClient.get('/api/util/product/categories').
-                then(response => {
-                    let gb = [];
-
-                    response.data.map(function (value, key) {
-                        gb.push({
-                            id: value.id,
-                            title: value.title,
-                            is_active: ((value.id === sel_category) ? true : false)
-                        });
-                    });
-                    categories.value = gb;
-                });
-
-            await axiosClient.get('/api/util/product/brands').
-                then(response => {
-                    let gb = [];
-
-                    response.data.map(function (value, key) {
-                        gb.push({
-                            id: value.id,
-                            description: value.description,
-                            is_active: ((value.id === sel_brand) ? true : false)
-                        });
-                    });
-                    brands.value = gb;
-                });
-
-            await axiosClient.get('/api/util/product/conditions').
-                then(response => {
-                    let gb = [];
-
-                    response.data.map(function (value, key) {
-                        gb.push({
-                            id: value.id,
-                            description: value.description,
-                            is_active: ((value.id === sel_condition) ? true : false)
-                        });
-                    });
-                    conditions.value = gb;
-                });
+            categories.value = await storeFilter.dispatch('categories', sel_category);
+            brands.value = await storeFilter.dispatch('brands', sel_brand);
+            conditions.value = await storeFilter.dispatch('conditions', sel_condition);
         });
         const products = await getMyProducts(1);
         const productItems = ref(products[0][0]);
