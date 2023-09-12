@@ -296,7 +296,7 @@ const getProductSuggestion = async (item) => {
             const swiperItems = ref(productImages);
 
             return {
-                siteUrl: import.meta.env.VITE_API_URL,
+                siteUrl: import.meta.env.VITE_URL,
                 modules: [Pagination, Navigation, Thumbs], 
                 Thumbs,
                 thumbsSwiper,
