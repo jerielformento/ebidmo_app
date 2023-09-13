@@ -2,14 +2,14 @@
     <router-view></router-view>
 </template>
 <script>
-    /* import { computed, reactive } from 'vue'
+    import { computed, reactive } from 'vue'
     import { useHead } from '@vueuse/head'
 
     export default {
         setup() {
             const siteData = reactive({
-                'title': 'Ebidmo',
-                'description': 'Test'
+                'title': 'eBidMo - Online Auction',
+                'description': 'Online Auction in the Philippines'
             })
 
             useHead({
@@ -17,12 +17,12 @@
                 meta: [
                     {
                         name: 'description',
-                        content: computed(() => siteData.description)
+                        content: computed(() => siteData.description),
                     }
                 ]
             })
         }
-    } */
+    }
 </script>
 <style>
 
