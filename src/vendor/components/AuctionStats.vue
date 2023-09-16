@@ -82,6 +82,20 @@
                         <h2 class="font-semibold mb-2 text-gray-600 flex justify-start text-2xl"><TrophyIcon class="h-8 w-8 mr-2"/> Winner</h2>
                         <span class="text-xs block text-gray-500 font-semibold mb-1 ml-1">Not available</span>
                     </div>
+
+                    <div v-if="productInfo.purchase !== null" class="mt-5">
+                        <h2 class="font-semibold mb-2 text-gray-600 flex items-center justify-start text-xl"><ShoppingBagIcon class="h-6 w-6 mr-2"/> Purchased</h2>
+                        <span class="text-xs block text-gray-500 font-semibold mb-1 ml-1">Customer</span>
+                        <div class="grid space-y-2 max-h-2xl">
+                            <div class="grid grid-cols-1 items-center p-3 bg-green-300 border border-gray-200 ring-2 ring-inset ring-slate-800 rounded-md shadow-sm text-md text-gray-700">
+                                <span class="text-sm font-semibold text-gray-800 flex justify-between">{{ productInfo.purchase.username }} <ArrowTrendingUpIcon class="h-5 w-5 text-green-600"/></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="mt-5">
+                        <h2 class="font-semibold mb-2 text-gray-600 flex justify-start text-2xl"><TrophyIcon class="h-8 w-8 mr-2"/> Purchased</h2>
+                        <span class="text-xs block text-gray-500 font-semibold mb-1 ml-1">Not available</span>
+                    </div>
                 </div>
                 <div class="mt-5 py-5 col-span-3 md:col-span-3 lg:col-span-1">
                     <h2 class="font-semibold mb-2 text-gray-400">Activity Log</h2>
@@ -128,7 +142,7 @@
 </template>
 <script>
     import { StarIcon, ShieldCheckIcon } from "@heroicons/vue/24/solid";
-    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, TrophyIcon, ArrowLongLeftIcon, Cog6ToothIcon, InformationCircleIcon, UserCircleIcon } from "@heroicons/vue/24/outline";
+    import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, TrophyIcon, ShoppingBagIcon, ArrowLongLeftIcon, Cog6ToothIcon, InformationCircleIcon, UserCircleIcon } from "@heroicons/vue/24/outline";
     import Spinner from "../../components/forms/Spinner.vue";
     import { ref, onMounted } from 'vue'
     import { Pagination, Navigation } from 'swiper'
@@ -165,6 +179,7 @@
             HeartIcon,
             ArrowTrendingUpIcon,
             TrophyIcon,
+            ShoppingBagIcon,
             ArrowLongLeftIcon,
             Cog6ToothIcon,
             InformationCircleIcon,
