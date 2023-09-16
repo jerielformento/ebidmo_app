@@ -177,7 +177,7 @@
                             <div class="grid grid-cols-2 space-x-2 mt-5" v-if="!endedAuction">
                                 <ModalBid v-if="!isGuest" :reload="reloadHistory" :hbid="((productInfo.auction.highest !== null) ? productInfo.auction.highest.price : 0)" :mp="productInfo.auction.min_price" :inc="productInfo.auction.increment_by" :bid="productInfo.auction.id" :currency="productInfo.auction.currency.prefix" />
                                 <GuestLogin name="Place your bid" v-else/>
-                                <BuyNow name="Buy Now" :currency="productInfo.auction.currency.prefix" :price="productInfo.auction.buy_now_price" />
+                                <BuyNow name="Buy Now" :bid="productInfo.auction.id" :currency="productInfo.auction.currency.prefix" :price="productInfo.auction.buy_now_price" />
                             </div>
 
                             <div v-if="isMounted" class="mt-10">

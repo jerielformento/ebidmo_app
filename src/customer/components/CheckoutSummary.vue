@@ -115,8 +115,7 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-import { StarIcon, ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-import { ShareIcon, HeartIcon, ArrowTrendingUpIcon, UserCircleIcon } from "@heroicons/vue/24/outline";
+import { ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
 import { Pagination, Navigation, Thumbs } from 'swiper'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
 import 'swiper/css'

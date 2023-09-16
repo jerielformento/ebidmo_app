@@ -19,7 +19,10 @@ import CustomerProfile from "../views/CustomerProfile.vue";
 import CustomerDashboard from "../customer/Dashboard.vue";
 import CustomerWonAuctions from "../customer/WonAuctions.vue";
 import CustomerTransactions from "../customer/Transactions.vue";
-import CheckoutTransaction from "../customer/components/Checkout.vue";
+import CheckoutSummary from "../customer/components/CheckoutSummary.vue";
+import CheckoutPayment from "../customer/components/CheckoutPayment.vue";
+import CheckoutComplete from "../customer/components/CheckoutComplete.vue";
+import Checkout from "../customer/Checkout.vue";
 import TransactionList from "../customer/components/TransactionList.vue";
 import Transactions from "../views/Transactions.vue";
 import Settings from "../views/Settings.vue";
@@ -92,8 +95,29 @@ const routes = [
                     {
                         path: 'checkout/:id',
                         name: 'transaction-checkout',
-                        component: CheckoutTransaction,
-                        meta: { title: 'Checkout' }
+                        component: Checkout,
+                        redirect: { name: 'transaction-checkout-summary' },
+                        meta: { title: 'Checkout' },
+                        children: [
+                            {
+                                path: '',
+                                name: 'transaction-checkout-summary',
+                                component: CheckoutSummary,
+                                meta: { title: 'Checkout Summary' }
+                            },
+                            {
+                                path: 'payment',
+                                name: 'transaction-checkout-payment',
+                                component: CheckoutPayment,
+                                meta: { title: 'Payment Method' }
+                            },
+                            {
+                                path: 'payment',
+                                name: 'transaction-checkout-complete',
+                                component: CheckoutComplete,
+                                meta: { title: 'Completed' }
+                            }
+                        ]
                     },
                 ]
             },

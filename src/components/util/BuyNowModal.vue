@@ -26,27 +26,76 @@
       </template>
     </Modal>
 </template>
-<script setup>
+<script>
 import { Modal } from 'flowbite-vue';
 import { ref } from 'vue';
-</script>
-<script>
+import store from '../../store';
+import axiosClient from '../../axios';
+import { toast } from 'vue3-toastify';
+import Spinner from '../forms/Spinner.vue';
+
+const isSubmit = ref(false);
+const auctionId = ref(null);
+const isShowModal = ref(false);
+
 export default {
-    props: ['name','price','currency'],
+    props: ['bid','name','price','currency'],
+    components: {
+        Modal, Spinner
+    },
     data(props) {
-        const isShowModal = ref(false);
-        
+        auctionId.value = props.bid;
+
         return {
             props,
-            isShowModal
+            isShowModal,
+            isSubmit,
+            auctionId
         }
     },
     methods: {
         closeModal() {
-            this.isShowModal = false
+            isShowModal.value = false
         },
         showModal() {
-            this.isShowModal = true
+            isShowModal.value = true
+        },
+        async submit() {
+            isSubmit.value = true;
+            
+        // send request to api
+        await store.dispatch('csrf');
+        await axiosClient.post('/api/v1/customer/buy', {
+                auction_id: auctionId.value
+            })
+            .then(response => {
+                toast.success(response.data.message, {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+
+                // refresh page
+                this.reload();
+            })
+            .catch((error) => {
+                const err = error.response;
+
+                toast.error(err.data.message, {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+                
+                this.reload();
+            })
+            .finally(() => {
+                isSubmit.value = false;
+                this.closeModal();
+            });
+            /* } else {
+                console.log("higher");
+                toast.error("Bid must be higher than current bid.", {
+                    position: toast.POSITION.BOTTOM_CENTER,
+                });
+                isSubmit.value = false;
+            } */
         }
     }
 }

@@ -50,7 +50,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div
                     class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
                     <div class="flex space-x-6 items-center">
