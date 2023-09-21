@@ -1,10 +1,16 @@
 <template>
     <section class="mt-5 bg-gray-50">
+        
         <div class="mx-auto">
+            
+
+            <router-view v-if="transactionView" :key="$route.fullPath" :cancel="cancel"
+                :reload="reloadItems" :leave="leaveView"></router-view>
+
             <!-- Start coding here -->
-            <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
+            <div v-else class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">Won Auction</h2>
+                    <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">Orders</h2>
                     <div class="w-full md:w-1/2">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -42,21 +48,24 @@
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                     <img :src="(item.auction.product.thumbnail !== null) ? item.auction.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
                                 </th>
-                                <td class="px-4 py-3 font-semibold">{{ item.auction.product.name }}</td>
-                                <td class="px-4 py-3">{{ item.customer.username }}</td>
+                                <td class="px-4 py-3">{{ item.auction.product.name }}</td>
+                                <td class="px-4 py-3 font-semibold">{{ item.customer.username }}</td>
                                 <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
                                 <td class="px-4 py-3 font-semibold">{{ item.auction.currency.prefix }}{{ item.auction.highest.price }}</td>
                                 <td class="px-4 py-3"><span
-                                            :class="useAuctionColorCode(item.status)"
+                                            :class="useAcknowledgementColorCode(item.status)"
                                             class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ useAcknowledgementStatus(item.status) }}</span></td>
                                 <td class="px-4 py-3 flex justify-normal items-center space-x-1">
-                                    <router-link :to="{name: 'transaction-checkout', params: { id: item.url_token }}"
-                                        v-if="item.status !== 1"
-                                        target="_blank"
-                                        @click="viewAuction"
+                                    <router-link :to="{name: 'transaction-view', params: { id: item.url_token }}"
+                                        @click="viewTransaction"
                                         class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                        Checkout
+                                        Details
                                     </router-link>
+                                    <button v-if="item.status === 1"
+                                            @click="toShip(item.url_token)" 
+                                            class="rounded-sm bg-green-400 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                            Ship Item
+                                    </button>
                                 </td>
                             </tr>
                             <tr v-else>
@@ -92,18 +101,22 @@
             </div>
         </div>
     </section>
+    <ShipItemModal v-if="shipItem" :cancel="cancel" :reload="reloadItems" :id="modal.id"/>
 </template>
 <script>
     import { ref } from 'vue';
-    import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
+    import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, WalletIcon, TruckIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
     import { PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../../axios';
-    import { useAuctionColorCode } from '../../composables/useAuctionColorCode';
+    import { useAuctionColorCode, useAcknowledgementColorCode } from '../../composables/useAuctionColorCode';
     import { useAuctionStatus, useAcknowledgementStatus } from '../../composables/useAuctionStatus';
     import moment from 'moment';
+    import ShipItemModal from '../util/ShipItemModal.vue';
     import Spinner from '../../components/forms/Spinner.vue';
 
     const reloadList = ref(false);
+    const transactionView = ref(false);
+    const shipItem = ref(false);
 
     const getTransactions = async (page) => {
         let pagedata = [];
@@ -138,19 +151,26 @@
     }
 
     export default {
-        components: { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon, Spinner },
+        components: { ShipItemModal, Spinner, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon, WalletIcon, TruckIcon, CheckCircleIcon },
         async setup() {
             const transactions = await getTransactions(1);
             const auctionItems = ref(transactions[0][0]);
 
             return {
+                modal: {
+                    id: '',
+                    index: 0
+                },
+                shipItem,
                 pagination: transactions[1][0],
                 auctionItems,
                 reloadList,
+                transactionView,
                 moment,
                 useAuctionColorCode,
                 useAuctionStatus,
-                useAcknowledgementStatus
+                useAcknowledgementStatus,
+                useAcknowledgementColorCode
             }
         },
         methods: {
@@ -180,6 +200,27 @@
                 const transactions = await getTransactions(setPage);
                 this.auctionItems = transactions[0][0];
                 this.pagination = transactions[1][0];
+            },
+            viewTransaction() {
+                this.scrollToTop();
+                transactionView.value = true;
+            },
+            cancel() {
+                transactionView.value = false;
+                shipItem.value = false;
+                this.$router.push({
+                    name: 'vendor-transaction'
+                });
+            },
+            toShip(id) {
+                this.modal.id = id;
+                shipItem.value = true;
+            },
+            scrollToTop() {
+                window.scrollTo(0, 0);
+            },
+            leaveView() {
+                transactionView.value = false;
             },
         }
     }

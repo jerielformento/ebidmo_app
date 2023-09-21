@@ -126,15 +126,6 @@
             this.loadBtn = true;
             // send request to api
             await store.dispatch('csrf');
-            /*
-            'username' => 'required|string|unique:customers',
-            'firstname' => 'required|regex:/^[a-zA-Z .]+$/u',
-            'lastname' => 'required|regex:/^[a-zA-Z .]+$/u',
-            'middlename' => 'sometimes|regex:/^[a-zA-Z ]+$/u|nullable',
-            'phone' => 'sometimes|alpha_num',
-            'email' => 'required|regex:/^[a-zA-Z.-_@]+$/u|unique:customers_profile,email',
-            'password' => 'required|string|confirmed'
-            */
             await store.dispatch('auth', {
                 username: request.email,
                 firstname: request.given_name,

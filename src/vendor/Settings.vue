@@ -14,7 +14,7 @@
                                         <label for="name" class="block text-sm font-medium leading-6">Store Name</label>
                                         <div class="mt-2">
                                             <input id="name" name="name" type="text" autocomplete="name"
-                                                :value="storeInfo.store.name" required
+                                                v-model="postdata.name" required
                                                 class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                             <small class="text-red-400"></small>
                                         </div>
@@ -29,8 +29,7 @@
                                                     <h2
                                                         class="w-full mt-3 font-bold shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
                                                         <div class="flex items-center">
-                                                            <span class="mr-1 text-lg inline-block">{{ storeInfo.store.name
-                                                            }}</span>
+                                                            <span class="mr-1 text-lg inline-block">{{ postdata.name }}</span>
                                                             <ShieldCheckIcon class="h-6 w-6 text-green-500 inline-block" />
                                                         </div>
                                                         <div class="py-2 flex items-center">
@@ -58,10 +57,8 @@
                                         <!-- <button type="submit" class="mt-3 mr-2 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                             Cancel
                         </button> -->
-                                        <button type="submit"
-                                            class="mt-3 flex items-center justify-center rounded-sm disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                            Update Information
-                                        </button>
+                                        <ButtonForm @onClick="update" text="Update Information" :state="isSubmit"/>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -128,19 +125,22 @@ import { BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon } from "@heroic
 import axiosClient from '../axios';
 import store from '../store';
 import Spinner from '../components/forms/Spinner.vue';
+import ButtonForm from '../components/forms/Button.vue';
 
 export default {
-    components: { ItemsLoader, StarIcon, ShieldCheckIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon, Spinner },
-    setup() {
+    components: { ButtonForm, ItemsLoader, StarIcon, ShieldCheckIcon, BellIcon, MagnifyingGlassIcon, CheckIcon, ArrowPathIcon, Spinner },
+    async setup() {
         const storeInfo = ref({});
         const hasStore = ref(false);
         const isLoading = ref(true);
         const loadBtn = ref(false);
+        const isSubmit = ref(false);
 
         onMounted(async () => {
             initFlowbite();
+        });
 
-            const result = await axiosClient.get('/api/v1/customer')
+        const result = await axiosClient.get('/api/v1/customer')
                 .then(response => {
                     //console.log(response.data.store);
 
@@ -150,45 +150,65 @@ export default {
                     }
                     isLoading.value = false;
                 });
-        });
 
         return {
             siteUrl: import.meta.env.VITE_API_URL,
             hasStore,
             isLoading,
             postdata: {
-                name: ''
+                name: storeInfo.value.store.name ?? ''
             },
             errordata: {
                 name: ''
             },
             loadBtn,
-            storeInfo
+            storeInfo,
+            isSubmit
         }
     },
     methods: {
-        async create() {
-            this.loadBtn = true;
-            // send request to api
+        async update() {
+           
+            this.isSubmit = true;
+
             await store.dispatch('csrf');
-            await axiosClient.post('/api/v1/store', this.postdata)
+            await axiosClient.put('/api/v1/stores/'+this.storeInfo.store.slug, {
+                    name: this.postdata.name
+                })
                 .then(response => {
-                    toast.success(response.data.message, {
-                        position: toast.POSITION.TOP_CENTER,
+                    // reset error data
+                    Object.entries(this.errordata).forEach(entry => {
+                        const [key, value] = entry;
+                        this.errordata[key] = '';
                     });
 
+                    toast.success(response.data.message, {
+                        position: toast.POSITION.BOTTOM_CENTER,
+                    });
+                    
                     // refresh page
-                    this.$router.go();
+                    //this.reload();
                 })
                 .catch((error) => {
                     const err = error.response;
 
-                    toast.error(err.data.errors.name, {
-                        position: toast.POSITION.TOP_CENTER,
+                    // reset error data
+                    Object.entries(this.errordata).forEach(entry => {
+                        const [key, value] = entry;
+                        this.errordata[key] = '';
                     });
+
+                    // get return object errors and pass to error inputs
+                    Object.entries(err.data.errors).forEach(entry => {
+                        const [key, value] = entry;
+                        this.errordata[key] = value[0];
+                    });
+                    
+                    //this.reload();
                 })
                 .finally(() => {
-                    this.loadBtn = false;
+                    this.isSubmit = false;
+                    //this.closeModal();
                 });
         }
     }

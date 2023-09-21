@@ -4,7 +4,7 @@
             <!-- Start coding here -->
             <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    <h2 class="text-sm font-semibold tracking-tight text-gray-400 block ml-1">Won Auction</h2>
+                    <h2 class="text-sm font-semibold tracking-tight text-gray-400 block ml-1">Won Items</h2>
                     <!-- <div class="w-full md:w-1/2">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -29,12 +29,11 @@
                                 <th scope="col" class="px-4 py-3">Item Name</th>
                                 <th scope="col" class="px-4 py-3">Category</th>
                                 <th scope="col" class="px-4 py-3">Brand</th>
-                                <th scope="col" class="px-4 py-3">Until</th>
+                                <th scope="col" class="px-4 py-3">Date</th>
                                 <th scope="col" class="px-4 py-3">Total Payment</th>
                                 <th scope="col" class="px-4 py-3">Status</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
-                                    Action
                                 </th>
                             </tr>
                         </thead>
@@ -46,19 +45,24 @@
                                 <td class="px-4 py-3 font-semibold">{{ item.auction.product.name }}</td>
                                 <td class="px-4 py-3">{{ item.auction.product.category.title }}</td>
                                 <td class="px-4 py-3">{{ item.auction.product.brand.description }}</td>
-                                <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
+                                <td class="px-4 py-3">{{ moment(item.started_at).format("lll") }}</td>
                                 <td class="px-4 py-3 font-semibold">{{ item.auction.currency.prefix }}{{ item.auction.highest.price }}</td>
                                 <td class="px-4 py-3"><span
-                                            :class="useAuctionColorCode(item.status)"
+                                            :class="useAcknowledgementColorCode(item.status)"
                                             class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ useAcknowledgementStatus(item.status) }}</span></td>
                                 <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                     <router-link :to="{name: 'transaction-checkout', params: { id: item.url_token }}"
-                                        v-if="item.status !== 1"
+                                        v-if="item.status === 0"
                                         target="_blank"
                                         @click="viewAuction"
                                         class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                         Checkout
                                     </router-link>
+                                    <button v-if="item.status !== 0"
+                                            @click="viewDetails(item.url_token, item.payment)" 
+                                            class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                            Details
+                                    </button>
                                 </td>
                             </tr>
                             <tr v-else>
@@ -94,18 +98,21 @@
             </div>
         </div>
     </section>
+    <TransactionDetailsModal v-if="transactionView" :cancel="cancel" :reload="reloadItems" :info="modal.details" :id="modal.id"/>
 </template>
 <script>
     import { ref } from 'vue';
     import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
     import { PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../../axios';
-    import { useAuctionColorCode } from '../../composables/useAuctionColorCode';
+    import { useAuctionColorCode, useAcknowledgementColorCode } from '../../composables/useAuctionColorCode';
     import { useAuctionStatus, useAcknowledgementStatus } from '../../composables/useAuctionStatus';
     import moment from 'moment';
     import Spinner from '../../components/forms/Spinner.vue';
+    import TransactionDetailsModal from '../util/TransactionDetailsModal.vue';
 
     const reloadList = ref(false);
+    const transactionView = ref(false);
 
     const getTransactions = async (page) => {
         let pagedata = [];
@@ -140,19 +147,26 @@
     }
 
     export default {
-        components: { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon, Spinner },
+        components: { TransactionDetailsModal, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon, Spinner },
         async setup() {
             const transactions = await getTransactions(1);
             const auctionItems = ref(transactions[0][0]);
 
             return {
+                modal: {
+                    id: '',
+                    index: 0,
+                    details: ''
+                },
                 pagination: transactions[1][0],
                 auctionItems,
                 reloadList,
                 moment,
+                transactionView,
                 useAuctionColorCode,
                 useAuctionStatus,
-                useAcknowledgementStatus
+                useAcknowledgementStatus,
+                useAcknowledgementColorCode
             }
         },
         methods: {
@@ -182,6 +196,17 @@
                 const transactions = await getTransactions(setPage);
                 this.auctionItems = transactions[0][0];
                 this.pagination = transactions[1][0];
+            },
+            cancel() {
+                transactionView.value = false;
+                this.$router.push({
+                    name: 'transaction-home'
+                });
+            },
+            viewDetails(id, info) {
+                this.modal.id = id;
+                this.modal.details = info;
+                transactionView.value = true;
             },
         }
     }

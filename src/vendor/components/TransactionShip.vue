@@ -1,10 +1,11 @@
 <template>
     <section class="mt-5 bg-gray-50">
-        <div class="mx-auto">
+        
+        <div class="mx-auto">        
             <!-- Start coding here -->
             <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    <h2 class="text-sm font-semibold tracking-tight text-gray-400 block ml-1">Bid Activities</h2>
+                    <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">Shipments</h2>
                     <!-- <div class="w-full md:w-1/2">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -23,41 +24,44 @@
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-sm text-gray-700 bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-4 py-3">Image</th>
-                                <th scope="col" class="px-4 py-3">Item Name</th>
-                                <th scope="col" class="px-4 py-3">Category</th>
-                                <th scope="col" class="px-4 py-3">Brand</th>
-                                <th scope="col" class="px-4 py-3">Bid Date</th>
-                                <th scope="col" class="px-4 py-3">Bid Price</th>
-                                <th scope="col" class="px-4 py-3">Status</th>
-                                <th scope="col" class="px-4 py-3">
-                                    <span class="sr-only">Actions</span>
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr v-if="!reloadList" v-for="item in auctionItems" class="border-b hover:bg-gray-100">
-                                <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                <!-- <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                     <img :src="(item.auction.product.thumbnail !== null) ? item.auction.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
                                 </th>
-                                <td class="px-4 py-3 font-semibold">{{ item.auction.product.name }}</td>
-                                <td class="px-4 py-3">{{ item.auction.product.category.title }}</td>
-                                <td class="px-4 py-3">{{ item.auction.product.brand.description }}</td>
-                                <td class="px-4 py-3">{{ moment(item.bidded_at).format("lll") }}</td>
-                                <td class="px-4 py-3">{{ item.price }}</td>
-                                <td class="px-4 py-3"><span
-                                            :class="useAuctionColorCode(item.auction.status)"
-                                            class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ useAuctionStatus(item.auction.status) }}</span></td>
-                                <td class="px-4 py-3 flex justify-normal items-center space-x-1">
-                                    <router-link :to="{name: 'auction-details', params: { store: item.auction.product.store.slug, id: item.auction.product.slug }}"
-                                        v-if="item.auction.status !== 4"
-                                        target="_blank"
-                                        class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                        View Auction
-                                    </router-link>
+                                <td class="px-4 py-3">{{ item.auction.product.name }}</td>
+                                <td class="px-4 py-3 font-semibold">{{ item.customer.username }}</td>
+                                <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
+                                <td class="px-4 py-3 font-semibold">{{ item.auction.currency.prefix }}{{ item.auction.highest.price }}</td> -->
+                                <td colspan="6" class="px-4 py-3">
+                                    <div class="grid grid-cols-6 bg-white p-3 rounded-md shadow-sm border border-amber-400">
+                                        <div class="col-span-6">
+                                        <p class="flex items-center justify-between font-semibold pb-2 mb-2 border-b border-gray-200">
+                                            <div class="flex items-center">
+                                            <img :src="(item.auction.product.thumbnail !== null) ? item.auction.product.thumbnail.url : NoImageUrl" alt="" class="mr-3 border border-gray-200 rounded-sm h-12 w-12 object-cover object-center">
+                                            <span class="text-gray-700">{{ item.auction.product.name }}</span>
+                                            </div>
+                                            <div class="text-gray-500 font-normal">
+                                                Transaction ID: {{ item.url_token.toUpperCase() }}
+                                            </div>
+                                        </p>
+                                        <p class="flex items-center font-semibold text-amber-500 mb-2"><TruckIcon class="h-5 w-5 mr-2"/> Delivery Information</p>
+                                        <span class="block"><span class="font-semibold">Name:</span> {{ item.shipment.full_name }}</span>
+                                        <span class="block"><span class="font-semibold">Address:</span> {{ item.shipment.address }}</span>
+                                        <span class="block"><span class="font-semibold">Contact:</span> {{ item.shipment.contact }}</span>
+                                        <span class="block"><span class="font-semibold">Courier:</span> {{ item.shipment.courier.name }}</span>
+                                        <span class="block"><span class="font-semibold">Shipped:</span> {{ moment(item.shipment.created_at).format("lll") }}</span>
+                                        
+                                        </div>
+                                        <div class="col-span-6 flex justify-end">
+                                            <button 
+                                                @click="toComplete(item.url_token)" 
+                                                class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                                Mark as delivered
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                             <tr v-else>
@@ -93,18 +97,19 @@
             </div>
         </div>
     </section>
+    <CompleteItemModal v-if="completeItem" :cancel="cancel" :reload="reloadItems" :id="modal.id"/>
 </template>
 <script>
     import { ref } from 'vue';
-    import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
+    import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, WalletIcon, TruckIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
     import { PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../../axios';
-    import { useAuctionColorCode } from '../../composables/useAuctionColorCode';
-    import { useAuctionStatus } from '../../composables/useAuctionStatus';
     import moment from 'moment';
+    import CompleteItemModal from '../util/CompleteItemModal.vue';
     import Spinner from '../../components/forms/Spinner.vue';
 
     const reloadList = ref(false);
+    const completeItem = ref(false);
 
     const getTransactions = async (page) => {
         let pagedata = [];
@@ -114,7 +119,7 @@
         reloadList.value = true;
         const setPage = '?page='+page;
 
-        await axiosClient.get('/api/v1/customer/transactions/bids'+setPage)
+        await axiosClient.get('/api/v1/vendor/shipments'+setPage)
             .then(response => {
                 response.data.data.map(function(value, key) {
                     pagedata.push(value);
@@ -139,18 +144,21 @@
     }
 
     export default {
-        components: { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon, Spinner },
+        components: { CompleteItemModal, Spinner, MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, PlusSmallIcon, WalletIcon, TruckIcon, CheckCircleIcon },
         async setup() {
             const transactions = await getTransactions(1);
             const auctionItems = ref(transactions[0][0]);
 
             return {
+                modal: {
+                    id: '',
+                    index: 0
+                },
+                completeItem,
                 pagination: transactions[1][0],
                 auctionItems,
                 reloadList,
-                moment,
-                useAuctionColorCode,
-                useAuctionStatus
+                moment
             }
         },
         methods: {
@@ -181,6 +189,22 @@
                 this.auctionItems = transactions[0][0];
                 this.pagination = transactions[1][0];
             },
+            viewTransaction() {
+                this.scrollToTop();
+            },
+            cancel() {
+                completeItem.value = false;
+                this.$router.push({
+                    name: 'vendor-transaction-ship'
+                });
+            },
+            toComplete(id) {
+                this.modal.id = id;
+                completeItem.value = true;
+            },
+            scrollToTop() {
+                window.scrollTo(0, 0);
+            }
         }
     }
 </script>

@@ -83,7 +83,7 @@
                      </li>
                      <li>
                         <router-link :to="{ name: 'vendor-products' }"
-                           exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
+                           active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
                            class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                            <ShoppingCartIcon class="h-6 w-6" />
                            <span class="ml-3">Products</span>
@@ -91,7 +91,7 @@
                      </li>
                      <li>
                         <router-link :to="{ name: 'vendor-auction' }"
-                           exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
+                           active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
                            class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                            <FireIcon class="h-6 w-6" />
                            <span class="ml-3">Auctions</span>
@@ -99,7 +99,7 @@
                      </li>
                      <li>
                         <router-link :to="{ name: 'vendor-transaction' }"
-                           exact-active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
+                           active-class="bg-gray-600 text-amber-400 hover:text-amber-400"
                            class="flex items-center p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-700">
                            <TruckIcon class="h-6 w-6" />
                            <span class="ml-3">Transactions</span>
@@ -173,20 +173,21 @@
                         </div>
                         <label for="store-name" class="block text-sm font-medium leading-6">Social Media Link of Store<br/><small class="text-gray-400">Ex. FB Page, Lazada Store, Shopee Store, etc.</small></label>
                         <div class="my-2">
-                           <input v-model="postdata.name"
-                              :class="{ 'ring-2 ring-inset ring-red-500': errordata.name !== '' }" id="name" name="name"
+                           <input v-model="postdata.social_store_link"
+                              :class="{ 'ring-2 ring-inset ring-red-500': errordata.social_store_link !== '' }" id="name" name="name"
                               type="text" autocomplete="name" required
                               class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                           <small v-if="errordata.name !== ''" class="text-red-400">{{ errordata.name }}</small>
+                           <small v-if="errordata.social_store_link !== ''" class="text-red-400">{{ errordata.social_store_link }}</small>
                         </div>
                         <div class="sm:col-span-4 mb-5">
                             <label for="images" class="block text-sm font-medium leading-6">Proof of Ownership (Image)</label>
                             <div class="mt-2">
                                 <div class="flex justify-normal items-center">
-                                <input name="images" @change="onFileChange" ref="file" multiple class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
+                                <input name="image" @change="onFileChange" ref="file" class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
                             </div>
                                 <p class="text-sm font-normal text-gray-400">File ext: jpg, png</p>
                             </div>
+                            <small v-if="errordata.image !== ''" class="text-red-400">{{ errordata.image }}</small>
                         </div><hr/>
 
                         <div class="flex items-center justify-between mt-5">
@@ -275,10 +276,14 @@ export default {
       return {
          siteUrl: import.meta.env.VITE_API_URL,
          postdata: {
-            name: ''
+            name: '',
+            social_store_link: '',
+            image: ''
          },
          errordata: {
-            name: ''
+            name: '',
+            social_store_link: '',
+            image: ''
          },
          hasStore,
          storeVerified,
@@ -288,11 +293,53 @@ export default {
       }
    },
    methods: {
+      onFileChange() {
+         this.url = null;
+         const files = this.$refs.file.files[0];
+         console.log(this.$refs.file.files[0]);
+         this.postdata.image = this.$refs.file.files[0];
+         
+         let getf = [];
+         let error_file = 0;
+         //console.log(files);
+         Object.entries(files).forEach(entry => {
+            if(entry[1].type === 'image/jpeg' || entry[1].type === 'image/png') {
+               getf.push(URL.createObjectURL(entry[1]));
+               URL.revokeObjectURL(entry[1]);
+            } else {
+               error_file += 1;
+            }
+         });
+
+         if(error_file > 0) {
+            this.clearUploadedFile();
+            toast.error("Invalid file extension", {
+               position: toast.POSITION.BOTTOM_CENTER,
+            });
+         } else {
+            this.url = getf;
+         }
+      },
       async create() {
          this.loadBtn = true;
          // send request to api
+         const formData = new FormData();
+                const files = this.$refs.file.files[0];
+                //const totalfiles = this.$refs.file.files.length;
+                //formData.append('images', this.$refs.file.files[0]);
+                formData.append('name', this.postdata.name);
+                formData.append('social_store_link', this.postdata.social_store_link);
+                formData.append('image', files);
+                formData.append('condition', this.postdata.condition);
+                formData.append('brand', this.postdata.brand);
+                formData.append('location', this.postdata.location);
+             
+                const headers = { 'Content-Type': 'multipart/form-data' };
+                //await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);
+                //await axiosClient.post('/api/v1/products', formData, {headers}).
+
          await store.dispatch('csrf');
-         await axiosClient.post('/api/v1/stores', this.postdata)
+         await axiosClient.post('/api/v1/stores', formData, {headers})
             .then(response => {
                toast.success(response.data.message, {
                   position: toast.POSITION.TOP_CENTER,
@@ -304,9 +351,21 @@ export default {
             .catch((error) => {
                const err = error.response;
 
-               toast.error(err.data.errors.name, {
+               toast.error(err.data.message, {
                   position: toast.POSITION.TOP_CENTER,
                });
+
+               // reset error data
+               Object.entries(this.errordata).forEach(entry => {
+                            const [key, value] = entry;
+                            this.errordata[key] = '';
+                        });
+
+                        // get return object errors and pass to error inputs
+                        Object.entries(err.data.errors).forEach(entry => {
+                            const [key, value] = entry;
+                            this.errordata[key] = value[0];
+                        });
             })
             .finally(() => {
                this.loadBtn = false;

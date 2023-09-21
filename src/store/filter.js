@@ -82,6 +82,21 @@ const filter = createStore({
                     return gb;
                 });
         },
+        couriers({commit}, filter) {
+            return axiosClient.get('/api/util/couriers').
+                then(response => { 
+                    let gb = [];
+
+                    response.data.map(function(value, key) {
+                        gb.push({
+                            id: value.id,
+                            description: value.name,
+                            is_active: ((value.id === filter) ? true : false)
+                        });
+                    });
+                    return gb;
+                });
+        },
 
     },
     mutations: {

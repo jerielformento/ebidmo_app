@@ -19,6 +19,7 @@ import CustomerProfile from "../views/CustomerProfile.vue";
 import CustomerDashboard from "../customer/Dashboard.vue";
 import CustomerWonAuctions from "../customer/WonAuctions.vue";
 import CustomerTransactions from "../customer/Transactions.vue";
+import CustomerBilling from "../customer/Billing.vue";
 import CheckoutSummary from "../customer/components/CheckoutSummary.vue";
 import CheckoutPayment from "../customer/components/CheckoutPayment.vue";
 import CheckoutComplete from "../customer/components/CheckoutComplete.vue";
@@ -38,6 +39,10 @@ import VendorTransaction from "../vendor/Transaction.vue";
 import VendorSettings from "../vendor/Settings.vue";
 import VendorAuctionView from "../vendor/ViewAuction.vue";
 import VendorAuctionStats from "../vendor/components/AuctionStats.vue";
+import VendorTransactionDetails from "../vendor/components/TransactionDetails.vue";
+import VendorTransactionList from "../vendor/components/TransactionList.vue";
+import VendorTransactionShip from "../vendor/components/TransactionShip.vue";
+import VendorTransactionComplete from "../vendor/components/TransactionComplete.vue";
 import AddProduct from '../vendor/components/AddProduct.vue';
 import EditProduct from '../vendor/components/EditProduct.vue';
 
@@ -74,10 +79,10 @@ const routes = [
                 meta: { title: 'Dashboard' }
             },
             {
-                path: 'won',
-                name: 'customer-won',
-                component: CustomerWonAuctions,
-                meta: { title: 'Won Auctions' }
+                path: 'billing',
+                name: 'customer-billing',
+                component: CustomerBilling,
+                meta: { title: 'Billing' }
             },
             {
                 path: 'transactions',
@@ -112,10 +117,10 @@ const routes = [
                                 meta: { title: 'Payment Method' }
                             },
                             {
-                                path: 'payment',
+                                path: 'success',
                                 name: 'transaction-checkout-complete',
                                 component: CheckoutComplete,
-                                meta: { title: 'Completed' }
+                                meta: { title: 'Payment Successful' }
                             }
                         ]
                     },
@@ -206,7 +211,37 @@ const routes = [
                 path: 'transaction',
                 name: 'vendor-transaction',
                 component: VendorTransaction,
+                redirect: { name: 'vendor-transaction-list' },
                 meta: { title: 'Transactions' },
+                children: [
+                    {
+                        path: '',
+                        name: 'vendor-transaction-list',
+                        component: VendorTransactionList,
+                        meta: { title: 'List' },
+                        children: [
+                            {
+                                path: 'view/:id',
+                                name: 'transaction-view',
+                                component: VendorTransactionDetails,
+                                meta: { title: 'Details' },
+                            }
+                        ]
+                    },
+                    {
+                        path: 'ship',
+                        name: 'vendor-transaction-ship',
+                        component: VendorTransactionShip,
+                        meta: { title: 'Ship' }
+                    }
+                    ,
+                    {
+                        path: 'complete',
+                        name: 'vendor-transaction-complete',
+                        component: VendorTransactionComplete,
+                        meta: { title: 'Complete' }
+                    }
+                ]
             },
             {
                 path: 'settings',
