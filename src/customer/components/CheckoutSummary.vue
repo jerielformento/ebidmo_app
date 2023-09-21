@@ -1,5 +1,52 @@
 <template>
     <div>
+        <!-- progress -->
+        <ol class="mx-auto items-center sm:flex">
+            <li class="w-full relative mb-6 sm:mb-0">
+                <div class="flex items-center">
+                    <div 
+                    class="z-10 flex items-center justify-center bg-amber-300 w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                        <ArrowRightIcon class="w-3 h-3"/>
+                    </div>
+                    <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                </div>
+                <div class="mt-3 sm:pr-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Checkout Summary</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Item Details</time>
+                    <!-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> -->
+                </div>
+            </li>
+            <li class="w-full relative mb-6 sm:mb-0">
+                <div class="flex items-center">
+                    <div
+                    class="z-10 flex items-center justify-center w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                        <ArrowRightIcon class="w-3 h-3"/>
+                    </div>
+                    <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                </div>
+                <div class="mt-3 sm:pr-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Payment Method</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Select payment type</time>
+                    <!-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> -->
+                </div>
+            </li>
+            <li class="w-full relative mb-6 sm:mb-0">
+                <div class="flex items-center">
+                    <div
+                    class="z-10 flex items-center justify-center w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                        <ArrowRightIcon class="w-3 h-3"/>
+                    </div>
+                    <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+                </div>
+                <div class="mt-3 sm:pr-8">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Completed</h3>
+                    <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Finished Transaction</time>
+                    <!-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> -->
+                </div>
+            </li>
+        </ol>
+        <!-- end progress -->
+
     <div class="" v-if="isMounted">
         <div class="pt-5 mb-10">
             <!-- Product info -->
@@ -83,6 +130,16 @@
                                     {{ productInfo.auction.currency.prefix }}{{ productInfo.auction.highest.price }}
                                 </div>
                             </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-500 truncate dark:text-white">
+                                        Processing Fee
+                                    </p>
+                                </div>
+                                <div class="inline-flex items-center text-base text-gray-500 dark:text-white">
+                                    {{ productInfo.auction.currency.prefix }}{{ 0 }}
+                                </div>
+                            </div>
                         </li>
                         <li class="py-3 sm:pb-4">
                             <div class="flex items-center space-x-4">
@@ -115,7 +172,7 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
+import { ShieldCheckIcon, ShieldExclamationIcon, ArrowRightIcon } from "@heroicons/vue/24/solid";
 import { Pagination, Navigation, Thumbs } from 'swiper'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
 import 'swiper/css'
@@ -143,16 +200,16 @@ export default {
 
         onMounted(async() => {
             await axiosClient.get(`/api/v1/customer/transactions/checkout/${route.params.id}`).
-                    then(response => {
-                        console.log(response.data);
-                        productInfo.value = response.data;
-                        productImages.value = response.data.auction.product.images
-                        isLoading.value = false; 
-                        isMounted.value = true;
-                    })
-                    .catch((errors) => {
-                        //window.location = '/404-page-not-found';
-                    }); 
+                then(response => {
+                    console.log(response.data);
+                    productInfo.value = response.data;
+                    productImages.value = response.data.auction.product.images
+                    isLoading.value = false; 
+                    isMounted.value = true;
+                })
+                .catch((errors) => {
+                    window.location = '/404-page-not-found';
+                }); 
         });
 
         const swiperItems = ref(productImages);
@@ -173,36 +230,7 @@ export default {
     },
     methods: {
         checkout() {
-            //console.log(this.$route.path);
-            /* const options = {
-                method: 'POST',
-                headers: {
-                    'X-BUSINESS-API-KEY': 'da60790b3c460c9f04556ae969f2105c53555527ca83de9b9b5826c08f20b3d5',
-                    'Content-Type': 'application/json'
-                },
-                body: '{"amount":50,"currency":"PHP","redirect_url":'+import.meta.env.VITE_URL+this.$route.path+'}'
-            };
-
-            fetch('https://securecheckout.sandbox.hit-pay.com/payment-request/@testbid', options)
-                .then(response => response.json())
-                .then(response => console.log(response))
-                .catch(err => console.error(err)); */
-                this.isCheckout = true;
-                axiosClient.get(`/api/v1/payment/transaction/${this.route.params.id}`)
-                .then(function(response) {
-                // Parsing the response and redirecting the customer for authentication
-                console.log(response.data.url);
-                const checkout_url = response.data.url;
-
-                    // Option 1: similar behavior as an HTTP redirect
-                    //window.location.replace(checkout_url);
-
-                    // Option 2: similar behavior as clicking on a link
-                    
-                    window.location.href = checkout_url;
-                }).finally(() => {
-                    this.isCheckout = false;
-                });
+            this.$router.push({name: 'transaction-checkout-payment'});
         }
     },
 }

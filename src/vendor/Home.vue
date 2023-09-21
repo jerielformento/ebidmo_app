@@ -1,53 +1,52 @@
 <template>
-   <div class="grid lg:grid-cols-3 sm:grid-cols-1 gap-4 mb-4">
-      <div class="bg-amber-300 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
+   <div class="grid lg:grid-cols-3 sm:grid-cols-1 gap-4 mb-10">
+      <div
+         class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
          <div class="flex space-x-6 items-center">
-            <ShoppingCartIcon class="h-12 w-auto text-amber-600" />
+            <ShoppingCartIcon class="h-12 w-auto text-gray-300" />
             <div>
-               <p class="font-semibold text-base">Products</p>
-               <p class="font-semibold text-xs text-amber-700">Total count</p>
+                  <p class="font-semibold text-base">Products</p>
+                  <p class="font-semibold text-xs text-amber-500">Total count</p>
             </div>
          </div>
-
          <div class="flex space-x-2 items-center">
-            <div class="bg-yellow-200 rounded-md p-2 flex items-center">
-               <p class="text-yellow-600 font-semibold text-sm">{{ statsReport.products_count }}</p>
+            <div class="p-2 flex items-center">
+                  <p class="text-gray-600 font-semibold text-lg">{{ statsReport.products_count }}</p>
+            </div>
+         </div>
+      </div>
+      <div
+         class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
+         <div class="flex space-x-6 items-center">
+            <FireIcon class="h-12 w-auto text-gray-300" />
+            <div>
+                  <p class="font-semibold text-base">Auctions</p>
+                  <p class="font-semibold text-xs text-amber-500">Total count</p>
+            </div>
+         </div>
+         <div class="flex space-x-2 items-center">
+            <div class="p-2 flex items-center">
+                  <p class="text-gray-600 font-semibold text-lg">{{ statsReport.auctions_count }}</p>
             </div>
          </div>
       </div>
 
-      <div class="bg-amber-300 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
+      <div
+         class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
          <div class="flex space-x-6 items-center">
-            <FireIcon class="h-12 w-auto text-amber-600" />
+            <TruckIcon class="h-12 w-auto text-gray-300" />
             <div>
-               <p class="font-semibold text-base">Auctioned</p>
-               <p class="font-semibold text-xs text-amber-800">Total count</p>
+                  <p class="font-semibold text-base">Transactions</p>
+                  <p class="font-semibold text-xs text-amber-500">Total count</p>
             </div>
          </div>
-
          <div class="flex space-x-2 items-center">
-            <div class="bg-yellow-200 rounded-md p-2 flex items-center">
-               <p class="text-yellow-600 font-semibold text-sm">{{ statsReport.auctions_count }}</p>
+            <div class="p-2 flex items-center">
+                  <p class="text-gray-600 font-semibold text-lg">{{ statsReport.transactions_count }}</p>
             </div>
          </div>
       </div>
-
-      <div class="bg-amber-300 border-2 border-gray-800 p-3 rounded-md shadow-xl flex items-center justify-between mt-4">
-         <div class="flex space-x-6 items-center">
-            <TruckIcon class="h-12 w-auto text-amber-600" />
-            <div>
-               <p class="font-semibold text-base">Transactions</p>
-               <p class="font-semibold text-xs text-amber-800">Total processed count</p>
-            </div>
-         </div>
-
-         <div class="flex space-x-2 items-center">
-            <div class="bg-yellow-200 rounded-md p-2 flex items-center">
-               <p class="text-yellow-600 font-semibold text-sm">{{ statsReport.transactions_count }}</p>
-            </div>
-         </div>
-      </div>
-   </div>
+</div>
 </template>
 <script>
 import { ref, onMounted } from 'vue';

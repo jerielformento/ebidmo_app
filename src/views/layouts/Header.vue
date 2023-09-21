@@ -6,6 +6,7 @@
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
             </a>
             <div v-if="!isGuest" class="flex items-center md:order-2">
+                <Notifications/>
                 <button type="button"
                     class="flex items-center gap-x-2 mr-3 text-sm bg-gray-800 rounded-full md:mr-0 dark:focus:ring-gray-600"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
@@ -24,7 +25,10 @@
                     <ul class="py-2" aria-labelledby="user-menu-button">
                         <li>
                             <router-link :to="{ name: 'vendor-home' }"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Store</router-link>
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                <span v-if="userData.store_name !== ''" class="flex items-center font-semibold"><BuildingStorefrontIcon class="h-5 w-5 mr-2" /> Your Store</span>
+                                <span v-else class="flex items-center font-semibold"><BuildingStorefrontIcon class="h-5 w-5 mr-2" /> Create your store</span>
+                            </router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'profile' }"
@@ -133,13 +137,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import store from '../../store';
+import Notifications from './Notifications.vue';
 import {
     Bars3Icon,
     ChevronDownIcon,
     UserCircleIcon,
     HomeIcon,
     FireIcon,
-    MegaphoneIcon
+    MegaphoneIcon,
+    BuildingStorefrontIcon
 } from "@heroicons/vue/24/outline";
 import { initFlowbite } from 'flowbite';
 onMounted(() => {
@@ -150,12 +156,15 @@ onMounted(() => {
 export default {
     data() {
         const isGuest = ref(true);
+        const userData = ref(null);
         isGuest.value = (store.state.user.token) ? false : true;
+        userData.value = JSON.parse(store.state.user.data);
 
         return {
             siteUrl: import.meta.env.VITE_API_URL,
             localUrl: import.meta.env.VITE_URL,
-            isGuest
+            isGuest,
+            userData
         }
     },
     methods: {

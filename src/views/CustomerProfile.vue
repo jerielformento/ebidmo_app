@@ -21,6 +21,11 @@
                         active-class="bg-slate-700"
                         class="py-1.5 p-2 text-gray-200 hover:bg-slate-500 rounded-md dark:text-white">Transactions</router-link>
                     </li>
+                    <li>
+                        <router-link :to="{ name: 'customer-billing' }" 
+                        active-class="bg-slate-700"
+                        class="py-1.5 p-2 text-gray-200 hover:bg-slate-500 rounded-md dark:text-white">Billing</router-link>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -38,6 +43,14 @@
                               <HomeIcon class="h-5 w-5 mr-1" /> Home
                            </router-link>
                         </li>
+                        <li aria-current="page" v-if="route.matched[1].meta.title != route.meta.title">
+                           <div class="flex items-center">
+                              <ChevronRightIcon class="h-4 w-4"/>
+                              <router-link :to="{ name: 'transaction-home' }" class="ml-1 text-sm font-medium text-gray-700 hover:text-amber-500 md:ml-2 dark:text-gray-400">
+                                 {{ route.matched[1].meta.title }} 
+                              </router-link>
+                           </div>
+                        </li>
                         <li aria-current="page">
                            <div class="flex items-center">
                               <ChevronRightIcon class="h-4 w-4"/>
@@ -48,7 +61,9 @@
                         </li>
                      </ol>
                   </nav>
-            <router-view></router-view>
+            <Suspense>
+                <router-view></router-view>
+            </Suspense>
         </div>
     </main>
     </div>

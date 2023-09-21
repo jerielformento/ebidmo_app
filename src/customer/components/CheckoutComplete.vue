@@ -1,16 +1,70 @@
 <template>
-    <div>
-        Completed
+    <!-- progress -->
+    <ol class="mx-auto items-center sm:flex">
+        <li class="w-full relative mb-6 sm:mb-0">
+            <div class="flex items-center">
+                <div 
+                class="z-10 flex items-center justify-center w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                    <ArrowRightIcon class="w-3 h-3"/>
+                </div>
+                <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+            </div>
+            <div class="mt-3 sm:pr-8">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Checkout Summary</h3>
+                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Item Details</time>
+                <!-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> -->
+            </div>
+        </li>
+        <li class="w-full relative mb-6 sm:mb-0">
+            <div class="flex items-center">
+                <div
+                class="z-10 flex items-center justify-center w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                    <ArrowRightIcon class="w-3 h-3"/>
+                </div>
+                <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+            </div>
+            <div class="mt-3 sm:pr-8">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Payment Method</h3>
+                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Select payment type</time>
+                <!-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> -->
+            </div>
+        </li>
+        <li class="w-full relative mb-6 sm:mb-0">
+            <div class="flex items-center">
+                <div
+                class="z-10 flex items-center justify-center bg-amber-300 w-6 h-6 rounded-full ring-0 ring-white dark:bg-blue-900 sm:ring-8 dark:ring-gray-900 shrink-0">
+                    <ArrowRightIcon class="w-3 h-3"/>
+                </div>
+                <div class="hidden sm:flex w-full bg-gray-200 h-0.5 dark:bg-gray-700"></div>
+            </div>
+            <div class="mt-3 sm:pr-8">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Completed</h3>
+                <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Finished Transaction</time>
+                <!-- <p class="text-base font-normal text-gray-500 dark:text-gray-400">Get started with dozens of web components and interactive elements.</p> -->
+            </div>
+        </li>
+    </ol>
+    <!-- end progress -->
+    <div v-if="isMounted" class="mt-6 pb-8">
+        <div class="w-full p-3 border-t border-gray-200 h-32 flex justify-center items-center">
+            <div>
+                <h2 class="text-gray-400 my-3 text-xl font-semibold flex items-center"><CheckCircleIcon class="h-7 w-7 mr-1 text-green-400"/> Payment Success</h2>
+                <router-link :to="{name: 'transaction-home' }"
+                    class="flex items-center justify-center rounded-sm bg-slate-900 px-2 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                    <ArrowLongLeftIcon class="h-5 w-5 mr-1"/> Back to Transactions
+                </router-link>
+            </div>
+        </div>
+    </div>
+    <div v-else class="mt-6 pb-8">
+        <div class="w-full p-3 border-t border-gray-200 h-32 flex items-center justify-center">
+            <h2 class="text-gray-300">No available information.</h2>
+        </div>
     </div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ShieldCheckIcon, ShieldExclamationIcon } from "@heroicons/vue/24/solid";
-import { Pagination, Navigation, Thumbs } from 'swiper'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/vue';
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
+import { ShieldCheckIcon, ShieldExclamationIcon, ArrowRightIcon, ArrowLongLeftIcon, CheckCircleIcon } from "@heroicons/vue/24/solid";
 import axiosClient from '../../axios';
 import { useRoute } from 'vue-router';
 import ButtonForm from '../../components/forms/Button.vue';
@@ -19,40 +73,30 @@ import ButtonForm from '../../components/forms/Button.vue';
 export default {
     data() {
         const isCheckout = ref(false);
-        const thumbsSwiper = ref(null);
-        const setThumbsSwiper = (swiper) => {
-            thumbsSwiper.value = swiper;
-        };
 
         const isMounted = ref(false);
         const isInvalid = ref(false);
         const route = useRoute();
         const productInfo = ref({});
-        const productImages = ref({});
         const isLoading = ref(true);
 
         onMounted(async() => {
-            await axiosClient.get(`/api/v1/customer/transactions/checkout/${route.params.id}`).
+            await axiosClient.get(`/api/v1/customer/transactions/checkout/success/${route.params.id}`).
                     then(response => {
                         console.log(response.data);
                         productInfo.value = response.data;
-                        productImages.value = response.data.auction.product.images
-                        isLoading.value = false; 
-                        isMounted.value = true;
+
+                        if(productInfo.value.status === 1) {
+                            isLoading.value = false; 
+                            isMounted.value = true;
+                        }
                     })
                     .catch((errors) => {
                         //window.location = '/404-page-not-found';
                     }); 
         });
 
-        const swiperItems = ref(productImages);
-
         return {
-            modules: [Pagination, Navigation, Thumbs], 
-            Thumbs,
-            thumbsSwiper,
-            setThumbsSwiper,
-            swiperItems,
             productInfo,
             isLoading,
             isMounted,

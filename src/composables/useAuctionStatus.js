@@ -18,11 +18,13 @@ export function useAcknowledgementStatus(status) {
     let setStatus = "";
 
     if(status === 0) {
-        setStatus = "To Acknowledge";
+        setStatus = "To Pay";
     } else if(status === 1) {
-        setStatus = "Acknowledged";
-    } else {
-        setStatus = "COMPLETED";
+        setStatus = "Paid";
+    } else if(status === 2) {
+        setStatus = "To Ship";
+    } else if(status === 3) {
+        setStatus = "Completed";
     }
 
     return setStatus;
