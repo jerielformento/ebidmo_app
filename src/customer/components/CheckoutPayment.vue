@@ -48,9 +48,9 @@
     <section class="mt-5 bg-gray-50">
         <div class="mx-auto">
             <!-- Start coding here -->
-            <div class="bg-white relative shadow-sm overflow-hidden border border-gray-200">
+            <div class="bg-white rounded-md relative shadow-sm overflow-hidden border border-gray-200">
                 <div v-if="!isLoaded" class="grid grid-cols-1 sm:grid-cols-6 items-start gap-6">
-                    <div class="col-span-6 bg-white p-4 rounded-sm shadow">
+                    <div class="col-span-6 bg-white p-4 rounded-md shadow">
                         <div class="flex items-center">
                             <span class="mr-1 text-lg inline-block font-bold">Billing Information</span>
                             
@@ -65,7 +65,7 @@
                                 <div class="mt-1">
                                     <span v-if="postdata.shipping_address !== ''">{{ postdata.shipping_address }}</span>
                                     <span v-else class="italic text-xs text-gray-500">N/A</span>
-                                    <!-- <input v-model="postdata.shipping_address" type="text" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                    <!-- <input v-model="postdata.shipping_address" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                     <small class="text-red-400"></small> -->
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 <div class="mt-1">
                                     <span v-if="postdata.full_name !== ''">{{ postdata.full_name }}</span>
                                     <span v-else class="italic text-xs text-gray-500">N/A</span>
-                                    <!-- <input v-model="postdata.full_name" type="text" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                    <!-- <input v-model="postdata.full_name" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                     <small class="text-red-400"></small> -->
                                 </div>
                             </div>
@@ -83,16 +83,16 @@
                                 <div class="mt-1">
                                     <span v-if="postdata.mobile_number !== ''">{{ postdata.mobile_number }}</span>
                                     <span v-else class="italic text-xs text-gray-500">N/A</span>
-                                    <!-- <input v-model="postdata.mobile_number" type="text" autocomplete="name" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                    <!-- <input v-model="postdata.mobile_number" type="text" autocomplete="name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                     <small class="text-red-400"></small> -->
                                 </div>
                             </div>
-                            <router-link :to="{ name: 'customer-billing' }" class="mr-2 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                            <router-link :to="{ name: 'customer-billing' }" class="mr-2 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                                     Edit Information
                             </router-link>
 
                             <div class="sm:col-span-6 flex justify-end border-t border-gray-200 pt-5">
-                                <router-link :to="{ name: 'transaction-checkout-summary' }" class="mr-2 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                                <router-link :to="{ name: 'transaction-checkout-summary' }" class="mr-2 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                                     Back to Summary
                                 </router-link>
                                 <ButtonForm @onClick="checkout" text="Process Payment" :state="isCheckout" />

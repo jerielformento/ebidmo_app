@@ -19,52 +19,13 @@
     >
             <div v-for="items in swiperItems" :key="items">
                 <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
-                    <div v-for="text in items" :key="text.item" class="rounded-md border bg-white shadow-md">
-                        <div class="group relative pb-3">
-                            <!-- <div class="absolute right-1 top-1 z-10 rounded-full cursor-pointer">
-                                <HeartIcon @click="activeHeart = !activeHeart" class="h-8 w-8" :class="activeHeart ? 'text-red-500' : 'text-gray-300'"/>
-                            </div> -->
-                            <div class="min-h-50 aspect-h-2 aspect-w-2 w-full overflow-hidden rounded-t-md bg-gray-200 group-hover:opacity-90 lg:h-50">
-                            <img :src="(text.thumbnail !== null) ? text.thumbnail.url : NoImageUrl" alt="" class="border border-gray-100 rounded-t-md w-full object-cover object-center lg:h-full lg:w-full">
-                            </div>
-                            <div class="mt-3 px-3 flex justify-between">
-                                <div>
-                                    <h3 class="text-sm text-amber-500 break-all">
-                                        <router-link :to="{name: 'product-details', params: { store: text.store.slug, id: text.slug }}" class="font-semibold">
-                                            <span aria-hidden="true" class="absolute inset-0"></span>
-                                            {{ textSubstr(text.name) }}
-                                        </router-link>
-                                    </h3>
-                                </div>
-                            </div>
-                            <div class="mx-3 relative">
-                                <p class="mt-1 text-sm block font-semibold text-gray-600">{{ text.store.name }}</p>
-                                <p class="mt-1 text-sm text-gray-400">Category: <a href="#" class="text-amber-500 underline">{{ text.category.title }}</a></p>
-                                <p class="mt-1 text-sm text-gray-400">Brand: <a href="#" class="text-amber-500 underline">{{ text.brand.description }}</a></p>
-                            </div>
-                            <div class="mt-1 mx-3 text-2xl text-gray-500 flex md:block lg:flex justify-between items-center relative">
-                                <!-- <div class="flex items-center">
-                                    <div class="flex items-center">
-                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
-                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
-                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
-                                        <StarIcon class="text-yellow-400 h-4 w-4 flex-shrink-0" />
-                                        <StarIcon class="text-gray-200 h-4 w-4 flex-shrink-0" />
-                                    </div>
-                                </div> -->
-                                <!-- <router-link 
-                                    :to="{name: 'product-details', 
-                                    params: { store: text.store.slug, id: text.slug }}" 
-                                    class="flex md:block md:text-center mt-2 items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                    View
-                                </router-link> -->
-                            </div>
-                        </div>
+                    <div v-for="item in items" :key="item.item" class="rounded-md border bg-white shadow-sm">
+                        <ItemCard :item="item"/>
                     </div>
                 </div>
             </div>
             <div v-if="swiperItems.length === 0" class="mt-6 pb-8">
-                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-md border bg-white shadow-sm h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>
@@ -82,6 +43,7 @@
     import { Autoplay, Pagination, Navigation } from 'swiper'
     import { Swiper, SwiperSlide } from 'swiper/vue'
     import ItemsLoader from './util/ItemsLoader.vue';
+    import ItemCard from './forms/ItemCard.vue';
     import axiosClient from '../axios';
     import 'swiper/css'
     import 'swiper/css/pagination'
@@ -158,7 +120,7 @@
                 deep: true
             }
         },
-        components: {Swiper, SwiperSlide, ItemsLoader, ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon},
+        components: {Swiper, SwiperSlide, ItemsLoader, ItemCard, ShoppingCartIcon, HeartIcon, StarIcon, PlusSmallIcon},
         async setup(props) {
             const products = await getProducts(null, null);
             swiperItems.value = products;

@@ -14,7 +14,7 @@
                 <section class="mt-5 bg-gray-50">
                     <div class="mx-auto">
                         <!-- Start coding here -->
-                        <div class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
+                        <div class="bg-white relative shadow-sm sm:rounded-md overflow-hidden border border-gray-200">
                             <div
                                 class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                                 <div class="w-full md:w-1/2">
@@ -25,7 +25,7 @@
                                             <MagnifyingGlassIcon class="w-5 h-5 text-gray-500" />
                                         </div>
                                         <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch"
-                                            class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
+                                            class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
                                             placeholder="Search" required="">
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                                 <img :src="(item.product.thumbnail !== null) ? item.product.thumbnail.url : NoImageUrl"
                                                     alt=""
-                                                    class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
+                                                    class="border border-gray-200 rounded-md h-10 w-10 object-cover object-center">
                                             </th>
                                             <td class="px-4 py-3">{{ item.product.name }}</td>
                                             <td class="px-4 py-3">{{ item.product.category.title }}</td>
@@ -72,11 +72,11 @@
                                             <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
                                             <td class="px-4 py-3"><span
                                                     :class="useAuctionColorCode(item.status)"
-                                                    class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ useAuctionStatus(item.status) }}</span></td>
+                                                    class="text-white text-xs font-semibold rounded-md py-1 px-2">{{ useAuctionStatus(item.status) }}</span></td>
                                             <td class="px-4 py-3">
                                                 <router-link :to="{ name: 'auction-view', params: { id: item.id } }"
                                                     @click="viewAuction"
-                                                    class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                                    class="rounded-md bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                                     Details
                                                 </router-link>
                                             </td>

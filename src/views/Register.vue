@@ -13,35 +13,35 @@
                     <div class="sm:col-span-4">
                         <label for="email" class="block text-sm font-medium leading-6">Email address</label>
                         <div class="mt-2">
-                            <input v-model="postdata.email" :class="{ 'ring-2 ring-inset ring-red-500': errordata.email !== ''}" id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.email" :class="{ 'ring-2 ring-inset ring-red-500': errordata.email !== ''}" id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <small v-if="errordata.email !== ''" class="text-red-400">{{ errordata.email }}</small>
                         </div>
                     </div>
                     <div class="sm:col-span-3">
                         <label for="first-name" class="block text-sm font-medium leading-6">First name</label>
                         <div class="mt-2">
-                            <input v-model="postdata.firstname" :class="{ 'ring-2 ring-inset ring-red-500': errordata.firstname !== ''}" id="first-name" name="first-name" type="text" autocomplete="first-name" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.firstname" :class="{ 'ring-2 ring-inset ring-red-500': errordata.firstname !== ''}" id="first-name" name="first-name" type="text" autocomplete="first-name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <small v-if="errordata.firstname !== ''" class="text-red-400">{{ errordata.firstname }}</small>
                         </div>
                     </div>
                     <div class="sm:col-span-3">
                         <label for="middle-name" class="block text-sm font-medium leading-6">Middle name</label>
                         <div class="mt-2">
-                            <input v-model="postdata.middlename" :class="{ 'ring-2 ring-inset ring-red-500': errordata.middlename !== ''}" id="middle-name" name="middle-name" type="text" autocomplete="middle-name" placeholder="Optional" class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.middlename" :class="{ 'ring-2 ring-inset ring-red-500': errordata.middlename !== ''}" id="middle-name" name="middle-name" type="text" autocomplete="middle-name" placeholder="Optional" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <small v-if="errordata.middlename !== ''" class="text-red-400">{{ errordata.middlename }}</small>
                         </div>
                     </div>
                     <div class="sm:col-span-3">
                         <label for="last-name" class="block text-sm font-medium leading-6">Last name</label>
                         <div class="mt-2">
-                            <input v-model="postdata.lastname" :class="{ 'ring-2 ring-inset ring-red-500': errordata.lastname !== ''}" id="last-name" name="last-name" type="text" autocomplete="last-name" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.lastname" :class="{ 'ring-2 ring-inset ring-red-500': errordata.lastname !== ''}" id="last-name" name="last-name" type="text" autocomplete="last-name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <small v-if="errordata.lastname !== ''" class="text-red-400">{{ errordata.lastname }}</small>
                         </div>
                     </div>
                     <div class="sm:col-span-3">
                         <label for="phone-number" class="block text-sm font-medium leading-6">Phone</label>
                         <div class="mt-2">
-                            <input v-model="postdata.phone" :class="{ 'ring-2 ring-inset ring-red-500': errordata.phone !== ''}" id="phone-number" name="phone-number" type="text" autocomplete="phone-number" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.phone" :class="{ 'ring-2 ring-inset ring-red-500': errordata.phone !== ''}" id="phone-number" name="phone-number" type="text" autocomplete="phone-number" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <small v-if="errordata.phone !== ''" class="text-red-400">{{ errordata.phone }}</small>
                         </div>
                     </div>
@@ -51,31 +51,53 @@
                     <div class="sm:col-span-4">
                         <label for="sdsdasd" class="block text-sm font-medium leading-6">Username</label>
                         <div class="mt-2">
-                            <input v-model="postdata.username" :class="{ 'ring-2 ring-inset ring-red-500': errordata.username !== ''}" id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.username" :class="{ 'ring-2 ring-inset ring-red-500': errordata.username !== ''}" id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <small v-if="errordata.username !== ''" class="text-red-400">{{ errordata.username }}</small>
                         </div>
                     </div>
-                    <div class="sm:col-span-3">
+                    <!-- <div class="sm:col-span-3">
                         <label for="password" class="block text-sm font-medium leading-6">Password</label>
                         <div class="mt-2 relative inset-y-0 right-0 flex rounded-md shadow-sm h-9">
-                            <input v-model="postdata.password" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="password" name="password" :type="inputTypePassword" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            <input v-model="postdata.password" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="password" name="password" :type="inputTypePassword" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                             <button @click.prevent="toggleTypePassword" type="button" tabindex="-1" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-gray-50 border border-gray-200 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
                                 <EyeIcon v-if="inputTypePassword == 'password'" />
                                 <EyeSlashIcon v-else/>
                             </button>
                         </div>
                         <small v-if="errordata.password !== ''" class="text-red-400">{{ errordata.password }}</small>
+                    </div> -->
+                    <div class="sm:col-span-3">
+                        <label for="password" class="block text-sm font-medium leading-6">Password</label>
+                        <div class="relative">
+                        <!-- <input type="search" id="search" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required> -->
+                            <input v-model="postdata.password" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="password" name="password" :type="inputTypePassword" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                        <!-- <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">show</button> -->
+                            <button @click.prevent="toggleTypePassword" type="button" tabindex="-1" class="absolute right-2.5 bottom-2.5 inline-flex flex-shrink-0 justify-center items-center w-5 h-5 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
+                                <EyeIcon v-if="inputTypePassword == 'password'" class="absolute right-0 bottom-0 top-0"/>
+                                <EyeSlashIcon v-else class="absolute right-0 bottom-0 top-0"/>
+                            </button>
+                        </div>
+                        <small v-if="errordata.password !== ''" class="text-red-400">{{ errordata.password }}</small>
                     </div>
                     <div class="sm:col-span-3">
                         <label for="confirm-password" class="block text-sm font-medium leading-6">Confirm Password</label>
-                        <div class="mt-2 relative inset-y-0 right-0 flex rounded-md shadow-sm h-9">
-                            <input v-model="postdata.password_confirmation" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="confirm-password" name="confirm-password" :type="inputTypeConfirmPassword" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
-                            <button @click.prevent="toggleTypeConfirmPassword" type="button" tabindex="-1" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-gray-50 border border-gray-200 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
-                                <EyeIcon v-if="inputTypeConfirmPassword == 'password'" />
-                                <EyeSlashIcon v-else/>
+                        <div class="relative">
+                        <!-- <input type="search" id="search" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required> -->
+                        <input v-model="postdata.password_confirmation" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="confirm-password" name="confirm-password" :type="inputTypeConfirmPassword" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                        <!-- <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">show</button> -->
+                            <button @click.prevent="toggleTypeConfirmPassword" type="button" tabindex="-1" class="absolute right-2.5 bottom-2.5 inline-flex flex-shrink-0 justify-center items-center w-5 h-5 ml-[-1px] px-3 py-1.5 text-sm font-semibold leading-6 text-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
+                                <EyeIcon v-if="inputTypeConfirmPassword == 'password'" class="absolute right-0 bottom-0 top-0"/>
+                                <EyeSlashIcon v-else class="absolute right-0 bottom-0 top-0"/>
                             </button>
                         </div>
                     </div>
+                   <!--  <div class="sm:col-span-3">
+                        <label for="confirm-password" class="block text-sm font-medium leading-6">Confirm Password</label>
+                        <div class="mt-2 relative inset-y-0 right-0 flex rounded-md shadow-sm h-9">
+                            <input v-model="postdata.password_confirmation" :class="{ 'ring-2 ring-inset ring-red-500': errordata.password !== ''}" id="confirm-password" name="confirm-password" :type="inputTypeConfirmPassword" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                            
+                        </div>
+                    </div> -->
                 </div>
             </div>
             <div class="pt-3 border-t border-gray-900/10 flex items-center justify-end gap-x-6">

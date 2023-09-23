@@ -42,7 +42,7 @@
                 <div class="mx-auto max-w-2xl px-4 pb-16 pt-5 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-16 lg:pt-5">
                 <div class="w-full lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     <!-- Image gallery -->
-                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm py-4">
+                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-md py-4">
                     <swiper
                         :modules="modules"
                         :space-between="20"
@@ -54,7 +54,7 @@
                     
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
                             <div class="mx-auto max-w-3xl border-slate-600">
-                                <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-sm sm:block lg:block">
+                                <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-md sm:block lg:block">
                                     <div><img :src="text.url" alt="" class="w-full h-full object-cover object-center"></div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                         
                     </div>
                     <div v-else>
-                        <div class="mt-5 grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-sm shadow-sm text-md text-gray-700">
+                        <div class="mt-5 grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-md shadow-sm text-md text-gray-700">
                             <span class="text-xs block text-sky-500">This item belongs to you.</span>
                         </div>
                     </div>

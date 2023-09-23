@@ -5,7 +5,7 @@
                 <main>
                     <div class="mx-auto">
                         <div class="grid grid-cols-1 sm:grid-cols-5 items-start gap-6">
-                            <div class="col-span-3 bg-white p-4 rounded-sm shadow">
+                            <div class="col-span-3 bg-white p-4 rounded-md shadow">
                                 <div class="flex items-center">
                                     <span class="mr-1 text-lg inline-block font-bold">Settings</span>
                                 </div>
@@ -15,7 +15,7 @@
                                         <div class="mt-2">
                                             <input id="name" name="name" type="text" autocomplete="name"
                                                 v-model="postdata.name" required
-                                                class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                             <small class="text-red-400"></small>
                                         </div>
                                     </div>
@@ -27,7 +27,7 @@
                                                 <!-- store info -->
                                                 <div class="w-auto px-3 sm:px-3 sm:py-1 mb-5">
                                                     <h2
-                                                        class="w-full mt-3 font-bold shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                                                        class="w-full mt-3 font-bold shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-md">
                                                         <div class="flex items-center">
                                                             <span class="mr-1 text-lg inline-block">{{ postdata.name }}</span>
                                                             <ShieldCheckIcon class="h-6 w-6 text-green-500 inline-block" />
@@ -54,7 +54,7 @@
                                         </div>
                                     </div>
                                     <div class="sm:col-span-6 flex justify-end">
-                                        <!-- <button type="submit" class="mt-3 mr-2 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                                        <!-- <button type="submit" class="mt-3 mr-2 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                             Cancel
                         </button> -->
                                         <ButtonForm @onClick="update" text="Update Information" :state="isSubmit"/>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-span-2 bg-white p-4 rounded-sm shadow">
+                            <div class="col-span-2 bg-white p-4 rounded-md shadow">
                                 <div class="flex items-center">
                                     <span class="mr-1 text-lg inline-block font-bold">Security</span>
                                 </div>
@@ -73,7 +73,7 @@
                                             Password</label>
                                         <div class="mt-2">
                                             <input id="name" name="name" type="text" autocomplete="name" required
-                                                class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                             <small class="text-red-400"></small>
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                         <label for="name" class="block text-sm font-medium leading-6">New Password</label>
                                         <div class="mt-2">
                                             <input id="name" name="name" type="text" autocomplete="name" required
-                                                class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                             <small class="text-red-400"></small>
                                         </div>
                                     </div>
@@ -90,14 +90,14 @@
                                             Password</label>
                                         <div class="mt-2">
                                             <input id="name" name="name" type="text" autocomplete="name" required
-                                                class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                             <small class="text-red-400"></small>
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-6 flex justify-end">
                                         <button type="submit"
-                                            class="mt-3 flex items-center justify-center rounded-sm disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                            class="mt-3 flex items-center justify-center rounded-md disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                             Update Password
                                         </button>
                                     </div>

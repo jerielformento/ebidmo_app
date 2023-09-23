@@ -24,28 +24,28 @@
                         <div class="sm:col-span-3">
                             <label for="min-price" class="block text-sm font-medium leading-6">Minimum Bid Price</label>
                             <div class="mt-2">
-                                <input v-model="postdata.min_price" id="min-price" name="min-price" type="number" autocomplete="min-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.min_price" id="min-price" name="min-price" type="number" autocomplete="min-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.min_price !== ''" class="text-red-400">{{ errordata.min_price }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-3">
                             <label for="increment-price" class="block text-sm font-medium leading-6">Incremental Price</label>
                             <div class="mt-2">
-                                <input v-model="postdata.increment_price" id="increment-price" name="increment-price" type="number" autocomplete="increment-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.increment_price" id="increment-price" name="increment-price" type="number" autocomplete="increment-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.increment_price !== ''" class="text-red-400">{{ errordata.increment_price }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="buy-now-price" class="block text-sm font-medium leading-6">Buy Now Price <span class="text-gray-400 font-normal">(optional)</span></label>
                             <div class="mt-2">
-                                <input v-model="postdata.buy_now_price" id="buy-now-price" name="buy-now-price" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.buy_now_price" id="buy-now-price" name="buy-now-price" type="number" autocomplete="buy-now-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.buy_now_price !== ''" class="text-red-400">{{ errordata.buy_now_price }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="expiration" class="block text-sm font-medium leading-6">Expiration Date</label>
                             <div class="mt-2">
-                                <!--<input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-auto rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">-->
+                                <!--<input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">-->
                                 <VueDatePicker @update:model-value="updateExpirationDate" ref="datepicker" v-model="postdata.end_date" time-picker-inline class="w-full"></VueDatePicker>
                                 <small v-if="errordata.end_date !== ''" class="text-red-400">{{ errordata.end_date }}</small>
                             </div>
@@ -62,35 +62,35 @@
                         <div class="sm:col-span-3">
                             <label for="min-price" class="block text-sm font-medium leading-6">Minimum Bid Price</label>
                             <div class="mt-2">
-                                <input v-model="postdata.min_price" id="min-price" name="min-price" type="number" autocomplete="min-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.min_price" id="min-price" name="min-price" type="number" autocomplete="min-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.min_price !== ''" class="text-red-400">{{ errordata.min_price }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-3">
                             <label for="increment-price" class="block text-sm font-medium leading-6">Incremental Price</label>
                             <div class="mt-2">
-                                <input v-model="postdata.increment_price" id="increment-price" name="increment-price" type="number" autocomplete="increment-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.increment_price" id="increment-price" name="increment-price" type="number" autocomplete="increment-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.increment_price !== ''" class="text-red-400">{{ errordata.increment_price }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-3">
                             <label for="buy-now-price" class="block text-sm font-medium leading-6">Buy Now Price <span class="text-gray-400 font-normal">(optional)</span></label>
                             <div class="mt-2">
-                                <input v-model="postdata.buy_now_price" id="buy-now-price" name="buy-now-price" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.buy_now_price" id="buy-now-price" name="buy-now-price" type="number" autocomplete="buy-now-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.buy_now_price !== ''" class="text-red-400">{{ errordata.buy_now_price }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-3">
                             <label for="buy-now-price" class="block text-sm font-medium leading-6">Min. Participants <span class="text-gray-400 font-normal">(optional)</span></label>
                             <div class="mt-2">
-                                <input v-model="postdata.min_participants" id="min-participants" name="min-participants" placeholder="0" type="number" autocomplete="buy-now-price" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                <input v-model="postdata.min_participants" id="min-participants" name="min-participants" placeholder="0" type="number" autocomplete="buy-now-price" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <small v-if="errordata.min_participants !== ''" class="text-red-400">{{ errordata.min_participants }}</small>
                             </div>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="expiration" class="block text-sm font-medium leading-6">Start Date</label>
                             <div class="mt-2">
-                                <!-- <input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-auto rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"> -->
+                                <!-- <input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"> -->
                                 <VueDatePicker @update:model-value="updateStartDate" ref="datepickerStart" v-model="postdata.start_date" time-picker-inline class="w-full"></VueDatePicker>
                                 <small v-if="errordata.start_date !== ''" class="text-red-400">{{ errordata.start_date }}</small>
                             </div>
@@ -98,7 +98,7 @@
                         <div class="sm:col-span-6">
                             <label for="expiration" class="block text-sm font-medium leading-6">End Date</label>
                             <div class="mt-2">
-                                <!-- <input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-auto rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"> -->
+                                <!-- <input v-model="postdata.expiration" @change="updateCurrentDate" ref="datepicker" id="expiration" name="expiration" type="datetime-local" :min="getCurrentDate" autocomplete="expiration" required class="block w-auto rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"> -->
                                 <VueDatePicker @update:model-value="updateEndDate" ref="datepickerEnd" v-model="postdata.end_date" time-picker-inline class="w-full"></VueDatePicker>
                                 <small v-if="errordata.end_date !== ''" class="text-red-400">{{ errordata.end_date }}</small>
                             </div>
@@ -110,8 +110,8 @@
       </template>
       <template #footer>
         <div class="flex justify-end">
-            <button @click="cancel" type="button" :disabled="isSubmit" class="flex items-center justify-center rounded-sm border disabled:opacity-80 border-gray-200 bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">Close</button>
-            <button @click="submit" type="button" :disabled="isSubmit" class="ml-2 flex items-center justify-center rounded-sm border disabled:opacity-80 border-transparent bg-green-400 px-4 py-2 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2">
+            <button @click="cancel" type="button" :disabled="isSubmit" class="flex items-center justify-center rounded-md border disabled:opacity-80 border-gray-200 bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">Close</button>
+            <button @click="submit" type="button" :disabled="isSubmit" class="ml-2 flex items-center justify-center rounded-md border disabled:opacity-80 border-transparent bg-green-400 px-4 py-2 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2">
                 Create
                 <Spinner v-if="isSubmit"/>
             </button>

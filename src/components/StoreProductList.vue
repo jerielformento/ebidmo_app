@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div v-if="!searchingItem" class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 xl:gap-x-4 px-1 pb-8">
-                <div v-for="item in productItems" :key="item.slug" class="rounded-md border bg-white shadow-md">
+                <div v-for="item in productItems" :key="item.slug" class="rounded-md border bg-white shadow-sm">
                     <ItemCard :item="item"/>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                 <ItemsLoader />
             </div>
             <div v-if="!productItems" class="pb-8">
-                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-md border bg-white shadow-sm h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>

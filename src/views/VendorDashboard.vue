@@ -13,7 +13,7 @@
             <div class="bg-gray-100 pb-5 mt-10">
                <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
                   <h2
-                     class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                     class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-md">
                      <a href="/" class="flex items-center">
                         <img :src="`${siteUrl}/images/ebidmo_text.png`" class="h-8 mr-3" alt="Flowbite Logo" />
                         <span class="self-center text-xl font-bold whitespace-nowrap dark:text-white">Vendor Account</span>
@@ -29,7 +29,7 @@
                            <p class="text-gray-500">You will receive an email notification once approved.</p>
                            <div class="mt-2 flex items-center justify-between">
                               <router-link :to="{ name: 'home' }"
-                                 class="mr-1 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                                 class="mr-1 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                                  <ArrowLongLeftIcon class="h-5 w-5 mr-1" /> Back to Home
                               </router-link>
                            </div>
@@ -45,6 +45,12 @@
                                     <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
                                  </li>
                                  <li class="flex items-center">Monitoring of auctioned items
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                                 <li class="flex items-center">Monitoring of transactions
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                                 <li class="flex items-center">Store customization
                                     <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
                                  </li>
                               </ol>
@@ -153,7 +159,7 @@
          <div class="bg-gray-100 pb-5 mt-10">
             <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
                <h2
-                  class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                  class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-md">
                   <a href="/" class="flex items-center">
                      <img :src="`${siteUrl}/images/ebidmo_text.png`" class="h-8 mr-3" alt="Flowbite Logo" />
                      <span class="self-center text-xl font-bold whitespace-nowrap dark:text-white">Vendor Account</span>
@@ -168,7 +174,7 @@
                            <input v-model="postdata.name"
                               :class="{ 'ring-2 ring-inset ring-red-500': errordata.name !== '' }" id="name" name="name"
                               type="text" autocomplete="name" required
-                              class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                            <small v-if="errordata.name !== ''" class="text-red-400">{{ errordata.name }}</small>
                         </div>
                         <label for="store-name" class="block text-sm font-medium leading-6">Social Media Link of Store<br/><small class="text-gray-400">Ex. FB Page, Lazada Store, Shopee Store, etc.</small></label>
@@ -176,14 +182,14 @@
                            <input v-model="postdata.social_store_link"
                               :class="{ 'ring-2 ring-inset ring-red-500': errordata.social_store_link !== '' }" id="name" name="name"
                               type="text" autocomplete="name" required
-                              class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                            <small v-if="errordata.social_store_link !== ''" class="text-red-400">{{ errordata.social_store_link }}</small>
                         </div>
                         <div class="sm:col-span-4 mb-5">
                             <label for="images" class="block text-sm font-medium leading-6">Proof of Ownership (Image)</label>
                             <div class="mt-2">
                                 <div class="flex justify-normal items-center">
-                                <input name="image" @change="onFileChange" ref="file" class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-sm cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
+                                <input name="image" @change="onFileChange" ref="file" class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-md cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
                             </div>
                                 <p class="text-sm font-normal text-gray-400">File ext: jpg, png</p>
                             </div>
@@ -192,7 +198,7 @@
 
                         <div class="flex items-center justify-between mt-5">
                            <router-link :to="{ name: 'home' }"
-                              class="mr-1 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                              class="mr-1 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                               <ArrowLongLeftIcon class="h-5 w-5 mr-1" /> Back to Home
                            </router-link>
                            <Button @onClick="create()" text="Submit for review" :state="loadBtn" />
@@ -200,19 +206,25 @@
                      </div>
                      <div class="sm:col-span-3 border-2 border-dashed border-gray-200 p-3 text-gray-500">
                         <div class="mb-2">
-                           <h2 class="font-bold text-lg mb-2">Store Features</h2>
-                           <ol>
-                              <li class="flex items-center"><span>Upload your own products</span>
-                                 <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
-                              </li>
-                              <li class="flex items-center">Set a live auction of your products
-                                 <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
-                              </li>
-                              <li class="flex items-center">Monitoring of auctioned items
-                                 <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
-                              </li>
-                           </ol>
-                        </div>
+                              <h2 class="font-bold text-lg mb-2">Store Features</h2>
+                              <ol>
+                                 <li class="flex items-center"><span>Upload your own products</span>
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                                 <li class="flex items-center">Set a live auction of your products
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                                 <li class="flex items-center">Monitoring of auctioned items
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                                 <li class="flex items-center">Monitoring of transactions
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                                 <li class="flex items-center">Store customization
+                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 </li>
+                              </ol>
+                           </div>
                      </div>
                   </div>
                </h2>

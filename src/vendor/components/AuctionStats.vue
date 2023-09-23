@@ -4,11 +4,11 @@
     <div class="" v-if="!isLoading">
         <div class="pt-5 mb-10">
             <!-- Product info -->
-            <div class="mx-auto bg-white border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:max-w-full lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
+            <div class="mx-auto bg-white shadow-sm rounded-md border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:max-w-full lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
             <div class="flex justify-between w-full lg:col-span-2">
                 <!-- Image gallery -->
                 <p class="text-md font-medium text-gray-500 mb-2">Statistics</p>
-                <button @click="cancel" type="submit" :disabled="isSubmit" class="flex items-center justify-between border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                <button @click="cancel" type="submit" :disabled="isSubmit" class="flex items-center justify-between border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                     <ArrowLongLeftIcon class="h-5 w-5 mr-1" /> Back to list
                 </button>
             </div>
@@ -17,7 +17,7 @@
             <div class="grid grid-cols-3 mt-4 gap-x-6 lg:mt-0">
                 <!-- Title and socials -->
                 <div class="pb-5 w-full flex justify-between items-center col-span-3">
-                    <h1 class="text-2xl font-bold tracking-tight text-gray-800 sm:text-3xl flex items-center justify-start"><img :src="(productInfo.product.thumbnail !== null) ? productInfo.product.thumbnail.url : NoImageUrl" alt="" draggable="false" class="border border-gray-100 rounded-sm h-10 w-10 object-cover object-center mr-3"> {{ productInfo.product.name }}</h1>
+                    <h1 class="text-2xl font-bold tracking-tight text-gray-800 sm:text-3xl flex items-center justify-start"><img :src="(productInfo.product.thumbnail !== null) ? productInfo.product.thumbnail.url : NoImageUrl" alt="" draggable="false" class="border border-gray-100 rounded-md h-10 w-10 object-cover object-center mr-3"> {{ productInfo.product.name }}</h1>
                 </div>
 
                 <!-- Description and details -->
@@ -132,7 +132,7 @@
             </div>
         </div>
     </div>
-    <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-sm">
+    <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-md">
             <div class="mx-auto sm:py-1 flex items-center justify-center">
                 <Spinner class="h-6 w-6"/>
             </div>

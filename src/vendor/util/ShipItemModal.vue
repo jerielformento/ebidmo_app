@@ -17,7 +17,7 @@
                     <div class="sm:col-span-6">
                         <label for="location" class="block text-sm font-medium leading-6">External Courier Used</label>
                         <div class="mt-2">
-                            <select v-model="postdata.courier" id="location" name="location" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                            <select v-model="postdata.courier" id="location" name="location" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                 <option v-for="courier in couriers" :value="courier.id">{{ courier.description }}</option>
                             </select>
                             <small v-if="errordata.location !== ''" class="text-red-400">{{ errordata.location }}</small>
@@ -29,8 +29,8 @@
       </template>
       <template #footer>
         <div class="flex justify-end">
-            <button @click="cancel" type="button" :disabled="isSubmit" class="flex items-center justify-center rounded-sm border disabled:opacity-80 border-gray-200 bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">Close</button>
-            <button @click="submit" type="button" :disabled="isSubmit" class="ml-2 flex items-center justify-center rounded-sm border disabled:opacity-80 border-transparent bg-green-400 px-4 py-2 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2">
+            <button @click="cancel" type="button" :disabled="isSubmit" class="flex items-center justify-center rounded-md border disabled:opacity-80 border-gray-200 bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">Close</button>
+            <button @click="submit" type="button" :disabled="isSubmit" class="ml-2 flex items-center justify-center rounded-md border disabled:opacity-80 border-transparent bg-green-400 px-4 py-2 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-2">
                 Ship
                 <Spinner v-if="isSubmit"/>
             </button>
