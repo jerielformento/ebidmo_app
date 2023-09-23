@@ -11,7 +11,7 @@
                         &nbsp;Email/Username
                     </label>
                 <div class="mt-2">
-                    <input v-model="postdata.username" id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                    <input v-model="postdata.username" id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                 </div>
                 </div>
         
@@ -23,11 +23,11 @@
                     </label>
                 </div>
                 <div class="mt-2">
-                    <input v-model="postdata.password" id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                    <input v-model="postdata.password" id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
                 </div>
                 <div class="flex items-center justify-between mt-2">
                     <span class="text-sm font-semibold text-gray-700">
-                        <input v-model="postdata.remember" class="leading-tight text-amber-400" type="checkbox" id="remember" name="remember">
+                        <input v-model="postdata.remember" class="rounded-sm leading-tight text-amber-400" type="checkbox" id="remember" name="remember">
                         Remember me
                     </span>
                     <div class="text-sm">

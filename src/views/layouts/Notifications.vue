@@ -21,9 +21,9 @@
         <div class="divide-y divide-gray-100 dark:divide-gray-700">
             <a v-if="notifications.length !== 0" @click.prevent="readNotification(notification.id, notification.redirect_url, notification.read)" href="#" v-for="notification in notifications" class="flex px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700">
                 <div class="flex-shrink-0">
-                    <!-- <EnvelopeIcon v-if="notification.read === 0" class="rounded-sm w-8 h-8 text-amber-400"/>
-                    <EnvelopeOpenIcon v-else class="rounded-sm w-8 h-8 text-gray-300"/> -->
-                    <img class="rounded-sm w-11 h-11" :src="notification.thumbnail_url" alt="Jese image">
+                    <!-- <EnvelopeIcon v-if="notification.read === 0" class="rounded-md w-8 h-8 text-amber-400"/>
+                    <EnvelopeOpenIcon v-else class="rounded-md w-8 h-8 text-gray-300"/> -->
+                    <img class="rounded-md w-11 h-11" :src="notification.thumbnail_url" alt="Jese image">
                 </div>
                 <div class="w-full pl-3">
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">

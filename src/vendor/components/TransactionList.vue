@@ -8,7 +8,7 @@
                 :reload="reloadItems" :leave="leaveView"></router-view>
 
             <!-- Start coding here -->
-            <div v-else class="bg-white relative shadow-md sm:rounded-sm overflow-hidden border border-gray-200">
+            <div v-else class="bg-white relative shadow-sm sm:rounded-md overflow-hidden border border-gray-200">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     <h2 class="text-sm font-semibold tracking-tight text-gray-500 block ml-1">Orders</h2>
                     <div class="w-full md:w-1/2">
@@ -17,11 +17,11 @@
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <MagnifyingGlassIcon class="w-5 h-5 text-gray-500"/>
                             </div>
-                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-sm focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search Item" required="">
+                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" class="bg-gray-50 border focus:ring-amber-500 focus:border-amber-500 border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2" placeholder="Search Item" required="">
                         </div>
                     </div>
                     <!-- <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-sm bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                        <router-link v-if="!productCreate" :to="{name: 'product-create'}" @click="createProduct" class="flex justify-between items-center rounded-md bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                             <PlusSmallIcon class="h-5 w-5"/>
                             New Product
                         </router-link>
@@ -46,7 +46,7 @@
                         <tbody>
                             <tr v-if="!reloadList" v-for="item in auctionItems" class="border-b hover:bg-gray-100">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                    <img :src="(item.auction.product.thumbnail !== null) ? item.auction.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-sm h-10 w-10 object-cover object-center">
+                                    <img :src="(item.auction.product.thumbnail !== null) ? item.auction.product.thumbnail.url : NoImageUrl" alt="" class="border border-gray-200 rounded-md h-10 w-10 object-cover object-center">
                                 </th>
                                 <td class="px-4 py-3">{{ item.auction.product.name }}</td>
                                 <td class="px-4 py-3 font-semibold">{{ item.customer.username }}</td>
@@ -54,16 +54,16 @@
                                 <td class="px-4 py-3 font-semibold">{{ item.auction.currency.prefix }}{{ item.auction.highest.price }}</td>
                                 <td class="px-4 py-3"><span
                                             :class="useAcknowledgementColorCode(item.status)"
-                                            class="text-white text-xs font-semibold rounded-sm py-1 px-2">{{ useAcknowledgementStatus(item.status) }}</span></td>
+                                            class="text-white text-xs font-semibold rounded-md py-1 px-2">{{ useAcknowledgementStatus(item.status) }}</span></td>
                                 <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                     <router-link :to="{name: 'transaction-view', params: { id: item.url_token }}"
                                         @click="viewTransaction"
-                                        class="rounded-sm bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                        class="rounded-md bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                         Details
                                     </router-link>
                                     <button v-if="item.status === 1"
                                             @click="toShip(item.url_token)" 
-                                            class="rounded-sm bg-green-400 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                            class="rounded-md bg-green-400 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                             Ship Item
                                     </button>
                                 </td>

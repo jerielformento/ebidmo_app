@@ -50,7 +50,7 @@
             <div>
                 <h2 class="text-gray-400 my-3 text-xl font-semibold flex items-center"><CheckCircleIcon class="h-7 w-7 mr-1 text-green-400"/> Payment Success</h2>
                 <router-link :to="{name: 'transaction-home' }"
-                    class="flex items-center justify-center rounded-sm bg-slate-900 px-2 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                    class="flex items-center justify-center rounded-md bg-slate-900 px-2 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                     <ArrowLongLeftIcon class="h-5 w-5 mr-1"/> Back to Transactions
                 </router-link>
             </div>

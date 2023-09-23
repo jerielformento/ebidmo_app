@@ -50,11 +50,11 @@
     <div class="" v-if="isMounted">
         <div class="pt-5 mb-10">
             <!-- Product info -->
-            <div class="mx-auto bg-white border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:grid lg:max-w-full lg:grid-cols-4 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
+            <div class="mx-auto bg-white rounded-md shadow-sm border border-gray-200 max-w-2xl px-4 pt-5 sm:px-6 lg:grid lg:max-w-full lg:grid-cols-4 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-6 lg:pt-5">
             <div class="w-full lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <!-- Image gallery -->
                 <p class="text-2xl font-medium text-gray-800 mb-5 sr-only">Item Details</p>
-                <div class="mx-auto sm:px-0 sm:w-full lg:w-full md:px-5 rounded-sm py-4">
+                <div class="mx-auto sm:px-0 sm:w-full lg:w-full md:px-5 rounded-md py-4">
                     <swiper
                         :modules="modules"
                         :space-between="20"
@@ -83,7 +83,7 @@
                     >
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
                                 <div class="mx-auto max-w-3xl border-slate-600">
-                                    <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-sm sm:block lg:block">
+                                    <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-md sm:block lg:block">
                                         <div><img :src="text.url" alt="" class="w-full h-full object-cover object-center"></div>
                                     </div>
                                 </div>
@@ -95,10 +95,8 @@
             
             <!-- Options -->
             <div class="lg:col-span-4 mt-4 lg:row-span-3 lg:mt-0">
-                <h2 class="sr-only">Product information</h2>
+                <h2 class="sr-only">Checkout Summary</h2>
                 <span class="text-2xl font-medium text-gray-500 flex items-center">Checkout Summary</span>
-
-                
 
                 <div class="my-5">
                     <router-link id="tooltipButton" :to="{name: 'vendor-details', params: {store: productInfo.auction.product.store.slug}}" class="text-lg font-medium text-amber-400 hover:text-amber-500 flex items-center">
@@ -157,10 +155,10 @@
                     <!-- <button 
                         @click="checkout" 
                         type="button" 
-                        class="float-right w-auto items-center rounded-sm border border-transparent bg-slate-900 px-8 py-3 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">
+                        class="float-right w-auto items-center rounded-md border border-transparent bg-slate-900 px-8 py-3 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">
                         Checkout
                     </button> -->
-                    <ButtonForm text="Checkout" :state="isCheckout" @onClick="checkout" class="float-right w-auto items-center rounded-sm border border-transparent bg-slate-900 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"/>
+                    <ButtonForm text="Checkout" :state="isCheckout" @onClick="checkout" class="float-right w-auto items-center rounded-md border border-transparent bg-slate-900 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"/>
             </div>
             <div class="sm:col-span-6">
                 

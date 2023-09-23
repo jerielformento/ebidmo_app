@@ -2,7 +2,7 @@
     <div class="bg-gray-100 py-5">
         <div class="mx-auto sm:px-6 sm:py-1">
             <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-4 px-1 pb-8">
-                <div class=" col-span-6 animate-pulse group relative p-3 rounded-sm bg-gray-200 shadow-md">
+                <div class=" col-span-6 animate-pulse group relative p-3 rounded-md bg-gray-200 shadow-sm">
                     <div class="absolute right-2 top-2 z-10 rounded-full bg-red-600">
                         
                     </div>

@@ -1,14 +1,14 @@
 <template>
     <div class="bg-gray-100 h-screen flex flex-col justify-between">
     <HeaderNav/>
-    <nav class="bg-slate-600 dark:bg-gray-700">
+    <nav class="bg-slate-200 dark:bg-gray-700">
         <div class="max-w-screen-xl px-4 py-3 mx-auto">
             <div class="flex items-center">
                 <ul class="flex flex-row font-medium mr-6 space-x-2 text-sm">
                     <li>
                         <router-link :to="{ name: 'customer-dashboard' }" 
-                        exact-active-class="bg-slate-700"
-                        class="py-1.5 p-2 text-gray-200 hover:bg-slate-500 rounded-md dark:text-white" 
+                        exact-active-class="bg-slate-500 text-gray-50 hover:text-gray-700"
+                        class="py-1.5 p-2 hover:bg-slate-300 rounded-md dark:text-white" 
                         aria-current="page">Home</router-link>
                     </li>
                     <!-- <li>
@@ -18,13 +18,13 @@
                     </li> -->
                     <li>
                         <router-link :to="{ name: 'transaction-home' }" 
-                        active-class="bg-slate-700"
-                        class="py-1.5 p-2 text-gray-200 hover:bg-slate-500 rounded-md dark:text-white">Transactions</router-link>
+                        active-class="bg-slate-500 text-gray-50 hover:text-gray-700"
+                        class="py-1.5 p-2 hover:bg-slate-300 rounded-md dark:text-white">Transactions</router-link>
                     </li>
                     <li>
                         <router-link :to="{ name: 'customer-billing' }" 
-                        active-class="bg-slate-700"
-                        class="py-1.5 p-2 text-gray-200 hover:bg-slate-500 rounded-md dark:text-white">Billing</router-link>
+                        active-class="bg-slate-500 text-gray-50 hover:text-gray-700"
+                        class="py-1.5 p-2 hover:bg-slate-300 rounded-md dark:text-white">Billing</router-link>
                     </li>
                 </ul>
             </div>

@@ -42,7 +42,7 @@
                 <div class="mx-auto max-w-2xl px-4 pb-16 pt-5 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-16 lg:pt-5">
                 <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     <!-- Image gallery -->
-                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm py-4">
+                    <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-md py-4">
                     <swiper
                         :modules="modules"
                         :space-between="20"
@@ -54,8 +54,8 @@
                     
                         <swiper-slide v-for="text in swiperItems" :key="text.url">
                             <div class="mx-auto max-w-3xl border-slate-600">
-                                <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-sm sm:block lg:block">
-                                    <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
+                                <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-md sm:block lg:block">
+                                    <div><img :src="text.url" alt="" class="w-full h-full object-cover object-center"></div>
                                 </div>
                             </div>
                         </swiper-slide>
@@ -72,7 +72,7 @@
                     <swiper-slide v-for="text in swiperItems" :key="text.url">
                             <div class="mx-auto max-w-3xl border-slate-600">
                                 <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-sm sm:block lg:block">
-                                    <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
+                                    <div><img :src="text.url" alt="" class="w-full h-full object-cover object-center"></div>
                                 </div>
                             </div>
                     </swiper-slide>
@@ -146,14 +146,14 @@
                         <fieldset v-if="productInfo.auction.status == 1" class="mt-4">
                         <div class="grid grid-cols-2 space-x-3 sm:grid-cols-2 lg:grid-cols-2">
 
-                            <label class="ring-1 ring-gray-50 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                            <label class="ring-1 ring-gray-50 text-center group relative flex flex-col items-center rounded-md border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
                                 <div class="text-xs text-green-400 block">Highest Bid</div>
                                 <div class="text-xl flex justify-between gap-x-2">
                                     <ArrowTrendingUpIcon class="h-6 w-6"/><span>{{ productInfo.auction.currency.prefix }}<span v-if="productInfo.auction.highest !== null">{{ productInfo.auction.highest.price }}</span><span v-else>0</span></span>
                                 </div>
                             </label>
 
-                            <label class="ring-1 ring-gray-50 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                            <label class="ring-1 ring-gray-50 text-center group relative flex flex-col items-center rounded-md border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
                                 <div class="text-xs text-amber-500 block">Buy Now</div>
                                 <div class="text-xl">{{ productInfo.auction.currency.prefix }}{{ productInfo.auction.buy_now_price }}</div>
                             </label>
@@ -162,7 +162,7 @@
                         <fieldset v-else-if="productInfo.auction.type == 2" class="mt-4">
                             <div class="grid grid-cols-1 space-x-3 sm:grid-cols-2 lg:grid-cols-1">
 
-                                <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-sm border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
+                                <label class="ring-1 ring-gray-500 text-center group relative flex flex-col items-center rounded-md border py-3 px-5 text-sm font-medium uppercase focus:outline-none sm:flex-1 sm:py-6 bg-white text-gray-900 shadow-sm">
                                     <div class="text-xs text-gray-600 block mb-2">Participants</div>
                                     <div class="text-xl flex items-center justify-between gap-x-2">
                                         <UserGroupIcon class="h-6 w-6"/><span>{{ productInfo.auction.min_participants }}</span>/<span>{{ productInfo.auction.participants_count }}</span>
@@ -219,14 +219,14 @@
                                 <GuestLogin name="Join Auction" v-else/>
                             </div>
                             <div v-else>
-                                <div class="grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-sm shadow-sm text-md text-gray-700">
+                                <div class="grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-md shadow-sm text-md text-gray-700">
                                     <span class="text-xs block text-sky-500">You already joined here.</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div v-else>
-                        <div class="mt-5 grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-sm shadow-sm text-md text-gray-700">
+                        <div class="mt-5 grid grid-cols-1 items-center p-3 bg-sky-50 border border-sky-200 rounded-md shadow-sm text-md text-gray-700">
                             <span class="text-xs block text-sky-500">This item belongs to you.</span>
                         </div>
                     </div>

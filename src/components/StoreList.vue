@@ -16,7 +16,7 @@
 
             <div class="mt-3 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                 <div v-for="store in storeList" :key="store.id">
-                    <div class="group relative p-3 rounded-sm border bg-white shadow-md">
+                    <div class="group relative p-3 rounded-md border bg-white shadow-sm">
                         <div class="min-h-50 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-100 lg:aspect-none group-hover:opacity-90 lg:h-50 flex items-center">
                         <!--<img src="#" alt="" class="border h-full w-full object-cover object-center lg:h-full lg:w-full">-->
                             <BuildingStorefrontIcon class="text-gray-400"/>
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div v-if="!storeList" class="pb-8">
-                <div class="w-full p-3 rounded-sm border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-sm border bg-white shadow-sm h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>

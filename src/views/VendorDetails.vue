@@ -10,7 +10,7 @@
                     <div class="flex items-end h-full w-full bg-gray-900 bg-opacity-30">
                         <!-- store info -->
                         <div class="w-auto px-3 sm:px-3 sm:py-1 mb-5">
-                            <h2 class="w-full mt-3 font-bold shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                            <h2 class="w-full mt-3 font-bold shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-md">
                                 <div class="flex items-center">
                                     <span class="mr-1 text-lg inline-block">{{ storeInfo.name }}</span>
                                     <ShieldCheckIcon v-if="storeInfo.verified === 1" class="h-6 w-6 text-green-500 inline-block"/>
@@ -43,7 +43,7 @@
 
                             </div>
                             <div class="sm:ml-0">
-                            <div class="flex space-x-2 lg:space-x-4">
+                            <div class="flex space-x-2 lg:space-x-2">
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <router-link :to="{ name: 'store-products' }" 
                                     exact-active-class="bg-gray-900 text-white"
@@ -60,13 +60,13 @@
                             </div>
                         </div>
                         <div class="inset-y-0 right-0 flex items-center sm:relative">
-                            <button type="submit" onclick="alert(1)" class="flex items-center ml-2 rounded-sm bg-amber-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
+                            <button type="submit" onclick="alert(1)" class="flex items-center ml-2 rounded-md bg-amber-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400">
                                 <BellIcon class="h-6 w-6 mr-1"/>
                                 Follow
                             </button>
                         </div>
                         <div class="relative inset-y-0 right-0 ml-2 block lg:flex rounded-md shadow-sm h-9">
-                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" id="hs-trailing-button-add-on-with-icon" placeholder="Search in store" name="hs-trailing-button-add-on-with-icon" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-sm text-sm focus:z-10 focus:border-orange-400 focus:ring-orange-400 dark:border-gray-100 text-gray-500">
+                            <input @keyup.enter="searchProduct" @keyup="searchKey" type="text" ref="itemSearch" id="hs-trailing-button-add-on-with-icon" placeholder="Search in store" name="hs-trailing-button-add-on-with-icon" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-md text-sm focus:z-10 focus:border-orange-400 focus:ring-orange-400 dark:border-gray-100 text-gray-500">
                             <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-9 w-[2.875rem] bg-slate-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950 rounded-r-sm">
                                 <MagnifyingGlassIcon class="h-6 w-6"/>
                             </button>
@@ -94,7 +94,7 @@
             <!-- no store -->
             <div class="bg-gray-100 pb-5">
                 <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-7xl lg:px-16">
-                    <h2 class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-sm">
+                    <h2 class="w-full mt-3 shadow-sm tracking-tight text-gray-700 items-center justify-between inline-block bg-white px-5 py-3 border border-gray-200 rounded-md">
                         <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-5">
                             <div class="sm:col-span-3">
                                 <div class="mb-2">
@@ -102,10 +102,10 @@
                                 </div>
                                 <label for="store-name" class="block text-sm font-medium leading-6">Store Name</label>
                                 <div class="my-2">
-                                    <input v-model="postdata.name" :class="{ 'ring-2 ring-inset ring-red-500': errordata.name !== ''}" id="name" name="name" type="text" autocomplete="name" required class="block w-full rounded-sm border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
+                                    <input v-model="postdata.name" :class="{ 'ring-2 ring-inset ring-red-500': errordata.name !== ''}" id="name" name="name" type="text" autocomplete="name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
                                     <small v-if="errordata.name !== ''" class="text-red-400">{{ errordata.name }}</small>
                                 </div>
-                                <button @click.prevent="create" :disabled="loadBtn" type="submit" class="flex items-center justify-end rounded-sm disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
+                                <button @click.prevent="create" :disabled="loadBtn" type="submit" class="flex items-center justify-end rounded-md disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                     Create
                                     <Spinner v-if="loadBtn"/>
                                 </button>

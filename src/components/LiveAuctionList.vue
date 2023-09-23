@@ -24,17 +24,16 @@
     >   
             <swiper-slide v-for="items in swiperItems" :key="items">
                 <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-5 xl:gap-x-4 px-1 pb-8" v-if="isDone">
-                    <div v-for="item in items" :key="item.item" class="rounded-md border bg-white shadow-md">
+                    <div v-for="item in items" :key="item.item" class="rounded-md border bg-white shadow-sm">
                         <AuctionCard :item="item" :timer="expirationTimer[item.product.slug]"/>
                     </div>
-                    
                 </div>
                 <div v-else>
                     <ItemsLoader />
                 </div>
             </swiper-slide>
             <div v-if="swiperItems.length === 0" class="mt-6 pb-8">
-                <div class="w-full p-3 rounded-md border bg-white shadow-md h-32 flex items-center justify-center">
+                <div class="w-full p-3 rounded-md border bg-white shadow-sm h-32 flex items-center justify-center">
                     <h2 class="text-gray-300">No available product to show.</h2>
                 </div>
             </div>

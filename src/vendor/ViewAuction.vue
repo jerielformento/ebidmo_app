@@ -8,7 +8,7 @@
             <div class="w-full lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                 <!-- Image gallery -->
                 <p class="text-2xl font-medium text-gray-800 mb-5">Item Details</p>
-                <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-sm py-4">
+                <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-md py-4">
                 <swiper
                     :modules="modules"
                     :space-between="20"
@@ -19,7 +19,7 @@
                 
                     <swiper-slide v-for="text in swiperItems" :key="text.url">
                         <div class="mx-auto max-w-3xl border-slate-600">
-                            <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-sm sm:block lg:block">
+                            <div class="aspect-h-3 aspect-w-3 overflow-hidden rounded-md sm:block lg:block">
                                 <div><img :src="text.url" alt="Two each of gray, white, and black shirts laying flat." class="w-full h-full object-cover object-center"></div>
                             </div>
                         </div>
@@ -112,14 +112,14 @@
                 </div>
             </div>
             <div class="mt-10 sm:col-span-6 flex justify-end border-t border-gray-300">
-                <button @click="cancel" type="submit" :disabled="isSubmit" class="mt-3 mr-2 flex items-center justify-center border border-gray-200 rounded-sm disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+                <button @click="cancel" type="submit" :disabled="isSubmit" class="mt-3 mr-2 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                     Cancel
                 </button>
             </div>
             </div>
         </div>
     </div>
-    <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-sm">
+    <div v-else class="mt-3 w-full text-gray-500 bg-white p-3 mb-10 border border-gray-200 rounded-md">
             <div class="mx-auto sm:py-1 flex items-center justify-center">
                 <Spinner class="h-6 w-6"/>
             </div>

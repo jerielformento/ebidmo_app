@@ -18,13 +18,13 @@
                     <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-700 md:text-5xl lg:text-5xl">{{ banner.title }}</h1>
                     <p class="mb-8 text-lg font-normal text-gray-600 lg:text-lg sm:px-16 lg:px-48">{{ banner.description }}</p>
                     <div class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                        <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-sm bg-slate-900 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                        <a href="#" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-md bg-slate-900 hover:bg-slate-950 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                             Get started
                             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                             </svg>
                         </a>
-                        <a href="#" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 text-base font-medium text-center text-gray-600 rounded-sm border border-gray-500 focus:ring-4 focus:ring-gray-400">
+                        <a href="#" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 text-base font-medium text-center text-gray-600 rounded-md border border-gray-500 focus:ring-4 focus:ring-gray-400">
                             Learn more
                         </a>  
                     </div>
@@ -45,8 +45,8 @@
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
                                 <EnvelopeIcon class="h-5 w-5 text-gray-400"/>
                             </div>
-                            <input type="email" id="default-email" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-sm bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email here..." required>
-                            <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-amber-400 hover:bg-amber-500 focus:ring-2 focus:outline-none focus:ring-amber-300 font-medium rounded-sm text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-blue-800">Sign up</button>
+                            <input type="email" id="default-email" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-white focus:ring-amber-500 focus:border-amber-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your email here..." required>
+                            <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-amber-400 hover:bg-amber-500 focus:ring-2 focus:outline-none focus:ring-amber-300 font-medium rounded-md text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-blue-800">Sign up</button>
                         </div>
                     </form>
                 </div>

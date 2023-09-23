@@ -4,7 +4,7 @@
             <!-- Start coding here -->
             <div class="grid lg:grid-cols-4 sm:grid-cols-1 gap-4 mb-10">
                 <div
-                    class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
+                    class="bg-white border border-gray-200 p-3 rounded-md shadow-sm flex items-center justify-between">
                     <div class="flex space-x-6 items-center">
                         <TruckIcon class="h-12 w-auto text-gray-300" />
                         <div>
@@ -20,7 +20,7 @@
                 </div>
 
                 <div
-                    class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
+                    class="bg-white border border-gray-200 p-3 rounded-md shadow-sm flex items-center justify-between">
                     <div class="flex space-x-6 items-center">
                         <FireIcon class="h-12 w-auto text-gray-300" />
                         <div>
@@ -36,7 +36,7 @@
                 </div>
 
                 <div
-                    class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
+                    class="bg-white border border-gray-200 p-3 rounded-md shadow-sm flex items-center justify-between">
                     <div class="flex space-x-6 items-center">
                         <TrophyIcon class="h-12 w-auto text-gray-300" />
                         <div>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <div
-                    class="bg-white border border-gray-300 p-3 rounded-sm shadow-md flex items-center justify-between">
+                    class="bg-white border border-gray-200 p-3 rounded-md shadow-sm flex items-center justify-between">
                     <div class="flex space-x-6 items-center">
                         <HandThumbUpIcon class="h-12 w-auto text-gray-300" />
                         <div>
