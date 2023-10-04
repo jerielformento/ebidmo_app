@@ -5,7 +5,7 @@
                 <router-link to="/"><img class="mx-auto h-10 w-auto mb-3" :src="`${siteUrl}/images/ebidmo_text.png`" alt="eBidMo"></router-link>
             </div>
             <form @submit.prevent="submit" class="space-y-5" action="#" method="POST">
-                <div v-if="this.$route.query.expired">
+                <div v-if="route.query.expired">
                     <div class="shadow-sm p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
                         <span class="font-medium">Session expired!</span> Please log in again.
                     </div>
@@ -61,7 +61,7 @@
 <script setup>
     import { ref, onMounted } from 'vue';
     import store from '../store';
-    import { useRouter } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import { toast } from 'vue3-toastify';
     import { GoogleLogin, decodeCredential } from 'vue3-google-login';
     import 'vue3-toastify/dist/index.css';
@@ -75,10 +75,13 @@
         onMounted(() => {
             store.state.user.token && this.$router.push({ name: "home" });
         });
+
+        const route = useRoute();
         const router = useRouter();
         const authLoader = ref(false);
         const loadBtn = ref(false);
         return {
+            route,
             siteUrl: import.meta.env.VITE_API_URL,
             callback: (response) => {
                 this.authLoader = true;
