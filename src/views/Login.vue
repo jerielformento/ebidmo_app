@@ -5,13 +5,18 @@
                 <router-link to="/"><img class="mx-auto h-10 w-auto mb-3" :src="`${siteUrl}/images/ebidmo_text.png`" alt="eBidMo"></router-link>
             </div>
             <form @submit.prevent="submit" class="space-y-5" action="#" method="POST">
+                <div v-if="this.$route.query.expired">
+                    <div class="shadow-sm p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300" role="alert">
+                        <span class="font-medium">Session expired!</span> Please log in again.
+                    </div>
+                </div>
                 <div>
                     <label for="username" class="inline-flex text-sm font-medium leading-6">
                         <UserCircleIcon class="h-6 w-6"/>
                         &nbsp;Email/Username
                     </label>
                 <div class="mt-2">
-                    <input v-model="postdata.username" id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                    <input v-model="postdata.username" id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-400 sm:text-sm sm:leading-6">
                 </div>
                 </div>
         
@@ -23,7 +28,7 @@
                     </label>
                 </div>
                 <div class="mt-2">
-                    <input v-model="postdata.password" id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-300 sm:text-sm sm:leading-6">
+                    <input v-model="postdata.password" id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-400 sm:text-sm sm:leading-6">
                 </div>
                 <div class="flex items-center justify-between mt-2">
                     <span class="text-sm font-semibold text-gray-700">
@@ -62,7 +67,6 @@
     import 'vue3-toastify/dist/index.css';
     import LoaderModal from '../components/util/LoaderModal.vue';
     import { UserCircleIcon, LockClosedIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
-    import Spinner from '../components/forms/Spinner.vue';
     import SubmitButton from '../components/forms/SubmitButton.vue';
 </script>
 <script>
@@ -80,7 +84,6 @@
                 this.authLoader = true;
                 console.log("auth...");
                 const google = decodeCredential(response.credential);
-                console.log(google);
                 this.auth(google);
             },
             postdata: {
@@ -138,14 +141,7 @@
             })
                 .then(response => {
                     this.registerSuccess = true;
-                    
-                    /* toast.success(response.data.message, {
-                        position: toast.POSITION.TOP_CENTER,
-                    }); */
                     this.$router.go();
-                    
-
-                    console.log(response);
                 })
                 .catch((error) => {
                     const err = error.response;

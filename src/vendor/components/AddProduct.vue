@@ -10,52 +10,24 @@
                     </div>
                     <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 mb-5">
                         <div class="sm:col-span-3">
-                            <label for="name" class="block text-sm font-medium leading-6">Product Name</label>
-                            <div class="mt-2">
-                                <input v-model="postdata.name" id="name" name="name" type="text" autocomplete="name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                <small v-if="errordata.name !== ''" class="text-red-400">{{ errordata.name }}</small>
-                            </div>
+                            <InputText v-model="postdata.name" label="Product Name" name="name" type="text" :error="errordata.name"/>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="details" class="block text-sm font-medium leading-6">Description</label>
-                            <ckeditor :editor="editor" v-model="postdata.details" :config="editorConfig"></ckeditor>
+                            <ckeditor v-model="postdata.details" :editor="editor" :config="editorConfig"></ckeditor>
                             <small v-if="errordata.details !== ''" class="text-red-400">{{ errordata.details }}</small>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="category" class="block text-sm font-medium leading-6">Category</label>
-                            <div class="mt-2">
-                                <select v-model="postdata.category" id="category" name="category" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
-                                </select>
-                                <small v-if="errordata.category !== ''" class="text-red-400">{{ errordata.category }}</small>
-                            </div>
+                            <InputSelect v-model="postdata.category" label="Category" name="category" :error="errordata.category" :list="categories"/>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="brand" class="block text-sm font-medium leading-6">Brand</label>
-                            <div class="mt-2">
-                                <select v-model="postdata.brand" id="brand" name="brand" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="brand in brands" :value="brand.id">{{ brand.description }}</option>
-                                </select>
-                                <small v-if="errordata.brand !== ''" class="text-red-400">{{ errordata.brand }}</small>
-                            </div>
+                            <InputSelect v-model="postdata.brand" label="Brand" name="brand" :error="errordata.brand" :list="brands"/>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="condition" class="block text-sm font-medium leading-6">Condition</label>
-                            <div class="mt-2">
-                                <select v-model="postdata.condition" id="condition" name="condition" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="condition in conditions" :value="condition.id">{{ condition.description }}</option>
-                                </select>
-                                <small v-if="errordata.condition !== ''" class="text-red-400">{{ errordata.condition }}</small>
-                            </div>
+                            <InputSelect v-model="postdata.condition" label="Condition" name="condition" :error="errordata.condition" :list="conditions"/>
                         </div>
                         <div class="sm:col-span-2">
-                            <label for="location" class="block text-sm font-medium leading-6">Location</label>
-                            <div class="mt-2">
-                                <select v-model="postdata.location" id="location" name="location" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <option v-for="location in locations" :value="location.id">{{ location.description }}</option>
-                                </select>
-                                <small v-if="errordata.location !== ''" class="text-red-400">{{ errordata.location }}</small>
-                            </div>
+                            <InputSelect v-model="postdata.location" label="Location" name="location" :error="errordata.location" :list="locations"/>
                         </div>
                         <div class="sm:col-span-6">
                             <label for="images" class="block text-sm font-medium leading-6">Upload Image</label>
@@ -83,10 +55,7 @@
                             <button @click="cancel" type="submit" :disabled="isSubmit" class="mt-3 mr-2 flex items-center justify-center border border-gray-200 rounded-md disabled:opacity-80 bg-gray-50 px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
                                 Cancel
                             </button>
-                            <button @click="submit" type="submit" :disabled="isSubmit" class="mt-3 flex items-center justify-center rounded-md disabled:opacity-80 bg-slate-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
-                                Save Product
-                                <Spinner v-if="isSubmit"/>
-                            </button>
+                            <ButtonForm @onClick="submit" text="Save Product" :state="isSubmit" class="mt-3 px-3 py-1.5"/> 
                         </div>
                     </div>
                 </div>
@@ -106,8 +75,12 @@
     import { ref, onMounted } from 'vue';
     import axiosClient from '../../axios';
     import { toast } from 'vue3-toastify';
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     import { initFlowbite } from 'flowbite';
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import InputText from '../../components/forms/InputText.vue';
+    import InputSelect from '../../components/forms/InputSelect.vue';
+    import ButtonForm from '../../components/forms/Button.vue';
+
     const isSubmit = ref(false);
 
     export default {
@@ -120,7 +93,7 @@
             brands: Array,
             locations: Array
         },
-        components: { Spinner, XMarkIcon },
+        components: { Spinner, InputText, InputSelect, ButtonForm, XMarkIcon },
         setup() {
             const isMounted = ref(false);
             const url = ref(null);
@@ -268,6 +241,6 @@
     display:none;
 }
 .ck-content:hover, .ck-content:focus {
-    border:2px solid #F59E0B !important;
+    border:2px solid #FBBF24 !important;
 }
 </style>

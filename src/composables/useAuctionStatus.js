@@ -29,3 +29,15 @@ export function useAcknowledgementStatus(status) {
 
     return setStatus;
 }
+
+export function useExpirationStatus(status) {
+    let setStatus = "";
+
+    if(status === 0) {
+        setStatus = "Active";
+    } else {
+        setStatus = "Expired";
+    }
+
+    return setStatus;
+}

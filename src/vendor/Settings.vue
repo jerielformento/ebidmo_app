@@ -67,7 +67,13 @@
                                 <div class="flex items-center">
                                     <span class="mr-1 text-lg inline-block font-bold">Security</span>
                                 </div>
-                                <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
+                                    <div class="mt-5 p-4 border border-gray-200 rounded-lg bg-gray-50 dark:border-gray-600 dark:bg-gray-800"
+                                        role="alert">
+                                        <div class="text-sm text-gray-400 dark:text-gray-300">
+                                            No options available at this moment.
+                                        </div>
+                                    </div>
+                                <!-- <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
                                     <div class="sm:col-span-6">
                                         <label for="name" class="block text-sm font-medium leading-6">Current
                                             Password</label>
@@ -101,7 +107,7 @@
                                             Update Password
                                         </button>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -156,7 +162,8 @@ export default {
             hasStore,
             isLoading,
             postdata: {
-                name: storeInfo.value.store.name ?? ''
+                name: storeInfo.value.store.name ?? '',
+                slug: storeInfo.value.store.slug ?? ''
             },
             errordata: {
                 name: ''

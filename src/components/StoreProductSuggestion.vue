@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-gray-100 pb-5">
-        <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-full lg:pr-10 lg:pl-0">
+    <div class="pb-5">
+        <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-1 lg:max-w-full lg:pl-0">
             <div class="flex justify-between items-center border-t border-gray-200 pt-5">
                 <h2 class="text-sm font-semibold tracking-tight text-gray-400 block ml-1">
                 Other from Store

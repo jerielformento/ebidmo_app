@@ -16,9 +16,10 @@
             disableOnInteraction: false,
             pauseOnMouseEnter: true
         }"
+        class="mt-6"
     >
             <div v-for="items in swiperItems" :key="items">
-                <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
+                <div class="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8">
                     <div v-for="item in items" :key="item.item" class="rounded-md border bg-white shadow-sm">
                         <ItemCard :item="item"/>
                     </div>

@@ -24,6 +24,18 @@ export function useAcknowledgementColorCode(status) {
     } else if(status === 3) {
         setColor = "bg-green-500";
     } else {
+        setColor = "bg-sky-400";
+    }
+
+    return setColor;
+}
+
+export function useExpirationColorCode(status) {
+    let setColor = "";
+
+    if(status === 0) {
+        setColor = "bg-green-500";
+    } else {
         setColor = "bg-gray-500";
     }
 

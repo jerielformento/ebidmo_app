@@ -34,8 +34,9 @@
                                 <th scope="col" class="px-4 py-3">Image</th>
                                 <th scope="col" class="px-4 py-3">Item Name</th>
                                 <th scope="col" class="px-4 py-3">Winner</th>
-                                <th scope="col" class="px-4 py-3">Until</th>
+                                <th scope="col" class="px-4 py-3">Acknowledge Until</th>
                                 <th scope="col" class="px-4 py-3">Total Payment</th>
+                                <th scope="col" class="px-4 py-3">Action</th>
                                 <th scope="col" class="px-4 py-3">Status</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -55,6 +56,9 @@
                                 <td class="px-4 py-3"><span
                                             :class="useAcknowledgementColorCode(item.status)"
                                             class="text-white text-xs font-semibold rounded-md py-1 px-2">{{ useAcknowledgementStatus(item.status) }}</span></td>
+                                <td class="px-4 py-3"><span
+                                            :class="useExpirationColorCode(item.expired)"
+                                            class="text-white text-xs font-semibold rounded-md py-1 px-2">{{ useExpirationStatus(item.expired) }}</span></td>
                                 <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                     <router-link :to="{name: 'transaction-view', params: { id: item.url_token }}"
                                         @click="viewTransaction"
@@ -108,8 +112,8 @@
     import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, WalletIcon, TruckIcon, CheckCircleIcon } from "@heroicons/vue/24/outline";
     import { PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../../axios';
-    import { useAuctionColorCode, useAcknowledgementColorCode } from '../../composables/useAuctionColorCode';
-    import { useAuctionStatus, useAcknowledgementStatus } from '../../composables/useAuctionStatus';
+    import { useAuctionColorCode, useAcknowledgementColorCode, useExpirationColorCode } from '../../composables/useAuctionColorCode';
+    import { useAuctionStatus, useAcknowledgementStatus, useExpirationStatus } from '../../composables/useAuctionStatus';
     import moment from 'moment';
     import ShipItemModal from '../util/ShipItemModal.vue';
     import Spinner from '../../components/forms/Spinner.vue';
@@ -170,7 +174,9 @@
                 useAuctionColorCode,
                 useAuctionStatus,
                 useAcknowledgementStatus,
-                useAcknowledgementColorCode
+                useAcknowledgementColorCode,
+                useExpirationColorCode,
+                useExpirationStatus
             }
         },
         methods: {

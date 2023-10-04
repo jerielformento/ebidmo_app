@@ -158,7 +158,7 @@
                         class="float-right w-auto items-center rounded-md border border-transparent bg-slate-900 px-8 py-3 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">
                         Checkout
                     </button> -->
-                    <ButtonForm text="Checkout" :state="isCheckout" @onClick="checkout" class="float-right w-auto items-center rounded-md border border-transparent bg-slate-900 text-base font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2"/>
+                    <ButtonForm text="Checkout" :state="isCheckout" @onClick="checkout" class="float-right w-auto items-center"/>
             </div>
             <div class="sm:col-span-6">
                 

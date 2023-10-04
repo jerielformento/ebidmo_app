@@ -40,14 +40,13 @@
 
                 <!-- Product info -->
                 <div class="mx-auto max-w-2xl px-4 pb-16 pt-5 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-16 lg:pt-5">
-                <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                <div class="lg:col-span-2 lg:pr-8">
                     <!-- Image gallery -->
                     <div class="mx-auto sm:px-0 sm:w-full lg:w-full lg:px-16 md:px-5 rounded-md py-4">
                     <swiper
                         :modules="modules"
                         :space-between="20"
                         :loop="true"
-                        navigation
                         :pagination="{ clickable: true }"
                         :thumbs="{ swiper: thumbsSwiper }"
                     >   
@@ -104,7 +103,6 @@
                     <h3 class="sr-only">Reviews</h3>
                     <div class="flex items-center">
                         <div class="flex items-center">
-                        <!-- Active: "text-gray-900", Default: "text-gray-200" -->
                         <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
                         <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
                         <StarIcon class="text-yellow-400 h-5 w-5 flex-shrink-0" />
@@ -232,7 +230,7 @@
                     </div>
                 </div>
 
-                <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+                <div class="mt-5 bg-white px-5 py-10 lg:col-span-2 lg:col-start-1 border border-gray-200 shadow-sm rounded-md lg:pb-16 lg:pt-6">
                     <!-- Title and socials -->
                     <div class="mb-5 w-full lg:col-span-2 flex justify-between items-center">
                         <h1 class="text-2xl font-bold tracking-tight text-gray-800 sm:text-3xl">{{ productInfo.name }}</h1>
@@ -258,10 +256,9 @@
                     <h3 class="sr-only">Description</h3>
 
                     <div class="space-y-6">
-                        <p class="text-base text-gray-900" v-html="productInfo.details"></p>
+                        <p class="text-md text-gray-500" v-html="productInfo.details"></p>
                     </div>
                     </div>
-
                 </div>
                 </div>
             </div>

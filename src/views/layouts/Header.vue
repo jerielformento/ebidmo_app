@@ -23,11 +23,14 @@
                         <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ JSON.parse(store.state.user.data).email }}</span>
                     </div>
                     <ul class="py-2" aria-labelledby="user-menu-button">
-                        <li>
-                            <router-link :to="{ name: 'vendor-home' }"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                                <span v-if="userData.store_name !== ''" class="flex items-center font-semibold"><BuildingStorefrontIcon class="h-5 w-5 mr-2" /> Your Store</span>
-                                <span v-else class="flex items-center font-semibold"><BuildingStorefrontIcon class="h-5 w-5 mr-2" /> Create your store</span>
+                        <li class="border-b border-gray-100 pb-2">
+                            <router-link :to="{ name: 'vendor-home' }" v-if="userData !== null && userData.store_name !== ''"
+                            class="text-white mx-3 bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center block items-center dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800">
+                                Go to Store
+                            </router-link>
+                            <router-link :to="{ name: 'vendor-home' }" v-else
+                            class="text-white mx-3 bg-green-400 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center block items-center dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800">
+                                Create Store
                             </router-link>
                         </li>
                         <li>
@@ -157,8 +160,8 @@ export default {
     data() {
         const isGuest = ref(true);
         const userData = ref(null);
-        isGuest.value = (store.state.user.token) ? false : true;
-        userData.value = JSON.parse(store.state.user.data);
+        isGuest.value = (store.state.user.token !== null) ? false : true;
+        userData.value = (isGuest.value === false) ? JSON.parse(store.state.user.data) : null;
 
         return {
             siteUrl: import.meta.env.VITE_API_URL,

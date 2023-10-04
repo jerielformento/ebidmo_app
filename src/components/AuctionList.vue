@@ -16,10 +16,11 @@
             disableOnInteraction: false,
             pauseOnMouseEnter: true
         }"
+        class="mt-6"
     >   
 
             <div v-for="items in swiperItems" :key="items">
-                <div class="mt-6 grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8" v-if="isDone">
+                <div class="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-4 xl:gap-x-4 px-1 pb-8" v-if="isDone">
                     <div v-for="item in items" :key="item.id" class="rounded-md border bg-white shadow-sm">
                         <AuctionCard :item="item" :timer="expirationTimer[item.product.slug]"/>
                     </div>
