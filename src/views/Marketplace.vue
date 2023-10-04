@@ -27,7 +27,7 @@
                                 <div v-for="cat in categories" class="flex items-center min-w-fit">
                                     <input v-if="qcategory === cat.id" checked @click="filterCategory(cat.id)" type="checkbox" :id="`filter-category-${cat.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
                                     <input v-else @click="filterCategory(cat.id)" type="checkbox" :id="`filter-category-${cat.id}`" class="rounded cursor-pointer border-gray-300 text-amber-500 focus:ring-amber-500">
-                                    <label :for="`filter-category-${cat.id}`" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">{{ cat.title }}</label>
+                                    <label :for="`filter-category-${cat.id}`" class="ml-3 text-sm text-gray-600 break-all cursor-pointer">{{ cat.description }}</label>
                                 </div>
                             </div>
                         </div>

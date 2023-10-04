@@ -4,7 +4,7 @@
             <!-- Start coding here -->
             <div class="bg-white relative shadow-sm sm:rounded-md overflow-hidden border border-gray-200">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    <h2 class="text-sm font-semibold tracking-tight text-gray-400 block ml-1">Won Items</h2>
+                    <h2 class="text-sm font-semibold tracking-tight text-gray-400 block ml-1">Item List</h2>
                     <!-- <div class="w-full md:w-1/2">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -29,8 +29,9 @@
                                 <th scope="col" class="px-4 py-3">Item Name</th>
                                 <th scope="col" class="px-4 py-3">Category</th>
                                 <th scope="col" class="px-4 py-3">Brand</th>
-                                <th scope="col" class="px-4 py-3">Date</th>
+                                <th scope="col" class="px-4 py-3">Acknowledge Until</th>
                                 <th scope="col" class="px-4 py-3">Total Payment</th>
+                                <th scope="col" class="px-4 py-3">Action</th>
                                 <th scope="col" class="px-4 py-3">Status</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -45,21 +46,24 @@
                                 <td class="px-4 py-3 font-semibold">{{ item.auction.product.name }}</td>
                                 <td class="px-4 py-3">{{ item.auction.product.category.title }}</td>
                                 <td class="px-4 py-3">{{ item.auction.product.brand.description }}</td>
-                                <td class="px-4 py-3">{{ moment(item.started_at).format("lll") }}</td>
+                                <td class="px-4 py-3">{{ moment(item.ended_at).format("lll") }}</td>
                                 <td class="px-4 py-3 font-semibold">{{ item.auction.currency.prefix }}{{ item.auction.highest.price }}</td>
                                 <td class="px-4 py-3"><span
                                             :class="useAcknowledgementColorCode(item.status)"
                                             class="text-white text-xs font-semibold rounded-md py-1 px-2">{{ useAcknowledgementStatus(item.status) }}</span></td>
+                                <td class="px-4 py-3"><span
+                                            :class="useExpirationColorCode(item.expired)"
+                                            class="text-white text-xs font-semibold rounded-md py-1 px-2">{{ useExpirationStatus(item.expired) }}</span></td>
                                 <td class="px-4 py-3 flex justify-normal items-center space-x-1">
                                     <router-link :to="{name: 'transaction-checkout', params: { id: item.url_token }}"
-                                        v-if="item.status === 0"
+                                        v-if="item.status === 0 && item.expired === 0"
                                         target="_blank"
                                         @click="viewAuction"
                                         class="rounded-md bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                         Checkout
                                     </router-link>
                                     <button v-if="item.status !== 0"
-                                            @click="viewDetails(item.url_token, item.payment)" 
+                                            @click="viewDetails(item.url_token, item.payment, item.shipment, item.status)" 
                                             class="rounded-md bg-slate-900 px-2 py-1 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-950">
                                             Details
                                     </button>
@@ -105,8 +109,8 @@
     import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/outline";
     import { PlusSmallIcon } from "@heroicons/vue/24/solid";
     import axiosClient from '../../axios';
-    import { useAuctionColorCode, useAcknowledgementColorCode } from '../../composables/useAuctionColorCode';
-    import { useAuctionStatus, useAcknowledgementStatus } from '../../composables/useAuctionStatus';
+    import { useAuctionColorCode, useAcknowledgementColorCode, useExpirationColorCode } from '../../composables/useAuctionColorCode';
+    import { useAuctionStatus, useAcknowledgementStatus, useExpirationStatus } from '../../composables/useAuctionStatus';
     import moment from 'moment';
     import Spinner from '../../components/forms/Spinner.vue';
     import TransactionDetailsModal from '../util/TransactionDetailsModal.vue';
@@ -156,7 +160,11 @@
                 modal: {
                     id: '',
                     index: 0,
-                    details: ''
+                    details: {
+                        payment: '',
+                        shipment: '',
+                        status: ''
+                    }
                 },
                 pagination: transactions[1][0],
                 auctionItems,
@@ -166,7 +174,9 @@
                 useAuctionColorCode,
                 useAuctionStatus,
                 useAcknowledgementStatus,
-                useAcknowledgementColorCode
+                useAcknowledgementColorCode,
+                useExpirationColorCode,
+                useExpirationStatus
             }
         },
         methods: {
@@ -203,9 +213,11 @@
                     name: 'transaction-home'
                 });
             },
-            viewDetails(id, info) {
+            viewDetails(id, payment, shipment, status) {
                 this.modal.id = id;
-                this.modal.details = info;
+                this.modal.details.payment = payment;
+                this.modal.details.shipment = shipment;
+                this.modal.details.status = status;
                 transactionView.value = true;
             },
         }

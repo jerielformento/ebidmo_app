@@ -29,7 +29,7 @@
                     </div>
                     <div class="flex space-x-2 items-center">
                         <div class="p-2 flex items-center">
-                            <p class="text-gray-600 font-semibold text-lg">0</p>
+                            <p class="text-gray-600 font-semibold text-lg">{{ dashboardReport.total_shipped }}</p>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="flex space-x-2 items-center">
                         <div class="p-2 flex items-center">
-                            <p class="text-gray-600 font-semibold text-lg">0</p>
+                            <p class="text-gray-600 font-semibold text-lg">{{ dashboardReport.total_completed }}</p>
                         </div>
                     </div>
                 </div>

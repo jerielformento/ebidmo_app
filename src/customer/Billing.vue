@@ -3,58 +3,41 @@
         <div class="mx-auto">
             <!-- Start coding here -->
             <div class="bg-white relative shadow-sm sm:rounded-md overflow-hidden border border-gray-200">
-                <div v-if="isLoaded" class="grid grid-cols-1 sm:grid-cols-6 items-start gap-6">
-                    <div class="col-span-6 bg-white p-4 rounded-md shadow">
-                        <div class="flex items-center">
-                            <span class="mr-1 text-lg inline-block font-bold">Billing Information</span>
-                        </div>
-                        <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
-                            <div class="sm:col-span-6">
-                                <label for="name" class="block text-sm font-medium leading-6">Shipping Address <span class="text-xs text-gray-400 block">House/Unit/Flr #, Bldg Name, Blk or Lot #</span></label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.shipping_address" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.shipping_address !== ''" class="text-red-400">{{ errordata.shipping_address }}</small>
-                                </div>
+                <Suspense>
+                    <div v-if="isLoaded" class="grid grid-cols-1 sm:grid-cols-6 items-start gap-6">
+                        <div class="col-span-6 bg-white p-4 rounded-md shadow">
+                            <div class="flex items-center">
+                                <span class="mr-1 text-lg inline-block font-bold">Billing Information</span>
                             </div>
-                            <div class="sm:col-span-3">
-                                <label for="name" class="block text-sm font-medium leading-6">Full Name</label>
-                                <div class="mt-2">
-                                    <input v-model="postdata.full_name" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    <small v-if="errordata.full_name !== ''" class="text-red-400">{{ errordata.full_name }}</small>
+                            <div class="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+                                <div class="sm:col-span-6">
+                                    <InputText label="Shipping Address (House/Unit/Flr #, Bldg Name, Blk or Lot #)" name="shipping_address" type="text" v-model="postdata.shipping_address" :error="errordata.shipping_address"/>
                                 </div>
-                            </div>
-                            <div class="sm:col-span-3">
-                                <label for="name" class="block text-sm font-medium leading-6">Mobile Number</label>
-                                <div class="mt-2">
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                                            <span class="text-sm text-gray-400 font-semibold">+63</span>
-                                        </div>
-                                        <!-- <input type="text" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com"> -->
-                                        <input v-model="postdata.mobile_number" id="input-group-1" type="text" autocomplete="name" required class="block w-full rounded-md border-0 pl-12 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6">
-                                    </div>
-                                    <small v-if="errordata.mobile_number !== ''" class="text-red-400">{{ errordata.mobile_number }}</small>
+                                <div class="sm:col-span-3">
+                                    <InputText label="Full Name" name="full_name" type="text" v-model="postdata.full_name" :error="errordata.full_name"/>
                                 </div>
-                            </div>
-
-                            <div class="sm:col-span-6 flex justify-end">
-                                <ButtonForm @onClick="submit" text="Save/Update Information" :state="isSubmit" />
+                                <div class="sm:col-span-3">
+                                    <InputText label="Mobile Number" name="mobile_number" type="group_text" prefix="+63" v-model="postdata.mobile_number" :error="errordata.mobile_number"/>
+                                </div>
+                                <div class="sm:col-span-6 flex justify-end">
+                                    <ButtonForm @onClick="submit" text="Save/Update Information" :state="isSubmit" />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Suspense>
             </div>
         </div>
     </section>
 </template>
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import axiosClient from '../axios';
 import store from '../store';
 import { toast } from 'vue3-toastify';
 import ButtonForm from '../components/forms/Button.vue';
 import Spinner from '../components/forms/Spinner.vue';
-
+import InputText from '../components/forms/InputText.vue';
 const isLoaded = ref(false);
 const isSubmit = ref(false);
 
@@ -71,7 +54,7 @@ const getBillingInformation = async () => {
 }
 
 export default {
-    components: { Spinner, ButtonForm },
+    components: { Spinner, ButtonForm, InputText },
     async setup() {
         const billing = await getBillingInformation();
         
@@ -136,6 +119,9 @@ export default {
                     //this.closeModal();
                 });
         }
-    }
+    },
+    beforeUnmount() {
+        console.log("leave billing...");
+    },
 }
 </script>

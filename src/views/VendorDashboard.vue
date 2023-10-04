@@ -168,6 +168,9 @@
                      <div class="sm:col-span-3">
                         <div class="mb-2">
                            <span class="font-bold text-lg text-gray-500">Setup your own store now</span>
+                           <div class="mt-2 shadow-sm p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+                              All of the submissions will be reviewed by our team within 24 hours to be approved.
+                           </div>
                         </div>
                         <label for="store-name" class="block text-sm font-medium leading-6">Store Name</label>
                         <div class="my-2">
@@ -186,7 +189,7 @@
                            <small v-if="errordata.social_store_link !== ''" class="text-red-400">{{ errordata.social_store_link }}</small>
                         </div>
                         <div class="sm:col-span-4 mb-5">
-                            <label for="images" class="block text-sm font-medium leading-6">Proof of Ownership (Image)</label>
+                            <label for="images" class="block text-sm font-medium leading-6">Proof of Store Ownership (Screenshot)</label>
                             <div class="mt-2">
                                 <div class="flex justify-normal items-center">
                                 <input name="image" @change="onFileChange" ref="file" class="block w-auto text-sm text-gray-500 font-semibold border border-gray-200 rounded-md cursor-pointer bg-gray-50 focus:outline-none" id="file_input" type="file">
@@ -208,20 +211,25 @@
                         <div class="mb-2">
                               <h2 class="font-bold text-lg mb-2">Store Features</h2>
                               <ol>
-                                 <li class="flex items-center"><span>Upload your own products</span>
-                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 <li class="flex items-center">
+                                    <CheckCircleIcon class="mr-1 h-5 w-5 inline-block text-green-400" />
+                                    Upload your own products
                                  </li>
-                                 <li class="flex items-center">Set a live auction of your products
-                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 <li class="flex items-center">
+                                    <CheckCircleIcon class="mr-1 h-5 w-5 inline-block text-green-400" />
+                                    Set a live auction of your products
                                  </li>
-                                 <li class="flex items-center">Monitoring of auctioned items
-                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 <li class="flex items-center">
+                                    <CheckCircleIcon class="mr-1 h-5 w-5 inline-block text-green-400" />
+                                    Monitoring of auctioned items
                                  </li>
-                                 <li class="flex items-center">Monitoring of transactions
-                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 <li class="flex items-center">
+                                    <CheckCircleIcon class="mr-1 h-5 w-5 inline-block text-green-400" />
+                                    Monitoring of transactions
                                  </li>
-                                 <li class="flex items-center">Store customization
-                                    <CheckIcon class="ml-1 h-5 w-5 inline-block text-green-600" />
+                                 <li class="flex items-center">
+                                    <CheckCircleIcon class="mr-1 h-5 w-5 inline-block text-green-400" />
+                                    Store customization
                                  </li>
                               </ol>
                            </div>
@@ -254,6 +262,9 @@ import {
    HomeIcon,
    CreditCardIcon
 } from "@heroicons/vue/24/outline";
+import {
+   CheckCircleIcon
+} from "@heroicons/vue/24/solid";
 import axiosClient from '../axios';
 import store from '../store';
 import Button from '../components/forms/Button.vue';

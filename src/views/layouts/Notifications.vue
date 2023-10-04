@@ -15,7 +15,7 @@
         class="z-20 hidden w-full max-w-sm bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-800 dark:divide-gray-700"
         aria-labelledby="dropdownNotificationButton">
         <div
-            class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-amber-50 dark:bg-gray-800 dark:text-white">
+            class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50 dark:bg-gray-800 dark:text-white">
             Notifications
         </div>
         <div class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -28,9 +28,9 @@
                 <div class="w-full pl-3">
                     <div class="text-gray-500 text-sm mb-1.5 dark:text-gray-400">
                         <div class="flex justify-between items-center">
-                        <p v-if="notification.read === 0" class="font-semibold text-gray-700">{{ notification.title }}</p>
-                        <p v-else class="font-semibold text-gray-500">{{ notification.title }}</p>
-                        <div class="text-xs text-amber-600 dark:text-amber-500">{{ moment(notification.created_at).format("lll") }}</div>
+                        <p v-if="notification.read === 0" class="font-bold text-gray-700">{{ notification.title }}</p>
+                        <p v-else class="font-semibold text-gray-400">{{ notification.title }}</p>
+                        <div class="text-xs text-gray-400 dark:text-gray-400">{{ moment(notification.created_at).format("lll") }}</div>
                         </div>
                         <span class="">{{ notification.description }}</span>
                     </div>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     <!-- <a href="#"
         class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
         <div class="inline-flex items-center ">
@@ -69,6 +69,7 @@ export default {
         const notifications = ref({});
         const polling = ref(null);
         const hasNotification = ref(false);
+        const retry = ref(0);
 
         onMounted(async () => {
             await axiosClient.get('/api/v1/customer/notifications/list')
@@ -86,10 +87,12 @@ export default {
             });
         });
 
-        polling.value = setInterval(() => {
+        polling.value = setInterval(async() => {
             console.log("notifications...");
-            axiosClient.get('/api/v1/customer/notifications/list')
+
+            await axiosClient.get('/api/v1/customer/notifications/list')
             .then(response => {
+                retry.value = 0;
                 hasNotification.value = false;
                 notifications.value = response.data;
 
@@ -100,13 +103,21 @@ export default {
                         hasNotification.value = true;
                     }
                 });
+            })
+            .catch((error) => {
+                if(retry.value === 1) {
+                    this.clearPolling();
+                } else {
+                    retry.value = 1;
+                }
             });
-        }, 8000);
+        }, 10000);
         
         return {
             notifications,
             hasNotification,
-            moment
+            moment,
+            polling
         }
     },
     methods: {
@@ -119,10 +130,15 @@ export default {
             } else {
                 window.location.href = url;
             }
+        },
+        clearPolling() {
+            console.log("clear 1");
+            clearInterval(this.polling);
         }
     },
     beforeUnmount() {
         console.log("leave notifications...");
+        this.retry = 0;
         clearInterval(this.polling);
     },
 }

@@ -16,10 +16,10 @@
                     </h3>
                 </div>
             </div>
-            <div class="mx-3 relative">
-                <p class="mt-1 text-sm block font-semibold text-gray-600">{{ item.store.name }}</p>
-                <p class="mt-1 text-sm text-gray-400">Category: <a href="#" class="text-amber-500 underline">{{ item.category.title }}</a></p>
-                <p class="mt-1 text-sm text-gray-400">Brand: <a href="#" class="text-amber-500 underline">{{ item.brand.description }}</a></p>
+            <div class="mx-3 relative text-sm gap-y-1">
+                <p class="block font-semibold text-gray-600">{{ item.store.name }}</p>
+                <p class="text-gray-400">Category: <a href="#" class="text-amber-500 underline">{{ item.category.title }}</a></p>
+                <p class="text-gray-400">Brand: <a href="#" class="text-amber-500 underline">{{ item.brand.description }}</a></p>
             </div>
             <div class="mt-1 mx-3 text-2xl text-gray-500 flex md:block lg:flex justify-between items-center relative">
                 <!-- <div class="flex items-center">

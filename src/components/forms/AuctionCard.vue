@@ -17,15 +17,15 @@
                 </h3>
             </div>
         </div>
-        <div class="relative mx-3">
-            <p class="mt-1 text-sm block font-semibold text-gray-700">{{ item.product.store.name }}</p>
-            <p class="mt-1 text-sm text-gray-400">Starting bid: <span class="text-green-500">{{ item.product.currency.prefix+item.min_price.toLocaleString() }}</span></p>
-            <p class="mt-1 text-sm text-gray-400" v-if="item.type === 1 && item.status == 2">Starts in</p>   
-            <p class="mt-1 text-sm text-gray-400" v-else-if="item.type === 2">Participants: {{ item.min_participants }}/{{ item.participants_count }}</p>   
-            <p class="mt-1 text-sm text-gray-400" v-if="item.status == 1">Ending in</p>   
+        <div class="relative mx-3 text-sm gap-y-1">
+            <p class="block font-semibold text-gray-700">{{ item.product.store.name }}</p>
+            <p class="text-gray-400">Starting bid: <span class="text-green-500">{{ item.product.currency.prefix+item.min_price.toLocaleString() }}</span></p>
+            <p class="text-gray-400" v-if="item.type === 1 && item.status == 2">Starts in</p>   
+            <p class="text-gray-400" v-else-if="item.type === 2">Participants: {{ item.min_participants }}/{{ item.participants_count }}</p>   
+            <p class="text-gray-400" v-if="item.status == 1">Ending in</p>   
         </div>
-        <div class="text-2xl mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
-            <p class="pt-2 md:py-2 text-sm font-semibold text-red-500">
+        <div class="text-sm mx-3 text-gray-500 flex justify-between lg:justify-between lg:flex md:block md:justify-stretch items-center relative">
+            <p class="pt-2 md:py-2 font-semibold text-red-500">
                 {{ checkTimerExpiration(timer) }}
             </p>
         </div>

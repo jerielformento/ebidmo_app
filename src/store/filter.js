@@ -30,7 +30,7 @@ const filter = createStore({
                     response.data.map(function(value, key) {
                         gb.push({
                             id: value.id,
-                            title: value.title,
+                            description: value.title,
                             is_active: ((value.id === filter) ? true : false)
                         });
                     });

@@ -8,21 +8,34 @@
       <template #body>
         <div class="rounded-lg dark:bg-gray-800" id="live" role="tabpanel" aria-labelledby="live-tab">
             <div>
-                <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+                <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 text-sm">
+                    <div class="sm:col-span-6 text-gray-500">
+                        <p class="text-gray-700 font-semibold mb-2">Payment Information</p>
+                        <p>Method: {{ this.$props.info.payment.payment_method_used.toUpperCase() }}</p>
+                        <p>Currency: {{ this.$props.info.payment.currency }}</p>
+                        <p>Amount: {{ this.$props.info.payment.amount }}</p>
+                        <p>Status: {{ this.$props.info.payment.status }}</p>
+                        <p>Date: {{ moment(this.$props.info.payment.created_at).format("lll") }}</p>
+                    </div>
+                    <div v-if="this.$props.info.shipment !== null" class="sm:col-span-6 text-gray-500">
+                        <p class="text-gray-700 font-semibold mb-2">Shipping Information</p>
+                        <p>Address: {{ this.$props.info.shipment.address }}</p>
+                        <p>Full Name: {{ this.$props.info.shipment.full_name }}</p>
+                        <p>Contact: {{ this.$props.info.shipment.contact }}</p>
+                        <p>Date Shipped: {{ moment(this.$props.info.shipment.created_at).format("lll") }}</p>
+                    </div>
+                    <div v-else class="sm:col-span-6">
+                        <p class="text-gray-400">Pending for shipment</p>
+                    </div>
                     <div class="sm:col-span-6">
-                        <p>Payment Method: {{ this.$props.info.payment_method_used.toUpperCase() }}</p>
-                        <p>Currency: {{ this.$props.info.currency }}</p>
-                        <p>Amount: {{ this.$props.info.amount }}</p>
-                        <p>Status: {{ this.$props.info.status }}</p>
-                        <p>Date: {{ moment(this.$props.info.created_at).format("lll") }}</p>
+                        <p>
+                            <span :class="useAcknowledgementColorCode(this.$props.info.status)" class="text-white text-xs font-semibold rounded-md py-1 px-2">
+                                {{ useAcknowledgementStatus(this.$props.info.status) }}
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-      </template>
-      <template #footer>
-        <div class="flex justify-end">
-            <button @click="cancel" type="button" :disabled="isSubmit" class="flex items-center justify-center rounded-md border disabled:opacity-80 border-gray-200 bg-gray-50 px-4 py-2 text-base font-medium text-slate-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">Close</button>
         </div>
       </template>
     </Modal>
@@ -38,6 +51,8 @@
     import '@vuepic/vue-datepicker/dist/main.css'
     import moment from 'moment';
     import storeFilter from '../../store/filter';
+    import { useAcknowledgementColorCode } from '../../composables/useAuctionColorCode';
+    import { useAcknowledgementStatus } from '../../composables/useAuctionStatus';
     const dateToday  = new Date(); 
     const getCurrentDate = ref(moment(dateToday).format("YYYY-MM-D HH:mm:ss"));
     const date = ref(new Date());
@@ -53,14 +68,16 @@
             cancel: Function,
             reload: Function,
             id: String,
-            info: Array
+            info: Object
         },
         data(props) {
             const isSubmit = ref(false);
             
             return {
                 moment,
-                isSubmit
+                isSubmit,
+                useAcknowledgementColorCode,
+                useAcknowledgementStatus
             }
         },
         methods: {
