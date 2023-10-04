@@ -11,26 +11,26 @@
                 <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 text-sm">
                     <div class="sm:col-span-6 text-gray-500">
                         <p class="text-gray-700 font-semibold mb-2">Payment Information</p>
-                        <p>Method: {{ this.$props.info.payment.payment_method_used.toUpperCase() }}</p>
-                        <p>Currency: {{ this.$props.info.payment.currency }}</p>
-                        <p>Amount: {{ this.$props.info.payment.amount }}</p>
-                        <p>Status: {{ this.$props.info.payment.status }}</p>
-                        <p>Date: {{ moment(this.$props.info.payment.created_at).format("lll") }}</p>
+                        <p>Method: {{ props.info.payment.payment_method_used.toUpperCase() }}</p>
+                        <p>Currency: {{ props.info.payment.currency }}</p>
+                        <p>Amount: {{ props.info.payment.amount }}</p>
+                        <p>Status: {{ props.info.payment.status }}</p>
+                        <p>Date: {{ moment(props.info.payment.created_at).format("lll") }}</p>
                     </div>
-                    <div v-if="this.$props.info.shipment !== null" class="sm:col-span-6 text-gray-500">
+                    <div v-if="props.info.shipment !== null" class="sm:col-span-6 text-gray-500">
                         <p class="text-gray-700 font-semibold mb-2">Shipping Information</p>
-                        <p>Address: {{ this.$props.info.shipment.address }}</p>
-                        <p>Full Name: {{ this.$props.info.shipment.full_name }}</p>
-                        <p>Contact: {{ this.$props.info.shipment.contact }}</p>
-                        <p>Date Shipped: {{ moment(this.$props.info.shipment.created_at).format("lll") }}</p>
+                        <p>Address: {{ props.info.shipment.address }}</p>
+                        <p>Full Name: {{ props.info.shipment.full_name }}</p>
+                        <p>Contact: {{ props.info.shipment.contact }}</p>
+                        <p>Date Shipped: {{ moment(props.info.shipment.created_at).format("lll") }}</p>
                     </div>
                     <div v-else class="sm:col-span-6">
                         <p class="text-gray-400">Pending for shipment</p>
                     </div>
                     <div class="sm:col-span-6">
                         <p>
-                            <span :class="useAcknowledgementColorCode(this.$props.info.status)" class="text-white text-xs font-semibold rounded-md py-1 px-2">
-                                {{ useAcknowledgementStatus(this.$props.info.status) }}
+                            <span :class="useAcknowledgementColorCode(props.info.status)" class="text-white text-xs font-semibold rounded-md py-1 px-2">
+                                {{ useAcknowledgementStatus(props.info.status) }}
                             </span>
                         </p>
                     </div>
@@ -44,13 +44,11 @@
     import { ref, onMounted } from 'vue';
     import { Modal } from 'flowbite-vue';
     import axiosClient from '../../axios';
-    import Spinner from '../../components/forms/Spinner.vue';
     import { toast } from 'vue3-toastify';
     import { initFlowbite } from 'flowbite';
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css'
     import moment from 'moment';
-    import storeFilter from '../../store/filter';
     import { useAcknowledgementColorCode } from '../../composables/useAuctionColorCode';
     import { useAcknowledgementStatus } from '../../composables/useAuctionStatus';
     const dateToday  = new Date(); 
@@ -74,6 +72,7 @@
             const isSubmit = ref(false);
             
             return {
+                props,
                 moment,
                 isSubmit,
                 useAcknowledgementColorCode,
@@ -85,7 +84,7 @@
                 this.isSubmit = true;
                 
                 await axiosClient.get(import.meta.env.VITE_CSRF_AUTH_URL);
-                await axiosClient.put('/api/v1/shipments/'+this.$props.id)
+                await axiosClient.put('/api/v1/shipments/'+props.id)
                     .then(response => {
                         toast.success(response.data.message, {
                             position: toast.POSITION.TOP_CENTER,
